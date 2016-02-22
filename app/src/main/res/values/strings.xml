@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">WecenterAndroid</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_question">QuestionActivity</string>
+    <string name="title_activity_article">ArticleActivity</string>
+    <string name="title_activity_comments">CommentsActivity</string>
+    <string name="title_activity_answer">AnswerActivity</string>
+    <string name="title_activity_answer_comment">AnswerCommentActivity</string>
+    <string name="title_activity_publish">PublishActivity</string>
+    <string name="title_activity_person_center">PersonCenterActivity</string>
+    <string name="title_activity_person_info">PersonInfoActivity</string>
+
+    <string name="path_search">M13.3843083,13.3956843 C11.233862,15.5399983 7.7581039,15.5381046 5.61000013,13.3900003 C3.46000004,11.2399998 3.46000004,7.76000023 5.61000013,5.61000013 C7.76000023,3.46000004 11.2400007,3.46000004 13.3900003,5.61000013 C15.54,7.76000023 15.5400009,11.2400007 13.3900003,13.3900003 C13.388104,13.3918967 13.3862067,13.3937913 13.3843083,13.3956843 C15.1427975,15.1834093 19.6826174,19.798706 19.6826172,19.7987061 L13.3843085,13.3956846 L13.3843083,13.3956843 Z</string>
+
+    <!--transition-->
+    <string name="transition_person_center_avatar_view">person_center_avatar_view</string>
+    <string name="transition_question_backgroung">question_backgroung</string>
+</resources>

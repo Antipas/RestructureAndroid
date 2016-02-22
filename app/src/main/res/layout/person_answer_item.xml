@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="answer" type="org.iflab.wecenterandroid.modal.person.PersonalAnswer.RsmEntity.RowsEntity"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/image_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
+            app:avatarUrl="@{answer.getQuestion_info().getQuestion_content()}"
+            />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_avatar"
+            android:layout_alignEnd="@+id/image_avatar"
+            android:layout_alignStart="@+id/image_avatar"
+            android:layout_alignLeft="@+id/image_avatar"
+            android:layout_alignRight="@+id/image_avatar"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            app:text="@{answer.getQuestion_info().getQuestion_content()}"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{answer.getQuestion_info().getQuestion_content()}"
+            android:layout_toRightOf="@+id/image_avatar"
+            android:layout_toEndOf="@+id/image_avatar" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{answer.getAnswer_info().getAnswer_content()}"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_below="@+id/image_avatar"
+            android:layout_toRightOf="@+id/image_avatar"
+            android:layout_toEndOf="@+id/image_avatar" />
+
+    </RelativeLayout>
+</layout>

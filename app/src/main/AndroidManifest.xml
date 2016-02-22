@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.iflab.wecenterandroid">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Wecenter">
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Wecenter.NoActionBar"></activity>
+        <activity
+            android:name=".view.activity.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Wecenter.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.activity.QuestionActivity"
+            android:label="@string/title_activity_question"
+            android:theme="@style/Wecenter.NoActionBar"></activity>
+        <activity
+            android:name=".view.activity.ArticleActivity"
+            android:label="@string/title_activity_article"
+            android:theme="@style/Wecenter.NoActionBar"></activity>
+        <activity
+            android:name=".view.activity.ArticleCommentsActivity"
+            android:label="@string/title_activity_comments"
+            android:theme="@style/Wecenter.NoActionBar"></activity>
+        <activity
+            android:name=".view.activity.AnswerActivity"
+            android:label="@string/title_activity_answer"
+            android:theme="@style/Wecenter.NoActionBar"></activity>
+        <activity
+            android:name=".view.activity.AnswerCommentsActivity"
+            android:label="@string/title_activity_answer_comment"
+            android:theme="@style/Wecenter.NoActionBar"></activity>
+        <activity
+            android:name=".view.activity.PublishActivity"
+            android:label="@string/title_activity_publish"
+            android:theme="@style/Wecenter.NoActionBar"></activity>
+        <activity
+            android:name=".view.activity.PersonCenterActivity"
+            android:theme="@style/Wecenter.NoActionBar"></activity>
+        <activity
+            android:name=".view.activity.PersonInfoActivity"
+            android:label="@string/title_activity_person_info"
+            android:theme="@style/Wecenter.NoActionBar"></activity>
+        <activity android:name=".view.activity.SearchActivity"
+            android:theme="@style/Wecenter.Translucent.Search">
+
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="search" type="org.iflab.wecenterandroid.modal.search.SearchTopic"/>
+    </data>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:elevation="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/topic_pic"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="10dp"
+                app:topicPic="@{search.detail.topic_pic}"/>
+
+            <TextView
+                android:id="@+id/text_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/topic_pic"
+                android:textColor="@color/background_dark"
+                android:layout_margin="10dp"
+                android:text="@{search.detail.topic_description}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_desc"
+                android:textColor="@color/background_dark"
+                android:layout_margin="10dp"
+                android:layout_alignStart="@+id/text_desc"
+                android:text='@{"关注:"+search.detail.focus_count}'/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</layout>
