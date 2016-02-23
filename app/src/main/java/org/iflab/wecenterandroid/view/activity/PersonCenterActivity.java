@@ -59,12 +59,7 @@ public class PersonCenterActivity extends BaseActivity {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-
         uid = getIntent().getLongExtra(UID, UserPrefs.getInstance(getApplicationContext()).getUserId());
-
-        Slide slide = new Slide(Gravity.RIGHT);
-        slide.setDuration(500);
-        getWindow().setEnterTransition(slide);
 
         Fade fade = new Fade();
         fade.setDuration(500);

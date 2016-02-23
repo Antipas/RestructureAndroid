@@ -23,4 +23,5 @@
     <!--transition-->
     <string name="transition_person_center_avatar_view">person_center_avatar_view</string>
     <string name="transition_question_backgroung">question_backgroung</string>
+    <string name="transition_morph_view" translatable="false">morph_view_transition</string>
 </resources>

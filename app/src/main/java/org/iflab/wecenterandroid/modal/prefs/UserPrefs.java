@@ -93,10 +93,7 @@ public class UserPrefs {
         userName = null;
         userAvatar = null;
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(KEY_ACCESS_TOKEN, null);
-        editor.putLong(KEY_USER_ID, 0l);
-        editor.putString(KEY_USER_NAME, null);
-        editor.putString(KEY_USER_AVATAR, null);
+        editor.clear();
         editor.apply();
     }
 

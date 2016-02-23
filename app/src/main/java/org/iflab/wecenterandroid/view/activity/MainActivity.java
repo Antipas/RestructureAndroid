@@ -1,6 +1,7 @@
 package org.iflab.wecenterandroid.view.activity;
 
 import android.app.ActivityOptions;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -17,6 +18,7 @@ import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.base.BaseActivity;
 import org.iflab.wecenterandroid.databinding.ActivityMainBinding;
 import org.iflab.wecenterandroid.databinding.NavHeaderMainBinding;
+import org.iflab.wecenterandroid.modal.prefs.UserPrefs;
 import org.iflab.wecenterandroid.view.fragment.ExploreFragment;
 import org.iflab.wecenterandroid.view.fragment.HomePageFragment;
 import org.iflab.wecenterandroid.view.fragment.HotTopicsFragment;
@@ -126,6 +128,12 @@ public class MainActivity extends BaseActivity
             case R.id.nav_slideshow:
                 toolbar.setTitle("发现");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_content, ExploreFragment.newInstances()).commit();
+                return true;
+            case R.id.nav_sign_out:
+                UserPrefs.getInstance(getApplicationContext()).logout();
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
                 return true;
             default:
                 return false;

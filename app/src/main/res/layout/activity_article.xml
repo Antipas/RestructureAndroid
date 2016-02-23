@@ -36,6 +36,17 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avloadingIndicatorView"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                app:indicator="BallClipRotatePulse"
+                app:indicator_color="@color/accent"
+                />
+
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"

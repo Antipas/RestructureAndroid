@@ -233,7 +233,7 @@ public class ArticleActivity extends BaseActivity {
                 .subscribe(new Observer<ArticleWrapper>() {
                     @Override
                     public void onCompleted() {
-
+                        activityArticleBinding.avloadingIndicatorView.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -250,9 +250,6 @@ public class ArticleActivity extends BaseActivity {
 
                             toolbar.setTitle(article.getRsm().getArticle_info().getTitle());
 
-//                            Picasso.with(getApplicationContext()).load(articleWrapper.getUserInfoEntity().getAvatar_file())
-//                                    .transform(new RoundedTransformation())
-//                                    .into(activityArticleBinding.layoutUserinfo.ivAvatar);
                             final long id = article.getRsm().getArticle_info().getUid();
                             RxView.clicks(activityArticleBinding.layoutUserinfo.ivAvatar)
                                     .subscribe(new Action1<Void>() {

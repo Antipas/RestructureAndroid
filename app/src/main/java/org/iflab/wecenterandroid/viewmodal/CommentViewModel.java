@@ -51,14 +51,7 @@ public class CommentViewModel extends BaseViewModel{
 
     public Observable loadAnswerComment(int id){
         return dataManager.loadAnswerComments(id)
-                .doOnNext(new Action1<AnswerComment>() {
-                    @Override
-                    public void call(AnswerComment answerComment) {
-                        if (answerComment.getRsm() == null) {
-                            OnErrorThrowable.from(new Throwable(answerComment.getErr().toString()));
-                        }
-                    }
-                }).map(new Func1<AnswerComment,List<AnswerComment.RsmEntity>>() {
+                .map(new Func1<AnswerComment,List<AnswerComment.RsmEntity>>() {
                     @Override
                     public List<AnswerComment.RsmEntity> call(AnswerComment answerComment) {
                         return answerComment.getRsm();

@@ -33,10 +33,22 @@ import java.util.ArrayList;
 public class AnimUtils {
 
     private AnimUtils() { }
-
+    private static Interpolator gusterpolator;
     private static Interpolator fastOutSlowIn;
     private static Interpolator fastOutLinearIn;
     private static Interpolator linearOutSlowIn;
+
+    public static Interpolator getMaterialInterpolator(Context ctx) {
+        if (gusterpolator == null) {
+            synchronized (AnimUtils.class) {
+                if (gusterpolator == null) {
+                    gusterpolator = android.view.animation.AnimationUtils.loadInterpolator(ctx,
+                            android.R.interpolator.fast_out_slow_in);
+                }
+            }
+        }
+        return gusterpolator;
+    }
 
     public static Interpolator getFastOutSlowInInterpolator(Context context) {
         if (fastOutSlowIn == null) {

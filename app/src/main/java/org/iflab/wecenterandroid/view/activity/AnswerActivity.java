@@ -174,7 +174,6 @@ public class AnswerActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        showToast(e.getMessage());
                     }
 
                     @Override

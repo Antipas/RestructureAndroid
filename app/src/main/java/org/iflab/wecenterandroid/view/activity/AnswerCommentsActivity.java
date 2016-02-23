@@ -188,6 +188,9 @@ public class AnswerCommentsActivity extends BaseActivity {
 
                     @Override
                     public void onNext(List<AnswerComment.RsmEntity> commentList) {
+                        if(commentList == null){
+                            showToast("no more");
+                        }
                         if(commentList.size() != 0){
                             dataList.addAll(commentList);
                             commentsAdapter.notifyDataSetChanged();
