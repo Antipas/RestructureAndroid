@@ -55,7 +55,8 @@ public class AnswerActivity extends BaseActivity {
         activityAnswerBinding.setAnswer(answerViewModel);
 
         activityAnswerBinding.toolbar.setTitle("回答");
-        setSupportActionBar(activityAnswerBinding.toolbar);
+
+        setUpToolBar(activityAnswerBinding.toolbar);
         id = getIntent().getIntExtra(ANSWER_ID,0);
         loadData();
         setListener();

@@ -1,18 +1,12 @@
 package org.iflab.wecenterandroid.view.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.base.BaseActivity;
@@ -22,16 +16,13 @@ import org.iflab.wecenterandroid.modal.person.PersonInfo;
 import org.iflab.wecenterandroid.modal.person.PersonalAnswer;
 import org.iflab.wecenterandroid.modal.person.PersonalArticle;
 import org.iflab.wecenterandroid.modal.person.PersonalQuestion;
-import org.iflab.wecenterandroid.view.recyclerView.AnswerCommentsAdapter;
 import org.iflab.wecenterandroid.view.recyclerView.EndlessRecyclerOnScrollListener;
-import org.iflab.wecenterandroid.view.recyclerView.InfiniteScrollListener;
 import org.iflab.wecenterandroid.view.recyclerView.PersonInfoAdapter;
 import org.iflab.wecenterandroid.viewmodal.PersonInfoViewModal;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observer;
 import rx.Subscriber;
 import rx.Subscription;
 
@@ -39,6 +30,8 @@ public class PersonInfoActivity extends BaseActivity {
 
     private static final String TYPE = "TYPE";
     private static final String UID = "UID";
+    private static final String USER_AVATAR = "USER_AVATAR";
+    private static final String USER_NAME = "USER_NAME";
     ActivityPersonInfoBinding activityPersonInfoBinding;
     PersonInfoViewModal personInfoViewModal;
     RecyclerView recyclerView;
@@ -57,13 +50,15 @@ public class PersonInfoActivity extends BaseActivity {
         activityPersonInfoBinding.setPersonInfo(personInfoViewModal);
 
 
-        setSupportActionBar(activityPersonInfoBinding.toolbar);
+        setUpToolBar(activityPersonInfoBinding.toolbar);
 
         type = getIntent().getIntExtra(TYPE, -1);
         uid = getIntent().getStringExtra(UID);
 
+        personInfoViewModal.setUserInfo(getIntent().getStringExtra(USER_AVATAR),getIntent().getStringExtra(USER_NAME));
+
         recyclerView = activityPersonInfoBinding.recyclerview;
-        personInfoAdapter = new PersonInfoAdapter(getApplicationContext(),dataList,type);
+        personInfoAdapter = new PersonInfoAdapter(getApplicationContext(),personInfoViewModal,dataList,type);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -82,13 +77,16 @@ public class PersonInfoActivity extends BaseActivity {
             }
         });
 
+        activityPersonInfoBinding.toolbar.setTitle("");
         loadData();
     }
 
-    public static void startPersonInfo(String id,int type ,Context startingActivity) {
+    public static void startPersonInfo(String id,int type ,String avatar,String name,Context startingActivity) {
         Intent intent = new Intent(startingActivity, PersonInfoActivity.class);
         intent.putExtra(TYPE, type);
         intent.putExtra(UID, id);
+        intent.putExtra(USER_AVATAR, avatar);
+        intent.putExtra(USER_NAME, name);
         startingActivity.startActivity(intent);
     }
 

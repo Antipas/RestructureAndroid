@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="answer" type="org.iflab.wecenterandroid.modal.person.PersonalAnswer.RsmEntity.RowsEntity"/>
+        <variable name="personInfo" type="org.iflab.wecenterandroid.viewmodal.PersonInfoViewModal"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginRight="10dp"
-            app:avatarUrl="@{answer.getQuestion_info().getQuestion_content()}"
+            app:answerItemAvatar="@{personInfo.avatar}"
             />
 
         <TextView
@@ -30,7 +31,7 @@
             android:layout_alignRight="@+id/image_avatar"
             android:gravity="center"
             android:layout_marginTop="10dp"
-            app:text="@{answer.getQuestion_info().getQuestion_content()}"/>
+            app:answerItemName="@{personInfo.userName}"/>
 
         <TextView
             android:id="@+id/tv_title"

@@ -54,7 +54,7 @@ public class PopupActivity extends BaseActivity {
 
         String type = getIntent().getStringExtra(EXTRA_MORPH_TYPE);
         if (type.equals(MORPH_TYPE_BUTTON)) {
-            setupSharedElementTransitionsButton(this, activityPopupBinding.container,false);
+            setupSharedElementTransitionsButton(this, activityPopupBinding.container,true);
             activityPopupBinding.container.setVisibility(View.VISIBLE);
 
         } else if (type.equals(MORPH_TYPE_FAB)){
@@ -62,7 +62,7 @@ public class PopupActivity extends BaseActivity {
                     getResources().getDimensionPixelSize(R.dimen.dialog_corners));
             activityPopupBinding.container.setVisibility(View.VISIBLE);
         }else if(type.equals(MORPH_TYPE_DELETE_TOPIC)){
-            setupSharedElementTransitionsButton(this, activityPopupBinding.deleTopicContainer,true);
+            setupSharedElementTransitionsButton(this, activityPopupBinding.deleTopicContainer,false);
             activityPopupBinding.deleTopicContainer.setVisibility(View.VISIBLE);
         }
 
@@ -95,7 +95,7 @@ public class PopupActivity extends BaseActivity {
 
     public void setupSharedElementTransitionsButton(@NonNull Activity activity,
                                                     @Nullable View target,
-                                                    boolean isDelete) {
+                                                    boolean isShowIme) {
         ArcMotion arcMotion = new ArcMotion();
         arcMotion.setMinimumHorizontalAngle(50f);
         arcMotion.setMinimumVerticalAngle(50f);
@@ -108,7 +108,7 @@ public class PopupActivity extends BaseActivity {
         MorphDialogToButton sharedReturn = new MorphDialogToButton(color);
         sharedReturn.setPathMotion(arcMotion);
         sharedReturn.setInterpolator(easeInOut);
-        if(isDelete) {
+        if(isShowIme) {
             sharedEnter.addListener(new AnimUtils.TransitionListenerAdapter() {
                 @Override
                 public void onTransitionEnd(Transition transition) {

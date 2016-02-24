@@ -66,8 +66,7 @@ public class ArticleActivity extends BaseActivity {
         articleViewModel = new ArticleViewModel(getApplicationContext());
         activityArticleBinding.setArticle(articleViewModel);
         toolbar = activityArticleBinding.toolbar;
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setUpToolBar(toolbar);
 
         articleContent = activityArticleBinding.webviewContent;
 

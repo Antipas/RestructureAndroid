@@ -1,5 +1,13 @@
 package org.iflab.wecenterandroid.modal.person;
 
+import android.databinding.BindingAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import org.iflab.wecenterandroid.util.RoundedTransformation;
+
 import java.util.List;
 
 /**
@@ -82,6 +90,16 @@ public class PersonalAnswer{
             private int add_time;
             private AnswerInfoEntity answer_info;
             private QuestionInfoEntity question_info;
+
+            @BindingAdapter({"bind:answerItemAvatar"})
+            public static void loadImage(ImageView view, String url) {
+                Picasso.with(view.getContext()).load(url).transform(new RoundedTransformation()).into(view);
+            }
+
+            @BindingAdapter({"bind:answerItemName"})
+            public static void setUserName(TextView view, String text) {
+                view.setText(text);
+            }
 
             public void setHistory_id(int history_id) {
                 this.history_id = history_id;

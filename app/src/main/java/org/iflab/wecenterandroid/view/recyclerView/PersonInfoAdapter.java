@@ -20,6 +20,7 @@ import org.iflab.wecenterandroid.modal.person.PersonalAnswer;
 import org.iflab.wecenterandroid.modal.person.PersonalArticle;
 import org.iflab.wecenterandroid.modal.person.PersonalQuestion;
 import org.iflab.wecenterandroid.viewmodal.AnswerViewModel;
+import org.iflab.wecenterandroid.viewmodal.PersonInfoViewModal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +32,13 @@ public class PersonInfoAdapter extends RecyclerView.Adapter {
 
     List<PersonInfo> dataList = new ArrayList<>();
     Context context;
+    PersonInfoViewModal personInfoViewModal;
     int type;
-    public PersonInfoAdapter(Context context,List list,int type){
+    public PersonInfoAdapter(Context context, PersonInfoViewModal personInfoViewModal,List list, int type){
         this.dataList = list;
         this.context = context;
         this.type = type;
+        this.personInfoViewModal = personInfoViewModal;
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -66,13 +69,13 @@ public class PersonInfoAdapter extends RecyclerView.Adapter {
                 ((FollowFansViewHolder)viewHolder).bind(dataList.get(position));
                 break;
             case PersonInfo.ARTICLE:
-                ((ArticleViewHolder)viewHolder).bind(dataList.get(position));
+                ((ArticleViewHolder)viewHolder).bind(dataList.get(position),personInfoViewModal);
                 break;
             case PersonInfo.QUESTION:
-                ((QuestionViewHolder)viewHolder).bind(dataList.get(position));
+                ((QuestionViewHolder)viewHolder).bind(dataList.get(position),personInfoViewModal);
                 break;
             case PersonInfo.ANSWER:
-                ((AnswerViewHolder)viewHolder).bind(dataList.get(position));
+                ((AnswerViewHolder)viewHolder).bind(dataList.get(position),personInfoViewModal);
                 break;
         }
 
@@ -114,8 +117,9 @@ public class PersonInfoAdapter extends RecyclerView.Adapter {
             personArticleItemBinding = DataBindingUtil.bind(itemView);
         }
 
-        public void bind(PersonInfo item){
+        public void bind(PersonInfo item,PersonInfoViewModal personInfoViewModal){
             personArticleItemBinding.setArticle((PersonalArticle.RsmEntity.RowsEntity) item);
+            personArticleItemBinding.setPersonInfo(personInfoViewModal);
         }
     }
 
@@ -126,8 +130,9 @@ public class PersonInfoAdapter extends RecyclerView.Adapter {
             personQuestionItemBinding = DataBindingUtil.bind(itemView);
         }
 
-        public void bind(PersonInfo item){
+        public void bind(PersonInfo item,PersonInfoViewModal personInfoViewModal){
             personQuestionItemBinding.setQuestion((PersonalQuestion.RsmEntity.RowsEntity) item);
+            personQuestionItemBinding.setPersonInfo(personInfoViewModal);
         }
     }
 
@@ -138,8 +143,9 @@ public class PersonInfoAdapter extends RecyclerView.Adapter {
             personAnswerItemBinding = DataBindingUtil.bind(itemView);
         }
 
-        public void bind(PersonInfo item){
+        public void bind(PersonInfo item,PersonInfoViewModal personInfoViewModal){
             personAnswerItemBinding.setAnswer((PersonalAnswer.RsmEntity.RowsEntity) item);
+            personAnswerItemBinding.setPersonInfo(personInfoViewModal);
         }
     }
 }

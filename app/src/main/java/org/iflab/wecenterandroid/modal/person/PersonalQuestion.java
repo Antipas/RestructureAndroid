@@ -92,14 +92,14 @@ public class PersonalQuestion{
             private int add_time;
             private QuestionInfoEntity question_info;
 
-            @BindingAdapter({"bind:avatarUrl"})
+            @BindingAdapter({"bind:questionItemAvatar"})
             public static void loadImage(ImageView view, String url) {
-                Picasso.with(view.getContext()).load(UserPrefs.getInstance(view.getContext()).getUserAvatar()).transform(new RoundedTransformation()).into(view);
+                Picasso.with(view.getContext()).load(url).transform(new RoundedTransformation()).into(view);
             }
 
-            @BindingAdapter({"bind:text"})
-            public static void setUserName(TextView view, String url) {
-                view.setText(UserPrefs.getInstance(view.getContext()).getUserName());
+            @BindingAdapter({"bind:questionItemName"})
+            public static void setUserName(TextView view, String text) {
+                view.setText(text);
             }
 
             @Override

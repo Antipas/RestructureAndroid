@@ -115,7 +115,11 @@ public class PersonCenterActivity extends BaseActivity {
                         dataList.add(new PersonCenterItem(R.drawable.error, "关于我们", -1,PersonInfo.SETTING));
                         dataList.add(new PersonCenterItem(R.drawable.error, "意见反馈", -1,PersonInfo.SETTING));
 
-                        personCenterAdapter = new PersonCenterAdapter(PersonCenterActivity.this,dataList,user.getRsm().getUid());
+                        personCenterAdapter = new PersonCenterAdapter(PersonCenterActivity.this,dataList,
+                                user.getRsm().getUid(),
+                                user.getRsm().getAvatar_file(),
+                                user.getRsm().getUser_name()
+                                );
                         recyclerView.setAdapter(personCenterAdapter);
                     }
                 });

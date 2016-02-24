@@ -90,7 +90,7 @@ public class PublishActivity extends BaseActivity {
             showToast("错误发布类型");
             finish();
         }
-        setSupportActionBar(activityPublishBinding.toolbar);
+        setUpToolBar(activityPublishBinding.toolbar);
 
 //        final int[]loca = getIntent().getIntArrayExtra(LOCATION);
 //        final View scrim = activityPublishBinding.scrim;
@@ -200,7 +200,7 @@ public class PublishActivity extends BaseActivity {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 deletePostion = position;
-                Intent intent = PopupActivity.getStartIntent(PublishActivity.this, PopupActivity.MORPH_TYPE_DELETE_TOPIC); 
+                Intent intent = PopupActivity.getStartIntent(PublishActivity.this, PopupActivity.MORPH_TYPE_DELETE_TOPIC);
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation
                         (PublishActivity.this, view, getString(R.string.transition_morph_view));
                 startActivityForResult(intent,DELETE_TOPIC, options.toBundle());

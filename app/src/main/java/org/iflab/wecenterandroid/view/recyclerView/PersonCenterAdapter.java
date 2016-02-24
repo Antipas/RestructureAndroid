@@ -25,10 +25,14 @@ public class PersonCenterAdapter extends RecyclerView.Adapter<PersonCenterAdapte
     List<PersonCenterItem> dataList = new ArrayList<>();
     Context context;
     int uid;
-    public PersonCenterAdapter(Context context,List list,int uid){
+    String avatar;
+    String name;
+    public PersonCenterAdapter(Context context,List list,int uid,String avatar,String name){
         this.dataList = list;
         this.context = context;
         this.uid = uid;
+        this.avatar = avatar;
+        this.name = name;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -54,7 +58,7 @@ public class PersonCenterAdapter extends RecyclerView.Adapter<PersonCenterAdapte
         item.getBind().linearTopicItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PersonInfoActivity.startPersonInfo(uid+"",type,context);
+                PersonInfoActivity.startPersonInfo(uid+"",type,avatar,name,context);
             }
         });
     }

@@ -38,9 +38,7 @@ public class AnswerViewModel extends BaseViewModel {
                 .map(new Func1<Answer,AnswerInfo>() {
                     @Override
                     public AnswerInfo call(Answer answer) {
-                        if(answer.getRsm() == null){
-                            OnErrorThrowable.from(new Throwable(answer.getErr().toString()));
-                        }
+
                         Answer.RsmEntity.AnswerEntity answerEntity = answer.getRsm().getAnswer();
                         question.set(answerEntity.getQuestion_content());
                         likeNum.set(answerEntity.getAgree_count());

@@ -75,8 +75,7 @@ public class QuestionActivity extends BaseActivity implements QuestionAnswerAdap
                 getApplicationContext(), DividerItemDecoration.VERTICAL_LIST));
 
         toolbar = activityQuestionBinding.toolbar;
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setUpToolBar(toolbar);
 
         id = getIntent().getIntExtra(QUESTION_ID,0);
 

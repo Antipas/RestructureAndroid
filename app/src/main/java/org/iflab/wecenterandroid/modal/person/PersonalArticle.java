@@ -90,14 +90,14 @@ public class PersonalArticle{
             private int add_time;
             private ArticleInfoEntity article_info;
 
-            @BindingAdapter({"bind:avatarUrl"})
+            @BindingAdapter({"bind:articleItemAvatar"})
             public static void loadImage(ImageView view, String url) {
-                Picasso.with(view.getContext()).load(UserPrefs.getInstance(view.getContext()).getUserAvatar()).transform(new RoundedTransformation()).into(view);
+                Picasso.with(view.getContext()).load(url).transform(new RoundedTransformation()).into(view);
             }
 
-            @BindingAdapter({"bind:text"})
-            public static void setUserName(TextView view, String url) {
-                view.setText(UserPrefs.getInstance(view.getContext()).getUserName());
+            @BindingAdapter({"bind:articleItemName"})
+            public static void setUserName(TextView view, String text) {
+                view.setText(text);
             }
 
             @Override
