@@ -67,11 +67,6 @@ public class Home101 implements Home{
         return history_id;
     }
 
-    @BindingAdapter({"bind:homeAvatar"})
-    public static void loadImage(ImageView view, String url) {
-        Picasso.with(view.getContext()).load(url).transform(new RoundedTransformation()).into(view);
-    }
-
     @Override
     public int getAssociate_action() {
         return associate_action;

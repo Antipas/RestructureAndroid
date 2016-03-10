@@ -6,6 +6,10 @@
     <data>
         <variable name="user" type="org.iflab.wecenterandroid.modal.Answer.RsmEntity.AnswerEntity.UserInfoEntity"/>
         <variable name="questionUser" type="org.iflab.wecenterandroid.modal.Question.RsmEntity.QuestionInfoEntity.UserInfoEntity"/>
+
+        <variable
+            name="question"
+            type="org.iflab.wecenterandroid.viewmodal.QuestionViewModal"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"

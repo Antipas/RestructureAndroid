@@ -101,11 +101,6 @@ public class Home201 implements Home{
         return question_info;
     }
 
-    @BindingAdapter({"bind:homeAvatar"})
-    public static void loadImage(ImageView view, String url) {
-        Picasso.with(view.getContext()).load(url).transform(new RoundedTransformation()).into(view);
-    }
-
     public static class UserInfoEntity {
         private int uid;
         private String user_name;

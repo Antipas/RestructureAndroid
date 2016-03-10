@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 import org.iflab.wecenterandroid.R;
+import org.iflab.wecenterandroid.modal.DataManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +31,14 @@ import rx.subscriptions.CompositeSubscription;
 public abstract class BaseActivity extends AppCompatActivity {
 
     private CompositeSubscription mCompositeSubscription;
-
+    public DataManager dataManager;
     protected abstract void loadData();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        dataManager = DataManager.getInstance(getApplicationContext());
+    }
 
     public CompositeSubscription getCompositeSubscription() {
         if (this.mCompositeSubscription == null) {

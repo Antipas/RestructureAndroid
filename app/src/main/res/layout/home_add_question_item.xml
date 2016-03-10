@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="question" type="org.iflab.wecenterandroid.modal.home.Home101"/>
+        <variable name="question" type="org.iflab.wecenterandroid.viewmodal.HomeViewModel"/>
     </data>
 
     <android.support.v7.widget.CardView
@@ -27,7 +27,8 @@
                     android:id="@+id/iv_avatar"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:homeAvatar="@{question.user_info.avatar_file}"
+                    app:homeAvatar="@{question.avatarFile}"
+                    android:onClick="@{question.onClickAvatar}"
                     />
                 <TextView
                     android:id="@+id/tv_type"
@@ -36,7 +37,7 @@
                     android:layout_toRightOf="@+id/iv_avatar"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
-                    android:text='@{question.getAssociate_action() == 101 ? String.format("%s 发表了问题",question.getUser_info().getUser_name()):String.format("%s 关注了问题",question.getUser_info().getUser_name())}'
+                    android:text='@{question.associateAction == 101 ? String.format("%s 发表了问题",question.userName):String.format("%s 关注了问题",question.userName)}'
                     />
 
             </LinearLayout>
@@ -50,7 +51,7 @@
                 android:layout_below="@id/ll_user"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text='@{question.getQuestion_info().getAgree_count()+""}'/>
+                android:text="@{question.agree_count}"/>
 
             <TextView
                 android:id="@+id/tv_title"
@@ -60,7 +61,8 @@
                 android:layout_below="@id/ll_user"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
-                android:text="@{question.getQuestion_info().getQuestion_content()}"/>
+                android:onClick="@{question.onClickTitle}"
+                android:text="@{question.title}"/>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

@@ -19,7 +19,7 @@ public class DataManager extends BaseDataManager {
     public static DataManager dataManager;
     Observable.Transformer schedulersTransformer;
 
-    public DataManager(Context context){
+    private DataManager(Context context){
         super(context);
 
         schedulersTransformer = new  Observable.Transformer() {

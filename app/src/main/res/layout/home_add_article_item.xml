@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="article" type="org.iflab.wecenterandroid.modal.home.Home501"/>
+        <variable name="article" type="org.iflab.wecenterandroid.viewmodal.HomeViewModel"/>
     </data>
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -27,7 +27,8 @@
                     android:id="@+id/iv_avatar"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:homeAvatar="@{article.user_info.avatar_file}"
+                    app:homeAvatar="@{article.avatarFile}"
+                    android:onClick="@{article.onClickAvatar}"
                     />
                 <TextView
                     android:id="@+id/tv_type"
@@ -36,7 +37,7 @@
                     android:layout_toRightOf="@+id/iv_avatar"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
-                    android:text='@{article.getAssociate_action() == 501? String.format("%s 发表了文章",article.getUser_info().getUser_name()):article.getAssociate_action() == 502 ? String.format("%s 赞同了文章",article.getUser_info().getUser_name()):String.format("%s 评论了文章",article.getUser_info().getUser_name())}'
+                    android:text='@{article.associateAction == 501? String.format("%s 发表了文章",article.userName):article.associateAction == 502 ? String.format("%s 赞同了文章",article.userName):String.format("%s 评论了文章",article.userName)}'
                     />
 
             </LinearLayout>
@@ -49,7 +50,7 @@
                 android:layout_below="@id/ll_user"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text='@{article.getArticle_info().getComments()+""}'/>
+                android:text="@{article.comments}"/>
 
             <TextView
                 android:id="@+id/tv_title"
@@ -59,7 +60,8 @@
                 android:layout_below="@id/ll_user"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
-                android:text="@{article.getArticle_info().getTitle()}"/>
+                android:onClick="@{article.onClickTitle}"
+                android:text="@{article.title}"/>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

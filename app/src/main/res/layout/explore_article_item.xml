@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="explore" type="org.iflab.wecenterandroid.modal.explore.ExploreArticle"/>
+        <variable name="article" type="org.iflab.wecenterandroid.viewmodal.ExploreViewModal"/>
     </data>
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -26,7 +26,8 @@
                 android:id="@+id/iv_avatar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                app:explore_avatar="@{explore.getUser_info().getAvatar_file()}"
+                android:onClick="@{article.onClickAvatar}"
+                app:explore_avatar="@{article.avatarFile}"
                 />
             <TextView
                 android:id="@+id/tv_type"
@@ -35,7 +36,7 @@
                 android:layout_toRightOf="@+id/iv_avatar"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp"
-                android:text='@{String.format("%s 发表了文章",explore.getUser_info().getUser_name())}'
+                android:text='@{String.format("%s 发表了文章",article.userName)}'
                 />
 
         </LinearLayout>
@@ -49,7 +50,7 @@
             android:layout_below="@id/ll_user"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text='@{explore.getVotes()+""}'/>
+            android:text="@{article.votes}"/>
 
         <TextView
             android:id="@+id/tv_title"
@@ -59,9 +60,10 @@
             android:layout_below="@id/ll_user"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:maxLines="2"
+            android:maxLines="3"
             android:ellipsize="end"
-            android:text="@{explore.getMessage()}"/>
+            android:onClick="@{article.onClickTitle}"
+            android:text="@{article.message}"/>
 
     </RelativeLayout>
     </android.support.v7.widget.CardView>

@@ -38,11 +38,6 @@ public class ExploreArticle implements Explore{
     private List<TopicsEntity> topics;
     private List<AnswerUsersEntity> answer_users;
 
-    @BindingAdapter({"bind:explore_avatar"})
-    public static void loadImage(ImageView view, String url) {
-        Picasso.with(view.getContext()).load(url).transform(new RoundedTransformation()).into(view);
-    }
-
     public void setId(int id) {
         this.id = id;
     }

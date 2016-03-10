@@ -281,12 +281,6 @@ public class Answer {
                 private Object signature;
                 private String avatar_file;
 
-                @BindingAdapter({"bind:userInfoItemAvatar"})
-                public static void loadUserInfoItemAvatar(ImageView view, String url) {
-                    Picasso.with(view.getContext()).load(url).transform(new RoundedTransformation()).into(view);
-                }
-
-
                 public void setUid(int uid) {
                     this.uid = uid;
                 }

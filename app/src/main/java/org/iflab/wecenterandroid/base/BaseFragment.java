@@ -1,9 +1,13 @@
 package org.iflab.wecenterandroid.base;
 
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.Toast;
+
+import org.iflab.wecenterandroid.modal.DataManager;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -13,9 +17,15 @@ import rx.subscriptions.CompositeSubscription;
  */
 public abstract class BaseFragment extends Fragment {
 
-
+    public DataManager dataManager;
 
     private CompositeSubscription mCompositeSubscription;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        dataManager = DataManager.getInstance(getActivity());
+    }
 
     public CompositeSubscription getCompositeSubscription() {
         if (this.mCompositeSubscription == null) {

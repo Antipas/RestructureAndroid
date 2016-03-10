@@ -42,7 +42,6 @@ import rx.functions.Action1;
  */
 public class HomePageFragment extends BaseFragment {
 
-    HomeViewModel homeViewModel;
     HomeAdapter homeAdapter;
     List<Home> dataList = new ArrayList();
     FragmentHomeBinding fragmentHomeBinding;
@@ -59,7 +58,6 @@ public class HomePageFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = new HomeViewModel(getActivity());
 
         fragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         recyclerView = fragmentHomeBinding.recyclerview;
@@ -205,7 +203,7 @@ public class HomePageFragment extends BaseFragment {
 
     private void loadData() {
         fragmentHomeBinding.swipyrefreshlayout.setRefreshing(true);
-        Subscription subscription = homeViewModel.loadHome(page)
+        Subscription subscription = dataManager.loadHome(page)
                 .subscribe(new Observer<List<Home>>() {
                     @Override
                     public void onCompleted() {

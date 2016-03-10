@@ -21,6 +21,7 @@ import org.iflab.wecenterandroid.util.RoundedTransformation;
 import org.iflab.wecenterandroid.view.activity.ArticleActivity;
 import org.iflab.wecenterandroid.view.activity.PersonCenterActivity;
 import org.iflab.wecenterandroid.view.activity.QuestionActivity;
+import org.iflab.wecenterandroid.viewmodal.ExploreViewModal;
 
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         if(holder instanceof QuestionViewHolder){
             final ExploreQuestion question = (ExploreQuestion)list.get(position);
             QuestionViewHolder questionViewHolder = ((QuestionViewHolder) holder);
-            questionViewHolder.bind(question);
+            questionViewHolder.bind(new ExploreViewModal(host,question));
 
             questionViewHolder.getBinding().ivAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,7 +77,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         }else if(holder instanceof ArticleViewHolder){
             final ExploreArticle article = (ExploreArticle)list.get(position);
             ArticleViewHolder articleViewHolder = ((ArticleViewHolder) holder);
-            articleViewHolder.bind(article);
+            articleViewHolder.bind(new ExploreViewModal(host,article));
 
             articleViewHolder.getBinding().ivAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,7 +118,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         public ViewHolder(View itemView,int action) {
             super(itemView);
         }
-        abstract void bind(Explore explore);
+        abstract void bind(ExploreViewModal explore);
     }
 
     static class QuestionViewHolder extends ViewHolder{
@@ -128,8 +129,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         }
 
         @Override
-        void bind(Explore explore) {
-            exploreQuestionItemBinding.setExplore((ExploreQuestion)explore);
+        void bind(ExploreViewModal explore) {
+            exploreQuestionItemBinding.setQuestion(explore);
         }
 
         ExploreQuestionItemBinding getBinding(){
@@ -145,8 +146,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         }
 
         @Override
-        void bind(Explore explore) {
-            exploreQuestionItemBinding.setExplore((ExploreArticle)explore);
+        void bind(ExploreViewModal explore) {
+            exploreQuestionItemBinding.setArticle(explore);
         }
 
         ExploreArticleItemBinding getBinding(){

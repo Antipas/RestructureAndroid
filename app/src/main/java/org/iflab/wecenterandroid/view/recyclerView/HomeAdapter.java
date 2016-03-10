@@ -31,6 +31,7 @@ import org.iflab.wecenterandroid.view.activity.PersonCenterActivity;
 import org.iflab.wecenterandroid.view.activity.QuestionActivity;
 import org.iflab.wecenterandroid.viewmodal.AnswerViewModel;
 import org.iflab.wecenterandroid.viewmodal.ArticleViewModel;
+import org.iflab.wecenterandroid.viewmodal.HomeViewModel;
 
 import java.util.List;
 
@@ -86,58 +87,18 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         if(holder instanceof ArticleViewHolder){
             final Home501 home501 = (Home501) dataList.get(position);
             ArticleViewHolder articleViewHolder = ((ArticleViewHolder) holder);
-            articleViewHolder.bind(home501);
-            articleViewHolder.getBinding().ivAvatar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PersonCenterActivity.startPersonCenter(home501.getUser_info().getUid(),host,v);
-                }
-            });
-
-            articleViewHolder.getBinding().tvTitle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ArticleActivity.startArticle(home501.getArticle_info().getId(),host);
-                }
-            });
+            articleViewHolder.bind(new HomeViewModel(host,home501));
 
         }else if(holder instanceof QuestionViewHolder){
             final Home101 home101 = (Home101) dataList.get(position);
             QuestionViewHolder questionViewHolder = ((QuestionViewHolder) holder);
-            questionViewHolder.bind(home101);
-
-            questionViewHolder.getBinding().ivAvatar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PersonCenterActivity.startPersonCenter(home101.getUser_info().getUid(),host,v);
-                }
-            });
-
-            questionViewHolder.getBinding().tvTitle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    QuestionActivity.startQuestion(home101.getQuestion_info().getQuestion_id(),host,v);
-                }
-            });
+            questionViewHolder.bind(new HomeViewModel(host,home101));
 
         }else if(holder instanceof AnswerViewHolder){
             final Home201 home201 = (Home201) dataList.get(position);
             AnswerViewHolder answerViewModel = ((AnswerViewHolder) holder);
-            answerViewModel.bind(home201);
+            answerViewModel.bind(new HomeViewModel(host,home201));
 
-            answerViewModel.getBinding().ivAvatar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PersonCenterActivity.startPersonCenter(home201.getUser_info().getUid(),host,v);
-                }
-            });
-
-            answerViewModel.getBinding().tvTitle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AnswerActivity.startAnswer(home201.getAnswer_info().getAnswer_id(),host);
-                }
-            });
         }
 
     }
@@ -162,7 +123,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
             binding = DataBindingUtil.bind(itemView);
         }
 
-        public void bind(@Nullable Home501 home){
+        public void bind(@Nullable HomeViewModel home){
             binding.setArticle(home);
         }
 
@@ -180,8 +141,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
             binding = DataBindingUtil.bind(itemView);
         }
 
-        public void bind(@Nullable Home101 home101){
-            binding.setQuestion(home101);
+        public void bind(@Nullable HomeViewModel home){
+            binding.setQuestion(home);
         }
 
         public HomeAddQuestionItemBinding getBinding(){
@@ -197,8 +158,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
             super(itemView, action);
             binding = DataBindingUtil.bind(itemView);
         }
-        public void bind(@Nullable Home201 home201){
-            binding.setAnswer(home201);
+        public void bind(@Nullable HomeViewModel home){
+            binding.setAnswer(home);
         }
 
         public HomeAddAnswerItemBinding getBinding(){

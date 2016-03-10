@@ -16,7 +16,6 @@ import org.iflab.wecenterandroid.databinding.FragmentExploreChildBinding;
 import org.iflab.wecenterandroid.modal.explore.Explore;
 import org.iflab.wecenterandroid.view.recyclerView.EndlessRecyclerOnScrollListener;
 import org.iflab.wecenterandroid.view.recyclerView.ExploreAdapter;
-import org.iflab.wecenterandroid.viewmodal.ExploreViewModal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,6 @@ public class ExploreChildFragment extends BaseFragment {
     List dataList = new ArrayList();
     ExploreAdapter exploreAdapter;
     FragmentExploreChildBinding fragmentExploreChildBinding;
-    ExploreViewModal exploreViewModal;
 
     public static ExploreChildFragment newInstance(String kind) {
         ExploreChildFragment fragment = new ExploreChildFragment();
@@ -64,8 +62,6 @@ public class ExploreChildFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentExploreChildBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_explore_child, container, false);
-        exploreViewModal = new ExploreViewModal(getActivity());
-        fragmentExploreChildBinding.setExplore(exploreViewModal);
 
         setViews(fragmentExploreChildBinding.recyclerview, fragmentExploreChildBinding.swipyrefreshlayout);
 
@@ -99,16 +95,16 @@ public class ExploreChildFragment extends BaseFragment {
         Observable observable;
         switch (kind){
             case RECOMMEND:
-                observable = exploreViewModal.loadExplore(page,DAY,1,"new");
+                observable = dataManager.loadExplore(page,DAY,1,"new");
                 break;
             case HOT:
-                observable = exploreViewModal.loadExplore(page,DAY,0,"hot");
+                observable = dataManager.loadExplore(page,DAY,0,"hot");
                 break;
             case NEW:
-                observable = exploreViewModal.loadExplore(page,DAY,0,"new");
+                observable = dataManager.loadExplore(page,DAY,0,"new");
                 break;
             case UNRESPONSIVE:
-                observable = exploreViewModal.loadExplore(page,DAY,0,"unresponsive");
+                observable = dataManager.loadExplore(page,DAY,0,"unresponsive");
                 break;
             default:
                 return;

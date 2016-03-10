@@ -41,17 +41,15 @@ import rx.Observer;
 import rx.Subscription;
 import rx.functions.Action1;
 
-public class QuestionActivity extends BaseActivity implements QuestionAnswerAdapter.onQuestionItemViewClickListener{
+public class QuestionActivity extends BaseActivity {
 
     private static final String QUESTION_ID = "QUESTION_ID";
     ActivityQuestionBinding activityQuestionBinding;
-    QuestionViewModal questionViewModal;
     Subscription subscription;
     QuestionAnswerAdapter adapter;
     RecyclerView recyclerView;
     Toolbar toolbar;
     List dataList = new ArrayList();
-    List<Question.RsmEntity.QuestionTopicsEntity> topicsEntity = new ArrayList();
     int id;
     int page = 1;
 
@@ -60,19 +58,14 @@ public class QuestionActivity extends BaseActivity implements QuestionAnswerAdap
         super.onCreate(savedInstanceState);
 
         activityQuestionBinding = DataBindingUtil.setContentView(this, R.layout.activity_question);
-        questionViewModal = new QuestionViewModal(getApplicationContext());
-        activityQuestionBinding.setAnswer(questionViewModal);
 
-        adapter = new QuestionAnswerAdapter(QuestionActivity.this,dataList,topicsEntity);
-        adapter.setOnQuestionItemViewClickListener(this);
+        adapter = new QuestionAnswerAdapter(QuestionActivity.this,dataList);
         recyclerView = activityQuestionBinding.recyclerviewAnswer;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(
-                getApplicationContext(), DividerItemDecoration.VERTICAL_LIST));
 
         toolbar = activityQuestionBinding.toolbar;
         setUpToolBar(toolbar);
@@ -90,8 +83,6 @@ public class QuestionActivity extends BaseActivity implements QuestionAnswerAdap
                 });
 
         Slide slide = new Slide(Gravity.BOTTOM);
-        slide.addTarget(R.id.recyclerview_answer);
-        slide.addTarget(R.id.fab_comment);
         getWindow().setEnterTransition(slide);
 
 
@@ -112,8 +103,8 @@ public class QuestionActivity extends BaseActivity implements QuestionAnswerAdap
 
     @Override
     protected void loadData() {
-        subscription = questionViewModal.loadQuestion(id,page)
-                .subscribe(new Observer<Question.RsmEntity>() {
+        subscription = dataManager.loadQuestion(id,page)
+                .subscribe(new Observer<Question>() {
                     @Override
                     public void onCompleted() {
 
@@ -125,12 +116,11 @@ public class QuestionActivity extends BaseActivity implements QuestionAnswerAdap
                     }
 
                     @Override
-                    public void onNext(Question.RsmEntity entity) {
+                    public void onNext(Question question) {
+                        Question.RsmEntity entity = question.getRsm();
                         if(entity != null){
-                            toolbar.setTitle(entity.getQuestion_info().getAnswer_count()+"个回答");
+                            activityQuestionBinding.setQuestion(new QuestionViewModal(QuestionActivity.this,entity));
                             dataList.addAll(entity.getAnswers());
-                            topicsEntity.addAll(entity.getQuestion_topics());
-                            adapter.setInfo(entity.getQuestion_info());
                             adapter.notifyDataSetChanged();
                         }
 
@@ -139,34 +129,5 @@ public class QuestionActivity extends BaseActivity implements QuestionAnswerAdap
         addSubscription(subscription);
     }
 
-
-    @Override
-    public void addFocus(final View view) {
-        Subscription subscription = questionViewModal.addFocus(id)
-                .subscribe(new Observer<QuestionFocus>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        showToast(e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(QuestionFocus questionFocus) {
-                        String status = questionFocus.getRsm().getType().equals("add")? "已关注":"关注";
-                        Button btn = (Button)view;
-                        btn.setText(status);
-                    }
-                });
-        addSubscription(subscription);
-    }
-
-    @Override
-    public void addAnswer() {
-
-    }
 
 }

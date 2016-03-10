@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="answer" type="org.iflab.wecenterandroid.modal.home.Home201"/>
+        <variable name="answer" type="org.iflab.wecenterandroid.viewmodal.HomeViewModel"/>
     </data>
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -27,7 +27,8 @@
                     android:id="@+id/iv_avatar"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:homeAvatar="@{answer.user_info.avatar_file}"
+                    app:homeAvatar="@{answer.avatarFile}"
+                    android:onClick="@{answer.onClickAvatar}"
                     />
                 <TextView
                     android:id="@+id/tv_type"
@@ -36,7 +37,7 @@
                     android:layout_toRightOf="@+id/iv_avatar"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
-                    android:text='@{answer.getAssociate_action()==201 ? String.format("%s 回答了问题",answer.getUser_info().getUser_name()):String.format("%s 赞同了问题",answer.getUser_info().getUser_name())}'/>
+                    android:text='@{answer.associateAction==201 ? String.format("%s 回答了问题",answer.userName):String.format("%s 赞同了问题",answer.userName)}'/>
 
             </LinearLayout>
 
@@ -48,7 +49,7 @@
                 android:layout_below="@id/ll_user"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text='@{answer.getAnswer_info().getAgree_count()+""}'/>
+                android:text="@{answer.agree_count}"/>
 
             <TextView
                 android:id="@+id/tv_title"
@@ -58,7 +59,10 @@
                 android:layout_below="@id/ll_user"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
-                android:text="@{answer.getQuestion_info().getQuestion_content()}"/>
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:onClick="@{answer.onClickTitle}"
+                android:text="@{answer.title}"/>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
