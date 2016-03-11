@@ -9,7 +9,7 @@
 
         <variable
             name="question"
-            type="org.iflab.wecenterandroid.viewmodal.QuestionViewModal"/>
+            type="org.iflab.wecenterandroid.viewmodal.QuestionHeaderViewModal"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"

@@ -48,7 +48,7 @@ public class Question {
         return err;
     }
 
-    public static class RsmEntity {
+    public static class RsmEntity implements IAdapterType {
         /**
          * question_info : {"question_id":162,"question_content":"阿里九月份宣布杭州北京双总部，意图何在？","question_detail":"","add_time":1443680912,"update_time":1447898441,"answer_count":3,"view_count":75,"focus_count":4,"comment_count":0,"agree_count":5,"against_count":0,"thanks_count":0,"user_info":{"uid":4,"user_name":"Carol","signature":"审计民工","avatar_file":"http://wecenter.dev.hihwei.com/uploads/avatar/000/00/00/04_avatar_mid.jpg"},"user_answered":0,"user_follow_check":1,"user_question_focus":0,"user_thanks":0}
          * question_topics : [{"topic_id":247,"topic_title":"阿里"}]
@@ -81,6 +81,11 @@ public class Question {
 
         public List<AnswersEntity> getAnswers() {
             return answers;
+        }
+
+        @Override
+        public int getType() {
+            return IAdapterType.HEADER;
         }
 
         public static class QuestionInfoEntity {
@@ -336,7 +341,7 @@ public class Question {
             }
         }
 
-        public static class AnswersEntity {
+        public static class AnswersEntity implements IAdapterType {
             /**
              * answer_id : 280
              * question_id : 162
@@ -544,6 +549,11 @@ public class Question {
 
             public String getAgree_status() {
                 return agree_status;
+            }
+
+            @Override
+            public int getType() {
+                return IAdapterType.CONTENT;
             }
 
             public static class UserInfoEntity {
