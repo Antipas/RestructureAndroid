@@ -13,16 +13,11 @@ import org.iflab.wecenterandroid.modal.explore.Explore;
 import org.iflab.wecenterandroid.modal.explore.ExploreArticle;
 import org.iflab.wecenterandroid.modal.explore.ExploreQuestion;
 import org.iflab.wecenterandroid.util.RoundedTransformation;
-import org.iflab.wecenterandroid.view.activity.AnswerActivity;
 import org.iflab.wecenterandroid.view.activity.ArticleActivity;
 import org.iflab.wecenterandroid.view.activity.PersonCenterActivity;
 import org.iflab.wecenterandroid.view.activity.QuestionActivity;
 
-import java.util.List;
-
 import rx.Observable;
-import rx.exceptions.OnErrorThrowable;
-import rx.functions.Action1;
 
 /**
  * Created by Lyn on 15/11/21.

@@ -24,61 +24,60 @@
         </android.support.v4.widget.SwipeRefreshLayout>
 
 
-        <ImageButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:elevation="4dp"
-            android:background="@drawable/fab"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:stateListAnimator="@animator/raise"
-            android:src="@drawable/ic_save_24dp"
+            android:src="@mipmap/icon_sao"
             />
 
-        <FrameLayout
-            android:id="@+id/fab_container"
-            android:layout_width="448dp"
-            android:layout_height="448dp"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:translationX="196dp"
-            android:translationY="196dp"
-            android:elevation="4dp"
-            android:background="@drawable/fab"
-            android:visibility="gone"
-            >
+        <!--<FrameLayout-->
+            <!--android:id="@+id/fab_container"-->
+            <!--android:layout_width="448dp"-->
+            <!--android:layout_height="448dp"-->
+            <!--android:layout_gravity="bottom|end"-->
+            <!--android:layout_marginEnd="16dp"-->
+            <!--android:layout_marginBottom="16dp"-->
+            <!--android:translationX="196dp"-->
+            <!--android:translationY="196dp"-->
+            <!--android:elevation="4dp"-->
+            <!--android:background="@drawable/fab"-->
+            <!--android:visibility="gone"-->
+            <!--&gt;-->
 
-            <LinearLayout
-                android:layout_width="252dp"
-                android:layout_height="252dp"
-                android:layout_gravity="start|top"
-                android:gravity="bottom|end"
-                android:orientation="vertical">
+            <!--<LinearLayout-->
+                <!--android:layout_width="252dp"-->
+                <!--android:layout_height="252dp"-->
+                <!--android:layout_gravity="start|top"-->
+                <!--android:gravity="bottom|end"-->
+                <!--android:orientation="vertical">-->
 
-                <Button
-                    android:id="@+id/publish_question"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="16dp"
-                    android:padding="16dp"
-                    android:text="发布问题"
-                    style="?android:borderlessButtonStyle" />
+                <!--<Button-->
+                    <!--android:id="@+id/publish_question"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:drawablePadding="16dp"-->
+                    <!--android:padding="16dp"-->
+                    <!--android:text="发布问题"-->
+                    <!--style="?android:borderlessButtonStyle" />-->
 
-                <Button
-                    android:id="@+id/publish_article"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="16dp"
-                    android:padding="16dp"
-                    android:text="发布文章"
-                    style="?android:borderlessButtonStyle" />
+                <!--<Button-->
+                    <!--android:id="@+id/publish_article"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:drawablePadding="16dp"-->
+                    <!--android:padding="16dp"-->
+                    <!--android:text="发布文章"-->
+                    <!--style="?android:borderlessButtonStyle" />-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
-        </FrameLayout>
+        <!--</FrameLayout>-->
         <View
             android:id="@+id/results_scrim"
             android:layout_width="match_parent"

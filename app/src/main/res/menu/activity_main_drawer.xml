@@ -2,15 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_camara" android:icon="@android:drawable/ic_menu_camera"
-            android:title="主页" />
-        <item android:id="@+id/nav_gallery" android:icon="@android:drawable/ic_menu_gallery"
-            android:title="话题" />
-        <item android:id="@+id/nav_slideshow" android:icon="@android:drawable/ic_menu_slideshow"
+        <item android:id="@+id/nav_home" android:icon="@drawable/nav_home"
+            android:title="首页" />
+        <item android:id="@+id/nav_explore" android:icon="@drawable/nav_explore"
             android:title="发现" />
-        <item android:id="@+id/nav_sign_out" android:icon="@android:drawable/ic_menu_manage"
+        <item android:id="@+id/nav_zaidu" android:icon="@drawable/nav_zaidu"
+            android:title="我在读" />
+        <item android:id="@+id/nav_focued" android:icon="@drawable/nav_fouced"
+            android:title="已关注" />
+
+    </group>
+
+    <group android:checkableBehavior="single">
+
+        <item android:id="@+id/nav_sign_out"
             android:title="注销" />
     </group>
 
+    <!--<group-->
+        <!--android:id="@+id/second"-->
+        <!--android:checkableBehavior="single">-->
+        <!--<item xmlns:app="http://schemas.android.com/apk/res-auto"-->
+            <!--android:id="@+id/navi_item_create_notifications_sound"-->
+            <!--android:title="Notifications Sounds"-->
+            <!--app:actionLayout="@layout/activity_main_drawer"-->
+            <!--app:showAsAction="always" />-->
 
+    <!--</group>-->
 </menu>

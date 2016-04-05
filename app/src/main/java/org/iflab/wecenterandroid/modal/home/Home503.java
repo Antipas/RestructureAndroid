@@ -6,56 +6,63 @@ package org.iflab.wecenterandroid.modal.home;
  */
 public class Home503 implements Home{
 
+
     /**
-     * history_id : 4473
+     * history_id : 79
+     * uid : 1
      * associate_action : 503
-     * add_time : 1449396281
-     * user_info : {"uid":63,"user_name":"billhu1996","signature":"","avatar_file":"http://wecenter.dev.hihwei.com/uploads/avatar/000/00/00/63_avatar_mid.jpg"}
-     * article_info : {"id":50,"title":"这是一个文章","message":"这是一个文章文章\n\n\n\n文章\n\n 62 ","comments":2,"views":4,"add_time":1449396270}
-     * comment_info : {"id":23,"uid":63,"article_id":50,"message":"住的","add_time":1449396281,"at_uid":0,"votes":0}
+     * add_time : 1458127635
+     * user_info : {"uid":1,"user_name":"root","signature":"?A?SDF?DSAF?DSA?F","has_focus":0,"avatar_file":"http://we.edustack.org/uploads/avatar/000/00/00/01_avatar_mid.jpg"}
+     * article_info : {"id":69,"title":"phpQuery\u2014基于jQuery的PHP实现 - Falling Leaves - 博客园","message":"","comments":1,"views":13,"add_time":1457860788,"category_id":2,"url":""}
+     * comment_info : {"id":14,"message":"a:3:{s:3:","add_time":1458127635,"votes":0}
+     * url : http://www.cnblogs.com/in-loading/archive/2012/04/11/2442697.html
+     * outline : phpQuery—基于jQuery的PHP实现 - Falling Leaves - 博客园...
+     * imgUrl : http://we.edustack.org/uploads/share/20160313171945703.png
      */
 
     private int history_id;
+    private int uid;
     private int associate_action;
     private int add_time;
     /**
-     * uid : 63
-     * user_name : billhu1996
-     * signature :
-     * avatar_file : http://wecenter.dev.hihwei.com/uploads/avatar/000/00/00/63_avatar_mid.jpg
+     * uid : 1
+     * user_name : root
+     * signature : ?A?SDF?DSAF?DSA?F
+     * has_focus : 0
+     * avatar_file : http://we.edustack.org/uploads/avatar/000/00/00/01_avatar_mid.jpg
      */
 
     private UserInfoEntity user_info;
     /**
-     * id : 50
-     * title : 这是一个文章
-     * message : 这是一个文章文章
-
-
-
-     文章
-
-     62
-     * comments : 2
-     * views : 4
-     * add_time : 1449396270
+     * id : 69
+     * title : phpQuery—基于jQuery的PHP实现 - Falling Leaves - 博客园
+     * message :
+     * comments : 1
+     * views : 13
+     * add_time : 1457860788
+     * category_id : 2
+     * url :
      */
 
     private ArticleInfoEntity article_info;
     /**
-     * id : 23
-     * uid : 63
-     * article_id : 50
-     * message : 住的
-     * add_time : 1449396281
-     * at_uid : 0
+     * id : 14
+     * message : a:3:{s:3:
+     * add_time : 1458127635
      * votes : 0
      */
 
     private CommentInfoEntity comment_info;
+    private String url;
+    private String outline;
+    private String imgUrl;
 
     public void setHistory_id(int history_id) {
         this.history_id = history_id;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public void setAssociate_action(int associate_action) {
@@ -78,8 +85,24 @@ public class Home503 implements Home{
         this.comment_info = comment_info;
     }
 
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setOutline(String outline) {
+        this.outline = outline;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public int getHistory_id() {
         return history_id;
+    }
+
+    public int getUid() {
+        return uid;
     }
 
     public int getAssociate_action() {
@@ -90,10 +113,12 @@ public class Home503 implements Home{
         return add_time;
     }
 
+    @Override
     public UserInfoEntity getUser_info() {
         return user_info;
     }
 
+    @Override
     public ArticleInfoEntity getArticle_info() {
         return article_info;
     }
@@ -102,10 +127,26 @@ public class Home503 implements Home{
         return comment_info;
     }
 
-    public static class UserInfoEntity {
+    @Override
+    public String getUrl() {
+        return url;
+    }
+
+    @Override
+    public String getOutline() {
+        return outline;
+    }
+
+    @Override
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public static class UserInfoEntity implements Home.Userinfo{
         private int uid;
         private String user_name;
         private String signature;
+        private int has_focus;
         private String avatar_file;
 
         public void setUid(int uid) {
@@ -120,10 +161,15 @@ public class Home503 implements Home{
             this.signature = signature;
         }
 
+        public void setHas_focus(int has_focus) {
+            this.has_focus = has_focus;
+        }
+
         public void setAvatar_file(String avatar_file) {
             this.avatar_file = avatar_file;
         }
 
+        @Override
         public int getUid() {
             return uid;
         }
@@ -136,18 +182,25 @@ public class Home503 implements Home{
             return signature;
         }
 
+        public int getHas_focus() {
+            return has_focus;
+        }
+
+        @Override
         public String getAvatar_file() {
             return avatar_file;
         }
     }
 
-    public static class ArticleInfoEntity {
+    public static class ArticleInfoEntity implements Home.ArticleInfo{
         private int id;
         private String title;
         private String message;
         private int comments;
         private int views;
         private int add_time;
+        private int category_id;
+        private String url;
 
         public void setId(int id) {
             this.id = id;
@@ -173,6 +226,14 @@ public class Home503 implements Home{
             this.add_time = add_time;
         }
 
+        public void setCategory_id(int category_id) {
+            this.category_id = category_id;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
         public int getId() {
             return id;
         }
@@ -189,6 +250,7 @@ public class Home503 implements Home{
             return comments;
         }
 
+        @Override
         public int getViews() {
             return views;
         }
@@ -196,27 +258,24 @@ public class Home503 implements Home{
         public int getAdd_time() {
             return add_time;
         }
+
+        public int getCategory_id() {
+            return category_id;
+        }
+
+        public String getUrl() {
+            return url;
+        }
     }
 
     public static class CommentInfoEntity {
         private int id;
-        private int uid;
-        private int article_id;
         private String message;
         private int add_time;
-        private int at_uid;
         private int votes;
 
         public void setId(int id) {
             this.id = id;
-        }
-
-        public void setUid(int uid) {
-            this.uid = uid;
-        }
-
-        public void setArticle_id(int article_id) {
-            this.article_id = article_id;
         }
 
         public void setMessage(String message) {
@@ -227,10 +286,6 @@ public class Home503 implements Home{
             this.add_time = add_time;
         }
 
-        public void setAt_uid(int at_uid) {
-            this.at_uid = at_uid;
-        }
-
         public void setVotes(int votes) {
             this.votes = votes;
         }
@@ -239,24 +294,12 @@ public class Home503 implements Home{
             return id;
         }
 
-        public int getUid() {
-            return uid;
-        }
-
-        public int getArticle_id() {
-            return article_id;
-        }
-
         public String getMessage() {
             return message;
         }
 
         public int getAdd_time() {
             return add_time;
-        }
-
-        public int getAt_uid() {
-            return at_uid;
         }
 
         public int getVotes() {

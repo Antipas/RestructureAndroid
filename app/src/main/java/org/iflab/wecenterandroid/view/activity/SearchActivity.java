@@ -32,6 +32,7 @@ import org.iflab.wecenterandroid.databinding.ActivitySearchBinding;
 import org.iflab.wecenterandroid.modal.search.Search;
 import org.iflab.wecenterandroid.util.AnimUtils;
 import org.iflab.wecenterandroid.util.ImeUtils;
+import org.iflab.wecenterandroid.util.SupportVersion;
 import org.iflab.wecenterandroid.util.ViewUtils;
 import org.iflab.wecenterandroid.view.recyclerView.EndlessRecyclerOnScrollListener;
 import org.iflab.wecenterandroid.view.recyclerView.SearchAdapter;
@@ -79,41 +80,37 @@ public class SearchActivity extends BaseActivity {
         resultsContainer = activitySearchBinding.resultsContainer;
         setupSearchView();
 
+        if(SupportVersion.lollipop()) {
+            searchBackDistanceX = getIntent().getIntExtra(EXTRA_MENU_LEFT, 0) - (int) TypedValue
+                    .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
+            searchIconCenterX = getIntent().getIntExtra(EXTRA_MENU_CENTER_X, 0);
 
-        searchBackDistanceX = getIntent().getIntExtra(EXTRA_MENU_LEFT, 0) - (int) TypedValue
-                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
-        searchIconCenterX = getIntent().getIntExtra(EXTRA_MENU_CENTER_X, 0);
+            // translate icon to match the launching screen then animate back into position
+            searchBackContainer.setTranslationX(searchBackDistanceX);
+            searchBackContainer.animate()
+                    .translationX(0f)
+                    .setDuration(650L)
+                    .setInterpolator(AnimUtils.getFastOutSlowInInterpolator(this));
+            // transform from search icon to back icon
+            AnimatedVectorDrawable searchToBack = (AnimatedVectorDrawable) ContextCompat
+                    .getDrawable(this, R.drawable.avd_search_to_back);
+            searchBack.setImageDrawable(searchToBack);
+            searchToBack.start();
+            searchBack.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    searchBack.setImageDrawable(ContextCompat.getDrawable(SearchActivity.this,
+                            R.drawable.ic_arrow_back_padded));
+                }
+            }, 600L);
 
-        // translate icon to match the launching screen then animate back into position
-        searchBackContainer.setTranslationX(searchBackDistanceX);
-        searchBackContainer.animate()
-                .translationX(0f)
-                .setDuration(650L)
-                .setInterpolator(AnimUtils.getFastOutSlowInInterpolator(this));
-        // transform from search icon to back icon
-        AnimatedVectorDrawable searchToBack = (AnimatedVectorDrawable) ContextCompat
-                .getDrawable(this, R.drawable.avd_search_to_back);
-        searchBack.setImageDrawable(searchToBack);
-        searchToBack.start();
-        // for some reason the animation doesn't always finish (leaving a part arrow!?) so after
-        // the animation set a static drawable. Also animation callbacks weren't added until API23
-        // so using post delayed :(
-        // TODO fix properly!!
-        searchBack.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                searchBack.setImageDrawable(ContextCompat.getDrawable(SearchActivity.this,
-                        R.drawable.ic_arrow_back_padded));
-            }
-        }, 600L);
-
-        searchBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss(v);
-            }
-        });
-
+            searchBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss(v);
+                }
+            });
+        }
         // fade in the other search chrome
         searchBackground.animate()
                 .alpha(1f)
@@ -131,32 +128,33 @@ public class SearchActivity extends BaseActivity {
                         ImeUtils.showIme(searchView);
                     }
                 });
-
-        scrim.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                scrim.getViewTreeObserver().removeOnPreDrawListener(this);
-                AnimatorSet showScrim = new AnimatorSet();
-                showScrim.playTogether(
-                        ViewAnimationUtils.createCircularReveal(
-                                scrim,
-                                searchIconCenterX,
-                                searchBackground.getBottom(),
-                                0,
-                                (float) Math.hypot(searchBackDistanceX, scrim.getHeight()
-                                        - searchBackground.getBottom())),
-                        ObjectAnimator.ofArgb(
-                                scrim,
-                                ViewUtils.BACKGROUND_COLOR,
-                                Color.TRANSPARENT,
-                                ContextCompat.getColor(SearchActivity.this, R.color.scrim)));
-                showScrim.setDuration(400L);
-                showScrim.setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(SearchActivity
-                        .this));
-                showScrim.start();
-                return false;
-            }
-        });
+        if(SupportVersion.lollipop()) {
+            scrim.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    scrim.getViewTreeObserver().removeOnPreDrawListener(this);
+                    AnimatorSet showScrim = new AnimatorSet();
+                    showScrim.playTogether(
+                            ViewAnimationUtils.createCircularReveal(
+                                    scrim,
+                                    searchIconCenterX,
+                                    searchBackground.getBottom(),
+                                    0,
+                                    (float) Math.hypot(searchBackDistanceX, scrim.getHeight()
+                                            - searchBackground.getBottom())),
+                            ObjectAnimator.ofArgb(
+                                    scrim,
+                                    ViewUtils.BACKGROUND_COLOR,
+                                    Color.TRANSPARENT,
+                                    ContextCompat.getColor(SearchActivity.this, R.color.scrim)));
+                    showScrim.setDuration(400L);
+                    showScrim.setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(SearchActivity
+                            .this));
+                    showScrim.start();
+                    return false;
+                }
+            });
+        }
 
         progressBar = activitySearchBinding.progressbar;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -177,8 +175,10 @@ public class SearchActivity extends BaseActivity {
 
     public static Intent createStartIntent(Context context, int menuIconLeft, int menuIconCenterX) {
         Intent starter = new Intent(context, SearchActivity.class);
-        starter.putExtra(EXTRA_MENU_LEFT, menuIconLeft);
-        starter.putExtra(EXTRA_MENU_CENTER_X, menuIconCenterX);
+        if(SupportVersion.lollipop()) {
+            starter.putExtra(EXTRA_MENU_LEFT, menuIconLeft);
+            starter.putExtra(EXTRA_MENU_CENTER_X, menuIconCenterX);
+        }
         return starter;
     }
 
@@ -241,13 +241,15 @@ public class SearchActivity extends BaseActivity {
                     }
                 })
                 .start();
-        // transform from back icon to search icon
-        AnimatedVectorDrawable backToSearch = (AnimatedVectorDrawable) ContextCompat
-                .getDrawable(this, R.drawable.avd_back_to_search);
-        searchBack.setImageDrawable(backToSearch);
-        // clear the background else the touch ripple moves with the translation which looks bad
-        searchBack.setBackground(null);
-        backToSearch.start();
+        if(SupportVersion.lollipop()) {
+            // transform from back icon to search icon
+            AnimatedVectorDrawable backToSearch = (AnimatedVectorDrawable) ContextCompat
+                    .getDrawable(this, R.drawable.avd_back_to_search);
+            searchBack.setImageDrawable(backToSearch);
+            // clear the background else the touch ripple moves with the translation which looks bad
+            searchBack.setBackground(null);
+            backToSearch.start();
+        }
         // fade out the other search chrome
         searchView.animate()
                 .alpha(0f)
@@ -264,26 +266,27 @@ public class SearchActivity extends BaseActivity {
                 .setListener(null)
                 .start();
 
-        // if we're showing search results, circular hide them
-        if (resultsContainer.getHeight() > 0) {
-            Animator closeResults = ViewAnimationUtils.createCircularReveal(
-                    resultsContainer,
-                    searchIconCenterX,
-                    0,
-                    (float) Math.hypot(searchIconCenterX, resultsContainer.getHeight()),
-                    0f);
-            closeResults.setDuration(500L);
-            closeResults.setInterpolator(AnimUtils.getFastOutSlowInInterpolator(SearchActivity
-                    .this));
-            closeResults.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    resultsContainer.setVisibility(View.INVISIBLE);
-                }
-            });
-            closeResults.start();
+        if(SupportVersion.lollipop()) {
+            // if we're showing search results, circular hide them
+            if (resultsContainer.getHeight() > 0) {
+                Animator closeResults = ViewAnimationUtils.createCircularReveal(
+                        resultsContainer,
+                        searchIconCenterX,
+                        0,
+                        (float) Math.hypot(searchIconCenterX, resultsContainer.getHeight()),
+                        0f);
+                closeResults.setDuration(500L);
+                closeResults.setInterpolator(AnimUtils.getFastOutSlowInInterpolator(SearchActivity
+                        .this));
+                closeResults.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        resultsContainer.setVisibility(View.INVISIBLE);
+                    }
+                });
+                closeResults.start();
+            }
         }
-
         // fade out the scrim
         scrim.animate()
                 .alpha(0f)

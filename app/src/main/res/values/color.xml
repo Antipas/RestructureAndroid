@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#049c56</color>
+    <color name="colorPrimaryDark">#049c56</color>
     <color name="line">#50000000</color>
 
     <color name="transparent">#00ffffff</color>
     <color name="white">#ffffff</color>
     <color name="grey_light">#DFDFDF</color>
 
+    <color name="tablayout_grey_txt">#afafaf</color>
+    <color name="tablayout_black_bg">#393a4a</color>
+    <color name="nav_header_bg">#f5f2ed</color>
+    <color name="nav_item_checked">#ff921f</color>
 
     <!-- app palette -->
     <color name="primary">#69F0AE</color>

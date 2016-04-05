@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.modal.DataManager;
+import org.iflab.wecenterandroid.util.SupportVersion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +91,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         if (mCompositeSubscription != null) {
             mCompositeSubscription.unsubscribe();
+        }
+    }
+    public void finishAfterTransition(){
+        if(SupportVersion.lollipop()) {
+            super.finishAfterTransition();
+        }else{
+            finish();
         }
     }
 }

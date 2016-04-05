@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable name="article" type="org.iflab.wecenterandroid.viewmodal.HomeViewModel"/>
     </data>
     <android.support.v7.widget.CardView
@@ -17,51 +18,121 @@
             android:layout_height="match_parent"
             android:padding="10dp">
 
+            <ImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                app:homeAvatar="@{article.avatarFile}"
+                android:onClick="@{article.onClickAvatar}"
+                />
+
             <LinearLayout
                 android:id="@+id/ll_user"
+                android:layout_toRightOf="@+id/iv_avatar"
+                android:layout_marginLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/iv_avatar"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:homeAvatar="@{article.avatarFile}"
-                    android:onClick="@{article.onClickAvatar}"
-                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/nav_item_checked"
+                    android:text="@{article.userName}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="13sp"
+                    android:text="@{article.addTime}"/>
+
                 <TextView
                     android:id="@+id/tv_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/iv_avatar"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:text='@{article.associateAction == 501? String.format("%s 发表了文章",article.userName):article.associateAction == 502 ? String.format("%s 赞同了文章",article.userName):String.format("%s 评论了文章",article.userName)}'
+                    android:layout_weight="0.2"
+                    android:textSize="13sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:text='@{article.associateAction == 501? "在读":article.associateAction == 502 ? "赞了":"评论了"}'
                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="13sp"
+                    android:layout_weight="0.4"
+                    android:gravity="right"
+                    android:text="@{article.viewsCount}"/>
 
             </LinearLayout>
 
-
             <TextView
-                android:id="@+id/tv_num"
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/ll_user"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="@{article.comments}"/>
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_toRightOf="@+id/tv_num"
+                android:id="@+id/tv_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ll_user"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:onClick="@{article.onClickTitle}"
-                android:text="@{article.title}"/>
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:visibility="@{article.associateAction == 503 ? View.VISIBLE:View.GONE}"
+                android:text="@{article.comments}"
+                android:layout_alignStart="@+id/ll_user" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_comment"
+                android:layout_marginTop="10dp"
+                android:layout_alignStart="@+id/ll_user">
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    app:thumb="@{article.thumb}"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_toRightOf="@+id/img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/nav_header_bg"
+                    android:onClick="@{article.onClickTitle}"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="@{article.title}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_title"
+                    android:background="@color/nav_header_bg"
+                    android:layout_toRightOf="@+id/img"
+                    android:layout_alignBottom="@+id/img"
+                    android:padding="5dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:text="@{article.outLine}"
+                    />
+
+            </RelativeLayout>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

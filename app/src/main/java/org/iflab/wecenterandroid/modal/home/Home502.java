@@ -4,7 +4,7 @@ package org.iflab.wecenterandroid.modal.home;
  * Created by Lyn on 15/12/16.
  * 赞同文章
  */
-public class Home502 implements Home{
+public class Home502 {
 
     /**
      * history_id : 4243

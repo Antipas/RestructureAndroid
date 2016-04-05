@@ -24,6 +24,7 @@ import org.iflab.wecenterandroid.base.BaseFragment;
 import org.iflab.wecenterandroid.databinding.FragmentHomeBinding;
 import org.iflab.wecenterandroid.modal.home.Home;
 import org.iflab.wecenterandroid.util.AnimUtils;
+import org.iflab.wecenterandroid.util.SupportVersion;
 import org.iflab.wecenterandroid.util.ViewUtils;
 import org.iflab.wecenterandroid.view.activity.PublishActivity;
 import org.iflab.wecenterandroid.view.recyclerView.EndlessRecyclerOnScrollListener;
@@ -94,65 +95,40 @@ public class HomePageFragment extends BaseFragment {
         fragmentHomeBinding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View fab) {
-                final FrameLayout container = fragmentHomeBinding.fabContainer;
+//                final FrameLayout container = fragmentHomeBinding.fabContainer;
                 fab.setVisibility(View.GONE);
                 resultsScrim.setVisibility(View.VISIBLE);
-                container.setVisibility(View.VISIBLE);
-                container.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                    @Override
-                    public boolean onPreDraw() {
+                if(SupportVersion.lollipop()) {
+                    int centerX = (fab.getLeft() + fab.getRight()) / 2;
+                    int centerY = (fab.getTop() + fab.getBottom()) / 2;
+                    Animator revealScrim = ViewAnimationUtils.createCircularReveal(
+                            resultsScrim,
+                            centerX,
+                            centerY,
+                            0,
+                            (float) Math.hypot(centerX, centerY));
+                    revealScrim.setDuration(400L);
+                    revealScrim.setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getActivity()));
+                    revealScrim.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
 
-                        container.getViewTreeObserver().removeOnPreDrawListener(this);
-                        Animator reveal = ViewAnimationUtils.createCircularReveal(container,
-                                container.getWidth() / 2,
-                                container.getHeight() / 2,
-                                fab.getWidth() / 2,
-                                container.getWidth() / 2);
-                        reveal.setDuration(250L);
-                        reveal.setInterpolator(AnimUtils.getFastOutSlowInInterpolator(getActivity()));
-                        reveal.start();
-
-                        int centerX = (fab.getLeft() + fab.getRight()) / 2;
-                        int centerY = (fab.getTop() + fab.getBottom()) / 2;
-                        Animator revealScrim = ViewAnimationUtils.createCircularReveal(
-                                resultsScrim,
-                                centerX,
-                                centerY,
-                                0,
-                                (float) Math.hypot(centerX, centerY));
-                        revealScrim.setDuration(400L);
-                        revealScrim.setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getActivity()));
-                        revealScrim.start();
-                        ObjectAnimator fadeInScrim = ObjectAnimator.ofArgb(resultsScrim,
-                                ViewUtils.BACKGROUND_COLOR,
-                                Color.TRANSPARENT,
-                                ContextCompat.getColor(getActivity(), R.color.scrim));
-                        fadeInScrim.setDuration(800L);
-                        fadeInScrim.setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getActivity()));
-                        fadeInScrim.start();
-                        return false;
-                    }
-                });
-            }
-        });
-
-        fragmentHomeBinding.publishQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int[] loc = new int[2];
-                v.getLocationOnScreen(loc);
-                PublishActivity.startPublish(PublishActivity.QUESTION,getActivity(),loc);
-                dismiss();
-            }
-        });
-
-        fragmentHomeBinding.publishArticle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int[] loc = new int[2];
-                v.getLocationOnScreen(loc);
-                PublishActivity.startPublish(PublishActivity.ARTICLE,getActivity(),loc);
-                dismiss();
+                            ObjectAnimator fadeInScrim = ObjectAnimator.ofArgb(resultsScrim,
+                                    ViewUtils.BACKGROUND_COLOR,
+                                    Color.TRANSPARENT,
+                                    ContextCompat.getColor(getActivity(), R.color.scrim));
+                            fadeInScrim.setDuration(800L);
+                            fadeInScrim.setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getActivity()));
+                            fadeInScrim.start();
+                            int[] loc = new int[2];
+                            fab.getLocationOnScreen(loc);
+                            PublishActivity.startPublish(PublishActivity.ARTICLE,getActivity(),loc);
+                            dismiss();
+                        }
+                    });
+                    revealScrim.start();
+                }
             }
         });
 
@@ -162,16 +138,10 @@ public class HomePageFragment extends BaseFragment {
     }
 
     private void dismiss() {
-        final FrameLayout container = fragmentHomeBinding.fabContainer;
-        if (container.getVisibility() == View.VISIBLE) {
-            // contract the bubble & hide the scrim
+        // contract the bubble & hide the scrim
+        if(SupportVersion.lollipop()) {
             AnimatorSet hideConfirmation = new AnimatorSet();
             hideConfirmation.playTogether(
-                    ViewAnimationUtils.createCircularReveal(container,
-                            container.getWidth() / 2,
-                            container.getHeight() / 2,
-                            container.getWidth() / 2,
-                            fragmentHomeBinding.fab.getWidth() / 2),
                     ObjectAnimator.ofArgb(resultsScrim,
                             ViewUtils.BACKGROUND_COLOR,
                             Color.TRANSPARENT));
@@ -181,12 +151,13 @@ public class HomePageFragment extends BaseFragment {
             hideConfirmation.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    container.setVisibility(View.GONE);
                     resultsScrim.setVisibility(View.GONE);
                     fragmentHomeBinding.fab.setVisibility(View.VISIBLE);
                 }
             });
             hideConfirmation.start();
+        }else{
+            resultsScrim.setVisibility(View.GONE);
         }
     }
 

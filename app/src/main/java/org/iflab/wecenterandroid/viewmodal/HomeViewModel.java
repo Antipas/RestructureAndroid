@@ -3,43 +3,35 @@ package org.iflab.wecenterandroid.viewmodal;
 import android.app.Activity;
 import android.content.Context;
 import android.databinding.BindingAdapter;
-import android.util.ArrayMap;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-import org.iflab.wecenterandroid.base.BaseActivity;
+import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.base.BaseViewModel;
-import org.iflab.wecenterandroid.modal.DataManager;
 import org.iflab.wecenterandroid.modal.home.Home;
-import org.iflab.wecenterandroid.modal.Topic;
-import org.iflab.wecenterandroid.modal.home.Home101;
-import org.iflab.wecenterandroid.modal.home.Home105;
-import org.iflab.wecenterandroid.modal.home.Home201;
-import org.iflab.wecenterandroid.modal.home.Home501;
+import org.iflab.wecenterandroid.modal.home.Home503;
+import org.iflab.wecenterandroid.util.DisplayUtil;
 import org.iflab.wecenterandroid.util.RoundedTransformation;
-import org.iflab.wecenterandroid.view.activity.AnswerActivity;
 import org.iflab.wecenterandroid.view.activity.ArticleActivity;
 import org.iflab.wecenterandroid.view.activity.PersonCenterActivity;
-import org.iflab.wecenterandroid.view.activity.QuestionActivity;
-import org.iflab.wecenterandroid.view.recyclerView.HomeAdapter;
 
 import java.util.List;
 
 import rx.Observable;
 import rx.exceptions.OnErrorThrowable;
 import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * Created by Lyn on 15/11/21.
  */
 public class HomeViewModel extends BaseViewModel{
 
-    Home501 home501;
-    Home101 home101;
-    Home201 home201;
+    Home home;
     Context context;
     public HomeViewModel(Context context) {
         super(context);
@@ -48,13 +40,7 @@ public class HomeViewModel extends BaseViewModel{
     public HomeViewModel(Context context,Home home) {
         super(context);
         this.context = context;
-        if(home instanceof Home501){
-            this.home501 = (Home501)home;
-        }else if(home instanceof Home101){
-            this.home101 = (Home101)home;
-        }else if(home instanceof Home201){
-            this.home201 = (Home201)home;
-        }
+        this.home = home;
     }
 
     @BindingAdapter({"bind:homeAvatar"})
@@ -62,75 +48,59 @@ public class HomeViewModel extends BaseViewModel{
         Picasso.with(view.getContext()).load(url).transform(new RoundedTransformation()).into(view);
     }
 
-    public String getAvatarFile(){
-        if(home501 !=null) {
-            return home501.getUser_info().getAvatar_file();
-        }else if(home101 != null){
-            return home101.getUser_info().getAvatar_file();
-        }else if(home201 != null){
-            return home201.getUser_info().getAvatar_file();
-        }else
-            return "";
+    @BindingAdapter({"bind:thumb"})
+    public static void loadThumb(ImageView view, String url) {
+        Picasso.with(view.getContext()).load(url).into(view);
     }
 
+    public String getAvatarFile(){
+        return home.getUser_info().getAvatar_file();
+    }
+
+    public String getAddTime(){
+        return DisplayUtil.lossOfTime(home.getAdd_time());
+    }
+
+    public Spannable getViewsCount(){
+        Spannable spannable = new SpannableString(home.getArticle_info().getViews()+" 已阅读");
+        int endIndex = spannable.toString().length() - 3;
+        spannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.nav_item_checked)), 0, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannable;
+    }
+
+    public String getThumb(){
+        return home.getImgUrl();
+    }
+
+    public String getOutLine(){
+        return home.getOutline();
+    }
+
+
     public String getComments(){
-        return home501.getArticle_info().getComments()+"";
+        if(home instanceof Home503)
+            return ((Home503)home).getComment_info().getMessage();
+        else
+            return "";
     }
 
     public String getTitle(){
-        if(home501 != null){
-            return home501.getArticle_info().getTitle();
-        }else if(home101 != null){
-            return home101.getQuestion_info().getQuestion_content();
-        }else if(home201 != null){
-            return home201.getAnswer_info().getAnswer_content();
-        }else
-            return "";
+        return home.getArticle_info().getTitle();
     }
 
     public int getAssociateAction(){
-        if(home501 != null){
-            return home501.getAssociate_action();
-        }else if(home101 != null){
-            return home101.getAssociate_action();
-        }else if(home201 != null){
-            return home201.getAssociate_action();
-        }
-        else
-            return 0;
+        return home.getAssociate_action();
     }
     public String getUserName(){
-        if(home501 != null) {
-            return home501.getUser_info().getUser_name();
-        }else if(home101 != null){
-            return home101.getUser_info().getUser_name();
-        }else if(home201 != null){
-            return home201.getUser_info().getUser_name();
-        }else
-            return "";
+        return home.getUser_info().getUser_name();
     }
 
-    public String getAgree_count(){
-        if(home101 != null){
-            return home101.getQuestion_info().getAgree_count()+"";
-        }else if(home201 != null){
-            return home201.getQuestion_info().getAgree_count()+"";
-        }else
-            return "";
-
-    }
 
     public View.OnClickListener onClickAvatar() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(home501 != null) {
-                    PersonCenterActivity.startPersonCenter(home501.getUser_info().getUid(), ((Activity) context), v);
-                }else if(home101 != null){
-                    PersonCenterActivity.startPersonCenter(home101.getUser_info().getUid(), ((Activity) context), v);
-                }else if(home201 != null){
-                    PersonCenterActivity.startPersonCenter(home201.getUser_info().getUid(), ((Activity) context), v);
-                }
+                PersonCenterActivity.startPersonCenter(home.getUser_info().getUid(), ((Activity) context), v);
             }
         };
     }
@@ -139,13 +109,7 @@ public class HomeViewModel extends BaseViewModel{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(home501 != null) {
-                    ArticleActivity.startArticle(home501.getArticle_info().getId(), context);
-                }else if(home101 != null){
-                    QuestionActivity.startQuestion(home101.getQuestion_info().getQuestion_id(),((Activity) context),v);
-                }else if(home201 != null){
-                    AnswerActivity.startAnswer(home201.getAnswer_info().getAnswer_id(),((Activity) context));
-                }
+                ArticleActivity.startArticle(home.getArticle_info().getId(), context);
             }
         };
     }

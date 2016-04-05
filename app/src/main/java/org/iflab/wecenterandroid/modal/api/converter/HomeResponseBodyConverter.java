@@ -4,9 +4,8 @@ import com.google.gson.Gson;
 import com.squareup.okhttp.ResponseBody;
 
 import org.iflab.wecenterandroid.modal.home.Home;
-import org.iflab.wecenterandroid.modal.home.Home101;
-import org.iflab.wecenterandroid.modal.home.Home201;
 import org.iflab.wecenterandroid.modal.home.Home501;
+import org.iflab.wecenterandroid.modal.home.Home503;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,19 +59,7 @@ public class HomeResponseBodyConverter<T> implements Converter<ResponseBody, T> 
                             var3 = this.gson.fromJson(itemObj.toString(), Home501.class);
                             break;
                         case 503:
-                            var3 = this.gson.fromJson(itemObj.toString(), Home501.class);
-                            break;
-                        case 101:
-                            var3 = this.gson.fromJson(itemObj.toString(), Home101.class);
-                            break;
-                        case 105:
-                            var3 = this.gson.fromJson(itemObj.toString(), Home101.class);
-                            break;
-                        case 201:
-                            var3 = this.gson.fromJson(itemObj.toString(), Home201.class);
-                            break;
-                        case 204:
-                            var3 = this.gson.fromJson(itemObj.toString(), Home201.class);
+                            var3 = this.gson.fromJson(itemObj.toString(), Home503.class);
                             break;
                     }
                     homeList.add(var3);

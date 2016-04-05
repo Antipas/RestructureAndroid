@@ -14,15 +14,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.jakewharton.rxbinding.view.RxView;
+
 import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.base.BaseActivity;
 import org.iflab.wecenterandroid.databinding.ActivityMainBinding;
 import org.iflab.wecenterandroid.databinding.NavHeaderMainBinding;
 import org.iflab.wecenterandroid.modal.prefs.UserPrefs;
+import org.iflab.wecenterandroid.util.SupportVersion;
 import org.iflab.wecenterandroid.view.fragment.ExploreFragment;
 import org.iflab.wecenterandroid.view.fragment.HomePageFragment;
-import org.iflab.wecenterandroid.view.fragment.HotTopicsFragment;
 import org.iflab.wecenterandroid.viewmodal.UserViewModel;
+
+import rx.functions.Action1;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -74,7 +78,18 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.addHeaderView(navHeaderMainBinding.getRoot());
 
+        RxView.clicks(navHeaderMainBinding.imageAvatar)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        PersonCenterActivity.startPersonCenter(UserPrefs.getInstance(getApplicationContext()).getUserId(),
+                                MainActivity.this,
+                                navHeaderMainBinding.imageAvatar);
+                    }
+                });
+
         if (savedInstanceState == null) {
+            navigationView.setCheckedItem(R.id.nav_home);
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_content, HomePageFragment.newInstances()).commit();
         }
     }
@@ -91,7 +106,11 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        if(SupportVersion.lollipop()) {
+            getMenuInflater().inflate(R.menu.main_lollipop, menu);
+        }else{
+            getMenuInflater().inflate(R.menu.main_kitkat, menu);
+        }
         return true;
     }
 
@@ -101,11 +120,15 @@ public class MainActivity extends BaseActivity
 
         if (id == R.id.action_search) {
             View searchMenuView = toolbar.findViewById(id);
-            int[] loc = new int[2];
-            searchMenuView.getLocationOnScreen(loc);
-            startActivityForResult(SearchActivity.createStartIntent(this, loc[0], loc[0] +
-                    (searchMenuView.getWidth() / 2)), RC_SEARCH, ActivityOptions
-                    .makeSceneTransitionAnimation(this).toBundle());
+            if(SupportVersion.lollipop()) {
+                int[] loc = new int[2];
+                searchMenuView.getLocationOnScreen(loc);
+                startActivityForResult(SearchActivity.createStartIntent(this, loc[0], loc[0] +
+                        (searchMenuView.getWidth() / 2)), RC_SEARCH, ActivityOptions
+                        .makeSceneTransitionAnimation(this).toBundle());
+            }else{
+                startActivity(SearchActivity.createStartIntent(this,0,0));
+            }
             return true;
         }
 
@@ -117,15 +140,15 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         drawer.closeDrawer(GravityCompat.START);
         switch (item.getItemId()){
-            case R.id.nav_camara:
+            case R.id.nav_home:
                 toolbar.setTitle("主页");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_content, HomePageFragment.newInstances()).commit();
                 return true;
-            case R.id.nav_gallery:
-                toolbar.setTitle("话题");
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_content, HotTopicsFragment.newInstances()).commit();
-                return true;
-            case R.id.nav_slideshow:
+//            case R.id.nav_gallery:
+//                toolbar.setTitle("话题");
+//                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_content, HotTopicsFragment.newInstances()).commit();
+//                return true;
+            case R.id.nav_explore:
                 toolbar.setTitle("发现");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_content, ExploreFragment.newInstances()).commit();
                 return true;

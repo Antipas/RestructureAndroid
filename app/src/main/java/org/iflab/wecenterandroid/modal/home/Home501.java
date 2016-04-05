@@ -43,6 +43,37 @@ public class Home501 implements Home{
 
     private ArticleInfoEntity article_info;
 
+    private String imgUrl;
+    private String url;
+    private String outline;
+
+    @Override
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    @Override
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    @Override
+    public String getOutline() {
+        return outline;
+    }
+
+    public void setOutline(String outline) {
+        this.outline = outline;
+    }
+
     public void setHistory_id(int history_id) {
         this.history_id = history_id;
     }
@@ -67,10 +98,12 @@ public class Home501 implements Home{
         return history_id;
     }
 
+    @Override
     public int getAssociate_action() {
         return associate_action;
     }
 
+    @Override
     public int getAdd_time() {
         return add_time;
     }
@@ -83,7 +116,7 @@ public class Home501 implements Home{
         return article_info;
     }
 
-    public static class UserInfoEntity {
+    public static class UserInfoEntity implements Home.Userinfo{
         private int uid;
         private String user_name;
         private String signature;
@@ -105,10 +138,12 @@ public class Home501 implements Home{
             this.avatar_file = avatar_file;
         }
 
+        @Override
         public int getUid() {
             return uid;
         }
 
+        @Override
         public String getUser_name() {
             return user_name;
         }
@@ -117,18 +152,28 @@ public class Home501 implements Home{
             return signature;
         }
 
+        @Override
         public String getAvatar_file() {
             return avatar_file;
         }
     }
 
-    public static class ArticleInfoEntity {
+    public static class ArticleInfoEntity implements Home.ArticleInfo{
         private int id;
         private String title;
         private String message;
         private int comments;
         private int views;
         private int add_time;
+        private String url;
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
 
         public void setId(int id) {
             this.id = id;
@@ -154,10 +199,12 @@ public class Home501 implements Home{
             this.add_time = add_time;
         }
 
+        @Override
         public int getId() {
             return id;
         }
 
+        @Override
         public String getTitle() {
             return title;
         }
@@ -170,6 +217,7 @@ public class Home501 implements Home{
             return comments;
         }
 
+        @Override
         public int getViews() {
             return views;
         }

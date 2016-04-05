@@ -24,6 +24,7 @@ import org.iflab.wecenterandroid.modal.UserAPIModal;
 import org.iflab.wecenterandroid.modal.person.PersonInfo;
 import org.iflab.wecenterandroid.modal.prefs.UserPrefs;
 import org.iflab.wecenterandroid.util.RoundedTransformation;
+import org.iflab.wecenterandroid.util.SupportVersion;
 import org.iflab.wecenterandroid.view.recyclerView.PersonCenterAdapter;
 import org.iflab.wecenterandroid.viewmodal.PersonCenterViewModal;
 
@@ -61,10 +62,11 @@ public class PersonCenterActivity extends BaseActivity {
 
         uid = getIntent().getLongExtra(UID, UserPrefs.getInstance(getApplicationContext()).getUserId());
 
-        Fade fade = new Fade();
-        fade.setDuration(500);
-        getWindow().setReturnTransition(fade);
-
+        if(SupportVersion.lollipop()) {
+            Fade fade = new Fade();
+            fade.setDuration(500);
+            getWindow().setReturnTransition(fade);
+        }
         loadData();
     }
 
