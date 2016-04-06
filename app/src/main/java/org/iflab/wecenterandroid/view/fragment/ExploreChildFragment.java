@@ -14,6 +14,7 @@ import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.base.BaseFragment;
 import org.iflab.wecenterandroid.databinding.FragmentExploreChildBinding;
 import org.iflab.wecenterandroid.modal.explore.Explore;
+import org.iflab.wecenterandroid.modal.explore.Famous;
 import org.iflab.wecenterandroid.view.recyclerView.EndlessRecyclerOnScrollListener;
 import org.iflab.wecenterandroid.view.recyclerView.ExploreAdapter;
 
@@ -23,12 +24,12 @@ import java.util.List;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
+import rx.functions.Func1;
 
 public class ExploreChildFragment extends BaseFragment {
     public static final String RECOMMEND = "RECOMMEND";
-    public static final String NEW = "NEW";
-    public static final String HOT = "HOT";
-    public static final String UNRESPONSIVE = "UNRESPONSIVE";
+    public static final String FAMOUS_PEOPLE = "FAMOUS_PEOPLE";
+    public static final String MEDIA = "MEDIA";
     public static final int DAY = 30;
     private static final String EXPLORE_KIND = "EXPLORE_KIND";
 
@@ -95,16 +96,30 @@ public class ExploreChildFragment extends BaseFragment {
         Observable observable;
         switch (kind){
             case RECOMMEND:
-                observable = dataManager.loadExplore(page,DAY,1,"new");
+                observable = dataManager.loadExplore(page);
                 break;
-            case HOT:
-                observable = dataManager.loadExplore(page,DAY,0,"hot");
-                break;
-            case NEW:
-                observable = dataManager.loadExplore(page,DAY,0,"new");
-                break;
-            case UNRESPONSIVE:
-                observable = dataManager.loadExplore(page,DAY,0,"unresponsive");
+//            case MEDIA:
+//                observable = dataManager.loadMedia()
+//                        .map(new Func1<Famous,List<Explore>>() {
+//                            @Override
+//                            public List<Explore> call(Famous famous) {
+//                                return famous.getRsm().getRows();
+//                            }
+//                        });
+//                break;
+            case FAMOUS_PEOPLE:
+                observable = dataManager.loadFamous()
+                        .map(new Func1<Famous,List<Explore>>() {
+                            @Override
+                            public List<Explore> call(Famous famous) {
+//                                Famous.RsmBean.RowsBean bean = famous.getRsm().getRows();
+//                                for(int i = 0; i < famous.getRsm().getRows().size();i++){
+//
+//                                }
+//                                List<Explore> r = ;
+//                                return r;
+                            }
+                        });
                 break;
             default:
                 return;
@@ -124,7 +139,7 @@ public class ExploreChildFragment extends BaseFragment {
             @Override
             public void onNext(List<Explore> list) {
 
-                if(list == null){
+                if(list == null || list.size() == 0){
                     showToast("没有更多");
                     return;
                 }

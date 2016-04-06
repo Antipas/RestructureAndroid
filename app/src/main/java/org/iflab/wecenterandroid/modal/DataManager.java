@@ -45,8 +45,18 @@ public class DataManager extends BaseDataManager {
     }
 
     // load ..
-    public Observable loadExplore(int page,int day, int recommend, String type){
-        return getExploreService().getExplore(page, day, recommend, type, MD5Util.MD5("explore" + Constant.SIGN))
+    public Observable loadExplore(int page){
+        return getExploreService().getExplore(page,MD5Util.MD5("explore" + Constant.SIGN))
+                .compose(applySchedulers());
+    }
+
+    public Observable loadFamous(){
+        return getUserService().getFamous(MD5Util.MD5("famous" + Constant.SIGN))
+                .compose(applySchedulers());
+    }
+
+    public Observable loadMedia(){
+        return getUserService().getMedia(MD5Util.MD5("media" + Constant.SIGN))
                 .compose(applySchedulers());
     }
 
@@ -60,10 +70,6 @@ public class DataManager extends BaseDataManager {
                 .compose(applySchedulers());
     }
 
-    public Observable loadQuestion(int id,int page){
-        return getQuestionService().getQuestion(id, page, "add_time", MD5Util.MD5("question" + Constant.SIGN))
-                .compose(applySchedulers());
-    }
 
     public Observable loadArticle(int id,int page){
         return getArticleSerivce().getArticle(id, page, MD5Util.MD5("article" + Constant.SIGN));
@@ -72,15 +78,6 @@ public class DataManager extends BaseDataManager {
     public Observable loadComments(int id,int page){
         return getArticleSerivce().getComments(id, page, MD5Util.MD5("article" + Constant.SIGN))
                 .compose(applySchedulers());
-    }
-
-    public Observable loadAnswerComments(int id){
-        return getQuestionService().loadAnswerComment(id, MD5Util.MD5("question" + Constant.SIGN))
-                .compose(applySchedulers());
-    }
-
-    public Observable loadAnswer(int id){
-        return getQuestionService().getAnswer(id, MD5Util.MD5("question" + Constant.SIGN));
     }
 
     public Observable loadUserinfo(String uid){
@@ -124,11 +121,6 @@ public class DataManager extends BaseDataManager {
                 .compose(applySchedulers());
     }
 
-    public Observable sendAnswerComment(int id,String comment){
-        return getQuestionService().sendAnswerComment(id, comment)
-                .compose(applySchedulers());
-    }
-
     public Observable favorite(int itemId,String type){
         return getArticleSerivce().favortie(itemId, type, "")
                 .compose(applySchedulers());
@@ -136,36 +128,6 @@ public class DataManager extends BaseDataManager {
 
     public Observable voteOrFuckArticle(int itemId,String type,int rating){
         return getArticleSerivce().voteOrFuckArticle(itemId, type, rating)
-                .compose(applySchedulers());
-    }
-
-    public Observable addFocus(int id){
-        return getQuestionService().addFocus(id)
-                .compose(applySchedulers());
-    }
-
-    public Observable voteOrFuckAnswer(int id,int value){
-        return getQuestionService().voteorFuckAnswer(id, value)
-                .compose(applySchedulers());
-    }
-
-    public Observable uploadAttach(RequestBody file,RequestBody key,RequestBody id){
-        return getArticleSerivce().uploadAttach(id, key,file)
-                .compose(applySchedulers());
-    }
-
-    public Observable uploadArticleText(String title,String attach_access_key,String message,String topics){
-        return getArticleSerivce().uploadArticleText(title, attach_access_key, message, topics)
-                .compose(applySchedulers());
-    }
-
-    public Observable uploadQuestionext(String title,String attach_access_key,String content,String topics){
-        return getQuestionService().uploadQuestionText(title, attach_access_key, content, topics)
-                .compose(applySchedulers());
-    }
-
-    public Observable uploadAnswerText(String id,String attach_access_key,String content){
-        return getQuestionService().uploadAnwerText(id, attach_access_key, content)
                 .compose(applySchedulers());
     }
 

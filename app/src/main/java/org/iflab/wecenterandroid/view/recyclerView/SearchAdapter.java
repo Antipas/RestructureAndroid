@@ -45,9 +45,6 @@ public class SearchAdapter extends RecyclerView.Adapter {
             case ARTICLE:
                 return new ArticleViewHolder(LayoutInflater.from(viewGroup.getContext())
                         .inflate(R.layout.search_article_item, viewGroup, false),viewType);
-            case QUESTION:
-                return new QuestionViewHolder(LayoutInflater.from(viewGroup.getContext())
-                        .inflate(R.layout.search_question_item, viewGroup, false),viewType);
             case TOPIC:
                 return new TopicViewHolder(LayoutInflater.from(viewGroup.getContext())
                         .inflate(R.layout.search_topic_item, viewGroup, false),viewType);
@@ -66,9 +63,6 @@ public class SearchAdapter extends RecyclerView.Adapter {
         if(holder instanceof ArticleViewHolder){
             ArticleViewHolder articleViewHolder = (ArticleViewHolder)holder;
             articleViewHolder.bind(search);
-        }else if(holder instanceof QuestionViewHolder){
-            QuestionViewHolder questionViewHolder = (QuestionViewHolder)holder;
-            questionViewHolder.bind(search);
         }else if(holder instanceof TopicViewHolder){
             TopicViewHolder topicViewModel = (TopicViewHolder)holder;
             topicViewModel.bind(search);
@@ -89,8 +83,6 @@ public class SearchAdapter extends RecyclerView.Adapter {
         switch (type){
             case Search.ARTICLE:
                 return ARTICLE;
-            case Search.QUESTION:
-                return QUESTION;
             case Search.TOPIC:
                 return TOPIC;
             case Search.USER:
@@ -107,23 +99,6 @@ public class SearchAdapter extends RecyclerView.Adapter {
             super(itemView);
         }
         abstract void bind(Search search);
-    }
-
-    static class QuestionViewHolder extends ViewHolder{
-        SearchQuestionItemBinding searchQuestionItemBinding;
-        public QuestionViewHolder(View itemView, int action) {
-            super(itemView, action);
-            searchQuestionItemBinding = DataBindingUtil.bind(itemView);
-        }
-
-        @Override
-        void bind(Search search) {
-            searchQuestionItemBinding.setSearch((SearchQuestion)search);
-        }
-
-        SearchQuestionItemBinding getBinding(){
-            return searchQuestionItemBinding;
-        }
     }
 
     static class ArticleViewHolder extends ViewHolder{

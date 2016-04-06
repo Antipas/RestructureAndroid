@@ -7,9 +7,6 @@
         <variable name="user" type="org.iflab.wecenterandroid.modal.Answer.RsmEntity.AnswerEntity.UserInfoEntity"/>
         <variable name="questionUser" type="org.iflab.wecenterandroid.modal.Question.RsmEntity.QuestionInfoEntity.UserInfoEntity"/>
 
-        <variable
-            name="question"
-            type="org.iflab.wecenterandroid.viewmodal.QuestionHeaderViewModal"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,7 +17,7 @@
             android:id="@+id/iv_avatar"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            app:userInfoItemAvatar="@{user != null ?user.getAvatar_file():questionUser.getAvatar_file()}"
+            app:userInfoItemAvatar="@{user.getAvatar_file()}"
             />
 
         <TextView
@@ -29,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/iv_avatar"
             android:layout_marginLeft="10dp"
-            android:text="@{user != null ?user.getUser_name():questionUser.getUser_name()}"
+            android:text="@{user.getUser_name()}"
             />
 
         <TextView
@@ -38,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_avatar"
             android:layout_alignStart="@+id/tv_name"
-            android:text="@{user != null ?user.getSignature():questionUser.getSignature()}"
+            android:text="@{user.getSignature()}"
             android:layout_alignRight="@+id/tv_name"
             android:layout_alignEnd="@+id/tv_name" />
 

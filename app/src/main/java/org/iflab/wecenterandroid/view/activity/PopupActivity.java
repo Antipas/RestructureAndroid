@@ -155,9 +155,9 @@ public class PopupActivity extends BaseActivity {
         }
 
         isDismissing = true;
-        Intent intent = new Intent(PopupActivity.this,PublishActivity.class);
-        intent.putExtra(TOPIC_CONTENT,contnet);
-        setResult(Activity.RESULT_OK,intent);
+//        Intent intent = new Intent(PopupActivity.this,PublishActivity.class);
+//        intent.putExtra(TOPIC_CONTENT,contnet);
+//        setResult(Activity.RESULT_OK,intent);
         finishAfterTransition();
     }
 

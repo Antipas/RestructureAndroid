@@ -15,7 +15,6 @@ import org.iflab.wecenterandroid.modal.explore.ExploreQuestion;
 import org.iflab.wecenterandroid.util.RoundedTransformation;
 import org.iflab.wecenterandroid.view.activity.ArticleActivity;
 import org.iflab.wecenterandroid.view.activity.PersonCenterActivity;
-import org.iflab.wecenterandroid.view.activity.QuestionActivity;
 
 import rx.Observable;
 
@@ -98,17 +97,12 @@ public class ExploreViewModal extends BaseViewModel{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(exploreQuestion != null){
-                    QuestionActivity.startQuestion(exploreQuestion.getQuestion_id(),(Activity)context,v);
-                }else if(exploreArticle != null){
+                if(exploreArticle != null){
                     ArticleActivity.startArticle(exploreArticle.getId(),context);
                 }
             }
         };
     }
 
-    public Observable loadExplore(int page,int day,int recommend,String type){
-        return dataManager.loadExplore(page,day,recommend,type);
-    }
 
 }

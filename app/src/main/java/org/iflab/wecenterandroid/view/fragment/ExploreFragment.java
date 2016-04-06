@@ -50,11 +50,9 @@ public class ExploreFragment extends BaseFragment  {
                 case 0:
                     return ExploreChildFragment.newInstance(ExploreChildFragment.RECOMMEND);
                 case 1:
-                    return ExploreChildFragment.newInstance(ExploreChildFragment.HOT);
+                    return ExploreChildFragment.newInstance(ExploreChildFragment.FAMOUS_PEOPLE);
                 case 2:
-                    return ExploreChildFragment.newInstance(ExploreChildFragment.NEW);
-                case 3:
-                    return ExploreChildFragment.newInstance(ExploreChildFragment.UNRESPONSIVE);
+                    return ExploreChildFragment.newInstance(ExploreChildFragment.MEDIA);
                 default:
                     return null;
             }
@@ -62,7 +60,7 @@ public class ExploreFragment extends BaseFragment  {
 
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
 
         @Override
@@ -71,11 +69,9 @@ public class ExploreFragment extends BaseFragment  {
                 case 0:
                     return "推荐";
                 case 1:
-                    return "热门";
+                    return "名人";
                 case 2:
-                    return "最新";
-                case 3:
-                    return "待答";
+                    return "媒体";
                 default:
                     return "";
             }

@@ -49,26 +49,5 @@ public class CommentViewModel extends BaseViewModel{
                 });
     }
 
-    public Observable loadAnswerComment(int id){
-        return dataManager.loadAnswerComments(id)
-                .map(new Func1<AnswerComment,List<AnswerComment.RsmEntity>>() {
-                    @Override
-                    public List<AnswerComment.RsmEntity> call(AnswerComment answerComment) {
-                        return answerComment.getRsm();
-                    }
-                });
-    }
-
-    public Observable sendAnswerComment(int id,String message){
-        return dataManager.sendAnswerComment(id,message)
-                .doOnNext(new Action1<SaveComment>() {
-                    @Override
-                    public void call(SaveComment answerComment) {
-                        if (answerComment.getRsm() == null) {
-                            OnErrorThrowable.from(new Throwable(answerComment.getErr().toString()));
-                        }
-                    }
-                });
-    }
 
 }

@@ -7,7 +7,6 @@ import android.animation.ObjectAnimator;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,8 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
 
 import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.base.BaseFragment;
@@ -26,17 +23,14 @@ import org.iflab.wecenterandroid.modal.home.Home;
 import org.iflab.wecenterandroid.util.AnimUtils;
 import org.iflab.wecenterandroid.util.SupportVersion;
 import org.iflab.wecenterandroid.util.ViewUtils;
-import org.iflab.wecenterandroid.view.activity.PublishActivity;
 import org.iflab.wecenterandroid.view.recyclerView.EndlessRecyclerOnScrollListener;
 import org.iflab.wecenterandroid.view.recyclerView.HomeAdapter;
-import org.iflab.wecenterandroid.viewmodal.HomeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observer;
 import rx.Subscription;
-import rx.functions.Action1;
 
 /**
  * Created by Lyn on 15/11/20.
@@ -121,9 +115,9 @@ public class HomePageFragment extends BaseFragment {
                             fadeInScrim.setDuration(800L);
                             fadeInScrim.setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(getActivity()));
                             fadeInScrim.start();
-                            int[] loc = new int[2];
-                            fab.getLocationOnScreen(loc);
-                            PublishActivity.startPublish(PublishActivity.ARTICLE,getActivity(),loc);
+//                            int[] loc = new int[2];
+//                            fab.getLocationOnScreen(loc);
+//                            PublishActivity.startPublish(PublishActivity.ARTICLE,getActivity(),loc);
                             dismiss();
                         }
                     });

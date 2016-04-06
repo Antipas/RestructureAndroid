@@ -103,7 +103,7 @@ public class ExploreArticle implements Explore{
     }
 
     public String getPost_type() {
-        return post_type;
+        return Explore.ARTICLE;
     }
 
     public UserInfoEntity getUser_info() {

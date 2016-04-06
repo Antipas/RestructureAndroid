@@ -73,11 +73,14 @@ public class PersonCenterActivity extends BaseActivity {
     public static void startPersonCenter(long id, Activity startingActivity, View transitionView) {
         Intent intent = new Intent(startingActivity, PersonCenterActivity.class);
         intent.putExtra(UID, id);
-
-        ActivityOptions options =
-                ActivityOptions.makeSceneTransitionAnimation(startingActivity,
-                        Pair.create(transitionView,startingActivity.getString(R.string.transition_person_center_avatar_view)));
-        startingActivity.startActivity(intent,options.toBundle());
+        if(SupportVersion.lollipop()) {
+            ActivityOptions options =
+                    ActivityOptions.makeSceneTransitionAnimation(startingActivity,
+                            Pair.create(transitionView, startingActivity.getString(R.string.transition_person_center_avatar_view)));
+            startingActivity.startActivity(intent, options.toBundle());
+        }else{
+            startingActivity.startActivity(intent);
+        }
     }
 
     @Override

@@ -27,28 +27,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activity.QuestionActivity"
-            android:label="@string/title_activity_question"
-            android:theme="@style/Wecenter.NoActionBar" />
-        <activity
             android:name=".view.activity.ArticleActivity"
             android:label="@string/title_activity_article"
             android:theme="@style/Wecenter.NoActionBar" />
         <activity
             android:name=".view.activity.ArticleCommentsActivity"
             android:label="@string/title_activity_comments"
-            android:theme="@style/Wecenter.NoActionBar" />
-        <activity
-            android:name=".view.activity.AnswerActivity"
-            android:label="@string/title_activity_answer"
-            android:theme="@style/Wecenter.NoActionBar" />
-        <activity
-            android:name=".view.activity.AnswerCommentsActivity"
-            android:label="@string/title_activity_answer_comment"
-            android:theme="@style/Wecenter.NoActionBar" />
-        <activity
-            android:name=".view.activity.PublishActivity"
-            android:label="@string/title_activity_publish"
             android:theme="@style/Wecenter.NoActionBar" />
         <activity
             android:name=".view.activity.PersonCenterActivity"

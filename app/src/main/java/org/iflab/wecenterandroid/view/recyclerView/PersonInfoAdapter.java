@@ -10,16 +10,13 @@ import android.view.ViewGroup;
 import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.databinding.PersonAnswerItemBinding;
 import org.iflab.wecenterandroid.databinding.PersonArticleItemBinding;
-import org.iflab.wecenterandroid.databinding.PersonCenterItemBinding;
 import org.iflab.wecenterandroid.databinding.PersonFollowsFansItemBinding;
 import org.iflab.wecenterandroid.databinding.PersonQuestionItemBinding;
-import org.iflab.wecenterandroid.modal.PersonCenterItem;
 import org.iflab.wecenterandroid.modal.person.PersonFollow;
 import org.iflab.wecenterandroid.modal.person.PersonInfo;
 import org.iflab.wecenterandroid.modal.person.PersonalAnswer;
 import org.iflab.wecenterandroid.modal.person.PersonalArticle;
 import org.iflab.wecenterandroid.modal.person.PersonalQuestion;
-import org.iflab.wecenterandroid.viewmodal.AnswerViewModel;
 import org.iflab.wecenterandroid.viewmodal.PersonInfoViewModal;
 
 import java.util.ArrayList;

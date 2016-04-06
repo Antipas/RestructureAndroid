@@ -26,7 +26,6 @@
                 android:fitsSystemWindows="true"
                 app:contentScrim="#30469b"
                 app:expandedTitleGravity="center_horizontal|bottom"
-                app:expandedTitleMarginStart="32dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
@@ -37,15 +36,6 @@
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.7"
                     android:src="@drawable/backgroundimage" />
-
-                <ImageView
-                    android:id="@+id/person_avatar"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:transitionName="@string/transition_person_center_avatar_view"
-                    />
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -64,6 +54,17 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:background="@color/grey_light"
             android:layout_marginTop="20dp"
+            />
+
+        <ImageView
+            android:id="@+id/person_avatar"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            android:transitionName="@string/transition_person_center_avatar_view"
+            app:layout_anchor="@+id/app_bar_layout"
+            app:layout_anchorGravity="bottom|center_horizontal"
             />
 
     </android.support.design.widget.CoordinatorLayout>

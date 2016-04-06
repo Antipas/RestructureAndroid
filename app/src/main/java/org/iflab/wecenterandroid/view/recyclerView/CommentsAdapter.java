@@ -2,7 +2,6 @@ package org.iflab.wecenterandroid.view.recyclerView;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.layouts.DataBindingInfo;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;

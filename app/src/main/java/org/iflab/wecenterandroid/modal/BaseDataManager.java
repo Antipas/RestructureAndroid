@@ -8,7 +8,6 @@ import org.iflab.wecenterandroid.Constant;
 import org.iflab.wecenterandroid.modal.api.ArticleService;
 import org.iflab.wecenterandroid.modal.api.ExploreService;
 import org.iflab.wecenterandroid.modal.api.HomeService;
-import org.iflab.wecenterandroid.modal.api.QuestionService;
 import org.iflab.wecenterandroid.modal.api.SearchService;
 import org.iflab.wecenterandroid.modal.api.TopicService;
 import org.iflab.wecenterandroid.modal.api.UserService;
@@ -36,7 +35,6 @@ abstract class BaseDataManager {
     ExploreService exploreService;
     HomeService homeService;
     TopicService topicService;
-    QuestionService questionService;
     ArticleService articleService;
     SearchService searchService;
 
@@ -61,17 +59,12 @@ abstract class BaseDataManager {
         createExploreService();
         createHomeService();
         createHotTopicsService();
-        createQuestionService();
         createArticleService();
         createSearchService();
     }
 
     protected void createArticleService(){
         articleService = retrofit.create(ArticleService.class);
-    }
-
-    protected void createQuestionService(){
-        questionService = retrofit.create((QuestionService.class));
     }
 
     protected void createHotTopicsService(){
@@ -125,8 +118,6 @@ abstract class BaseDataManager {
     }
 
     public TopicService getTopcService(){return topicService;}
-
-    public QuestionService getQuestionService(){return questionService;}
 
     public UserPrefs getUserPrefs(){
         return userPrefs;

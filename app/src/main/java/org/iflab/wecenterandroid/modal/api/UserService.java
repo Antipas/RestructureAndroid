@@ -4,6 +4,7 @@ package org.iflab.wecenterandroid.modal.api;
 import org.iflab.wecenterandroid.modal.LoginInfo;
 import org.iflab.wecenterandroid.modal.User;
 import org.iflab.wecenterandroid.modal.UserAPIModal;
+import org.iflab.wecenterandroid.modal.explore.Famous;
 import org.iflab.wecenterandroid.modal.person.PersonFollow;
 import org.iflab.wecenterandroid.modal.person.PersonInfo;
 import org.iflab.wecenterandroid.modal.person.PersonalAnswer;
@@ -43,4 +44,10 @@ public interface UserService{
 
     @GET("api/people/user_actions/")
     Observable<PersonalAnswer> getUserAnswer(@Query("actions") int actions,@Query("uid") String uid,@Query("page")int page,@Query("mobile_sign") String sign);
+
+    @GET("api/famous/famous_posts/")
+    Observable<Famous> getFamous(@Query("mobile_sign") String sign);
+
+    @GET("api/media/media_users/")
+    Observable<Famous> getMedia(@Query("mobile_sign") String sign);
 }

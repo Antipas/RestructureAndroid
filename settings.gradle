@@ -1,1 +1,1 @@
-include ':app',':pooredit'
+include ':app'

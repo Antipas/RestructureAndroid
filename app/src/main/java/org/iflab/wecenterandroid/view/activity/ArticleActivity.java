@@ -162,14 +162,6 @@ public class ArticleActivity extends BaseActivity {
                     }
                 });
 
-        RxView.clicks(activityArticleBinding.imagebtnComment)
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        AnswerCommentsActivity.startAnswerComments(id, ArticleActivity.this);
-//                        ArticleCommentsActivity.startArticleComments(id, ArticleActivity.this);
-                    }
-                });
 
         RxView.clicks(activityArticleBinding.imageLike)
                 .debounce(500, TimeUnit.MILLISECONDS)

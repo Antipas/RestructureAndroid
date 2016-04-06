@@ -22,13 +22,9 @@ import java.util.List;
  */
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
-    private static final int ACTION_101 = 101;
     private static final int ACTION_501 = 501;
     private static final int ACTION_502 = 502;
     private static final int ACTION_503 = 503;
-    private static final int ACTION_105 = 105;
-    private static final int ACTION_201 = 201;
-    private static final int ACTION_204 = 204;
 
     List<Home> dataList;
     Activity host;
@@ -46,19 +42,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-//            if(viewType == ACTION_101 || viewType == ACTION_105){
-//                return new QuestionViewHolder(LayoutInflater.from(viewGroup.getContext())
-//                        .inflate(R.layout.home_add_question_item, viewGroup, false),viewType);
-//            } else
             if (viewType == ACTION_501 || viewType == ACTION_502 ||viewType == ACTION_503) {
                 return new ArticleViewHolder(LayoutInflater.from(viewGroup.getContext())
                         .inflate(R.layout.home_add_article_item, viewGroup, false),viewType);
 
-//            }else if (viewType == ACTION_201 || viewType == ACTION_204){
-//                return new AnswerViewHolder(LayoutInflater.from(viewGroup.getContext())
-//                        .inflate(R.layout.home_add_answer_item, viewGroup, false),viewType);
-            }
-            else {
+            }else {
                 Log.e("viewType","viewType null");
                 return null;
             }
@@ -72,17 +60,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
             articleViewHolder.bind(new HomeViewModel(host,home501));
 
         }
-//        else if(holder instanceof QuestionViewHolder){
-//            final Home101 home101 = (Home101) dataList.get(position);
-//            QuestionViewHolder questionViewHolder = ((QuestionViewHolder) holder);
-//            questionViewHolder.bind(new HomeViewModel(host,home101));
-//
-//        }else if(holder instanceof AnswerViewHolder){
-//            final Home201 home201 = (Home201) dataList.get(position);
-//            AnswerViewHolder answerViewModel = ((AnswerViewHolder) holder);
-//            answerViewModel.bind(new HomeViewModel(host,home201));
-//
-//        }
 
     }
 
@@ -115,38 +92,4 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         }
 
     }
-
-//    static class QuestionViewHolder extends ViewHolder {
-//        HomeAddQuestionItemBinding binding;
-//
-//        public QuestionViewHolder(View itemView, int action) {
-//            super(itemView, action);
-//            binding = DataBindingUtil.bind(itemView);
-//        }
-//
-//        public void bind(@Nullable HomeViewModel home){
-//            binding.setQuestion(home);
-//        }
-//
-//        public HomeAddQuestionItemBinding getBinding(){
-//            return binding;
-//        }
-//
-//    }
-//
-//    static class AnswerViewHolder extends ViewHolder{
-//        HomeAddAnswerItemBinding binding;
-//
-//        public AnswerViewHolder(View itemView, int action) {
-//            super(itemView, action);
-//            binding = DataBindingUtil.bind(itemView);
-//        }
-//        public void bind(@Nullable HomeViewModel home){
-//            binding.setAnswer(home);
-//        }
-//
-//        public HomeAddAnswerItemBinding getBinding(){
-//            return binding;
-//        }
-//    }
 }
