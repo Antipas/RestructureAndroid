@@ -30,11 +30,10 @@ public class ExploreChildFragment extends BaseFragment {
     public static final String RECOMMEND = "RECOMMEND";
     public static final String FAMOUS_PEOPLE = "FAMOUS_PEOPLE";
     public static final String MEDIA = "MEDIA";
-    public static final int DAY = 30;
     private static final String EXPLORE_KIND = "EXPLORE_KIND";
 
     String kind;
-    int page;
+    int page = 1;
     List dataList = new ArrayList();
     ExploreAdapter exploreAdapter;
     FragmentExploreChildBinding fragmentExploreChildBinding;
@@ -112,12 +111,12 @@ public class ExploreChildFragment extends BaseFragment {
                         .map(new Func1<Famous,List<Explore>>() {
                             @Override
                             public List<Explore> call(Famous famous) {
-//                                Famous.RsmBean.RowsBean bean = famous.getRsm().getRows();
-//                                for(int i = 0; i < famous.getRsm().getRows().size();i++){
-//
-//                                }
-//                                List<Explore> r = ;
-//                                return r;
+                                List<Explore> list = new ArrayList();
+                                for(int i = 0; i < famous.getRsm().getRows().size();i++){
+                                    Explore explore = famous.getRsm().getRows().get(i);
+                                    list.add(explore);
+                                }
+                                return list;
                             }
                         });
                 break;
