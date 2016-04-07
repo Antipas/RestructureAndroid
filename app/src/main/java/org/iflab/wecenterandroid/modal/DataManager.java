@@ -46,17 +46,17 @@ public class DataManager extends BaseDataManager {
 
     // load ..
     public Observable loadExplore(int page){
-        return getExploreService().getExplore(page,MD5Util.MD5("explore" + Constant.SIGN))
+        return getExploreService().getExplore(MD5Util.MD5("explore" + Constant.SIGN),page)
                 .compose(applySchedulers());
     }
 
-    public Observable loadFamous(){
-        return getUserService().getFamous(MD5Util.MD5("famous" + Constant.SIGN))
+    public Observable loadFamous(int page){
+        return getUserService().getFamous(MD5Util.MD5("famous" + Constant.SIGN),page)
                 .compose(applySchedulers());
     }
 
-    public Observable loadMedia(){
-        return getUserService().getMedia(MD5Util.MD5("media" + Constant.SIGN))
+    public Observable loadMedia(int page){
+        return getUserService().getMedia(MD5Util.MD5("media" + Constant.SIGN),page)
                 .compose(applySchedulers());
     }
 

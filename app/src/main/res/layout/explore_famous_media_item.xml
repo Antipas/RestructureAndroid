@@ -17,12 +17,13 @@
             android:layout_height="wrap_content"
             android:padding="10dp">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/image_famous"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                app:fm_avatar="@{famousMedia.FMAvatar}"
                 />
 
             <TextView
@@ -30,18 +31,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="fsd"
+                android:text="@{famousMedia.FMName}"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_alignTop="@+id/image_famous"
-                android:layout_toEndOf="@+id/image_famous" />
+                android:layout_toEndOf="@+id/image_famous"
+                />
 
             <TextView
                 android:id="@+id/tv_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
-                android:text="ewe"
+                android:text="@{famousMedia.FMDesc}"
                 android:layout_below="@+id/tv_name"
                 android:layout_alignStart="@+id/tv_name" />
 
@@ -52,7 +54,7 @@
                 android:layout_below="@+id/tv_desc"
                 android:layout_alignStart="@+id/tv_desc"
                 android:layout_marginTop="5dp"
-                android:text="12"
+                android:text="@{famousMedia.FMArticleCount}"
                 />
 
             <TextView
@@ -60,15 +62,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:text="33"
+                android:text="@{famousMedia.FMFansCount}"
                 android:layout_alignTop="@+id/tv_article_count"
                 android:layout_toEndOf="@+id/tv_article_count" />
 
-            <ImageView
-                android:id="@+id/image_focus"
+            <CheckBox
+                android:id="@+id/checkbox_focus"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_margin="10dp"
+                app:setCheckListener="@{famousMedia.FMFocusState}"
+                android:background="@drawable/btn_foucus"
+                android:button="@null"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>

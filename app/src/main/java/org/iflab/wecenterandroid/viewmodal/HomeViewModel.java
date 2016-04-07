@@ -5,12 +5,14 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import org.iflab.wecenterandroid.Constant;
 import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.base.BaseViewModel;
 import org.iflab.wecenterandroid.modal.home.Home;
@@ -45,12 +47,15 @@ public class HomeViewModel extends BaseViewModel{
 
     @BindingAdapter({"bind:homeAvatar"})
     public static void loadImage(ImageView view, String url) {
-        Picasso.with(view.getContext()).load(url).transform(new RoundedTransformation()).into(view);
+        Picasso.with(view.getContext()).load(Constant.AVATAR + url).transform(new RoundedTransformation()).into(view);
     }
 
     @BindingAdapter({"bind:thumb"})
     public static void loadThumb(ImageView view, String url) {
-        Picasso.with(view.getContext()).load(url).into(view);
+        if(TextUtils.isEmpty(url)){
+            Picasso.with(view.getContext()).load(R.drawable.error).into(view);
+        }else
+            Picasso.with(view.getContext()).load(url).into(view);
     }
 
     public String getAvatarFile(){
@@ -112,18 +117,6 @@ public class HomeViewModel extends BaseViewModel{
                 ArticleActivity.startArticle(home.getArticle_info().getId(), context);
             }
         };
-    }
-
-    public Observable loadHome(int page){
-        return dataManager.loadHome(page)
-                .doOnNext(new Action1<List<Home>>() {
-                    @Override
-                    public void call(List<Home> list) {
-                        if(list == null){
-                            OnErrorThrowable.from(new Throwable("home list null"));
-                        }
-                    }
-                });
     }
 
 }

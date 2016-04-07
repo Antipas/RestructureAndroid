@@ -1,12 +1,5 @@
 package org.iflab.wecenterandroid.modal.explore;
 
-import android.databinding.BindingAdapter;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
-
-import org.iflab.wecenterandroid.util.RoundedTransformation;
-
 import java.util.List;
 
 /**
@@ -14,17 +7,21 @@ import java.util.List;
  */
 public class ExploreArticle implements Explore{
 
+
     /**
-     * id : 43
-     * title : 中国万岁 万万岁
-     * message : 中国万
-     * views : 5
-     * add_time : 1447398636
+     * id : 126
+     * title : 当巨头纷纷以重金砸向邮轮旅游，已深耕十年的垂直平台“世界邮轮网”如何护城河？_36氪
+     * message :
+     * views : 2
+     * add_time : 1459429504
      * votes : 0
+     * category_id : 2
+     * url : http://36kr.com/p/5045368.html
      * post_type : article
-     * topics : [{"topic_id":210,"topic_title":"中概股"}]
-     * user_info : {"uid":3,"user_name":"BugFree","avatar_file":"http://wecenter.dev.hihwei.com/uploads/avatar/000/00/00/03_avatar_mid.jpg"}
-     * answer_users : [{"uid":36,"user_name":"假装生在翰林院","avatar_file":"http://wecenter.dev.hihwei.com/static/common/avatar-mid-img.png"}]
+     * topics : []
+     * user_info : {"uid":13,"user_name":"MsrButterfly","has_focus":0,"avatar_file":"http://we.edustack.org/uploads/avatar/000/00/00/13_avatar_mid.jpg"}
+     * outline : 邮轮就像是.
+     * imgUrl : http://we.edustack.org/uploads/share/20160331210504399.png
      */
 
     private int id;
@@ -33,186 +30,161 @@ public class ExploreArticle implements Explore{
     private int views;
     private int add_time;
     private int votes;
+    private int category_id;
+    private String url;
     private String post_type;
-    private UserInfoEntity user_info;
-    private List<TopicsEntity> topics;
-    private List<AnswerUsersEntity> answer_users;
+    /**
+     * uid : 13
+     * user_name : MsrButterfly
+     * has_focus : 0
+     * avatar_file : http://we.edustack.org/uploads/avatar/000/00/00/13_avatar_mid.jpg
+     */
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    private UserInfoBean user_info;
+    private String outline;
+    private String imgUrl;
+    private List<?> topics;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setViews(int views) {
-        this.views = views;
-    }
-
-    public void setAdd_time(int add_time) {
-        this.add_time = add_time;
-    }
-
-    public void setVotes(int votes) {
-        this.votes = votes;
-    }
-
-    public void setPost_type(String post_type) {
-        this.post_type = post_type;
-    }
-
-    public void setUser_info(UserInfoEntity user_info) {
-        this.user_info = user_info;
-    }
-
-    public void setTopics(List<TopicsEntity> topics) {
-        this.topics = topics;
-    }
-
-    public void setAnswer_users(List<AnswerUsersEntity> answer_users) {
-        this.answer_users = answer_users;
+    public String getPost_type() {
+        return Explore.ARTICLE;
     }
 
     public int getId() {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getMessage() {
         return message;
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public int getViews() {
         return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
 
     public int getAdd_time() {
         return add_time;
     }
 
+    public void setAdd_time(int add_time) {
+        this.add_time = add_time;
+    }
+
     public int getVotes() {
         return votes;
     }
 
-    public String getPost_type() {
-        return Explore.ARTICLE;
+    public void setVotes(int votes) {
+        this.votes = votes;
     }
 
-    public UserInfoEntity getUser_info() {
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setPost_type(String post_type) {
+        this.post_type = post_type;
+    }
+
+    public UserInfoBean getUser_info() {
         return user_info;
     }
 
-    public List<TopicsEntity> getTopics() {
+    public void setUser_info(UserInfoBean user_info) {
+        this.user_info = user_info;
+    }
+
+    public String getOutline() {
+        return outline;
+    }
+
+    public void setOutline(String outline) {
+        this.outline = outline;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public List<?> getTopics() {
         return topics;
     }
 
-    public List<AnswerUsersEntity> getAnswer_users() {
-        return answer_users;
+    public void setTopics(List<?> topics) {
+        this.topics = topics;
     }
 
-    public static class UserInfoEntity {
-        /**
-         * uid : 3
-         * user_name : BugFree
-         * avatar_file : http://wecenter.dev.hihwei.com/uploads/avatar/000/00/00/03_avatar_mid.jpg
-         */
-
+    public static class UserInfoBean {
         private int uid;
         private String user_name;
+        private int has_focus;
         private String avatar_file;
-
-        public void setUid(int uid) {
-            this.uid = uid;
-        }
-
-        public void setUser_name(String user_name) {
-            this.user_name = user_name;
-        }
-
-        public void setAvatar_file(String avatar_file) {
-            this.avatar_file = avatar_file;
-        }
 
         public int getUid() {
             return uid;
+        }
+
+        public void setUid(int uid) {
+            this.uid = uid;
         }
 
         public String getUser_name() {
             return user_name;
         }
 
-        public String getAvatar_file() {
-            return avatar_file;
-        }
-    }
-
-    public static class TopicsEntity {
-        /**
-         * topic_id : 210
-         * topic_title : 中概股
-         */
-
-        private int topic_id;
-        private String topic_title;
-
-        public void setTopic_id(int topic_id) {
-            this.topic_id = topic_id;
-        }
-
-        public void setTopic_title(String topic_title) {
-            this.topic_title = topic_title;
-        }
-
-        public int getTopic_id() {
-            return topic_id;
-        }
-
-        public String getTopic_title() {
-            return topic_title;
-        }
-    }
-
-    public static class AnswerUsersEntity {
-        /**
-         * uid : 36
-         * user_name : 假装生在翰林院
-         * avatar_file : http://wecenter.dev.hihwei.com/static/common/avatar-mid-img.png
-         */
-
-        private int uid;
-        private String user_name;
-        private String avatar_file;
-
-        public void setUid(int uid) {
-            this.uid = uid;
-        }
-
         public void setUser_name(String user_name) {
             this.user_name = user_name;
         }
 
-        public void setAvatar_file(String avatar_file) {
-            this.avatar_file = avatar_file;
+        public int getHas_focus() {
+            return has_focus;
         }
 
-        public int getUid() {
-            return uid;
-        }
-
-        public String getUser_name() {
-            return user_name;
+        public void setHas_focus(int has_focus) {
+            this.has_focus = has_focus;
         }
 
         public String getAvatar_file() {
             return avatar_file;
+        }
+
+        public void setAvatar_file(String avatar_file) {
+            this.avatar_file = avatar_file;
         }
     }
 }

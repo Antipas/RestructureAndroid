@@ -8,4 +8,6 @@ public interface Explore {
     String FAMOUS_MEDIA = "FAMOUS_MEDIA";
 
     String getPost_type();
+
+
 }

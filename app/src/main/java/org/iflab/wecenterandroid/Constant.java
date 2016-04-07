@@ -7,7 +7,8 @@ import org.iflab.wecenterandroid.util.MD5Util;
  */
 public class Constant {
 //    public static String BASE = "http://wecenter.dev.hihwei.com/";
-public static String BASE = "http://we.edustack.org/";
+    public static String BASE = "http://we.edustack.org/";
+    public static String AVATAR = BASE + "uploads/avatar/";
 
     public static String SIGN = "12884789df747d7affbcd6a7cadd9359";
 //    String HOME_SIGN = "?mobile_sign=ae5b8dfc0ae82547392f2e05548eeea1";

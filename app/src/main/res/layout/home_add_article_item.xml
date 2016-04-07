@@ -100,8 +100,8 @@
 
                 <ImageView
                     android:id="@+id/img"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
                     android:layout_alignParentLeft="true"
                     app:thumb="@{article.thumb}"
                     />
@@ -126,7 +126,9 @@
                     android:background="@color/nav_header_bg"
                     android:layout_toRightOf="@+id/img"
                     android:layout_alignBottom="@+id/img"
-                    android:padding="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="5dp"
                     android:maxLines="2"
                     android:ellipsize="end"
                     android:text="@{article.outLine}"

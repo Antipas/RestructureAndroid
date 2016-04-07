@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="article" type="org.iflab.wecenterandroid.viewmodal.ExploreViewModal"/>
+        <import type="android.view.View"/>
+        <variable name="explore" type="org.iflab.wecenterandroid.viewmodal.ExploreViewModal"/>
     </data>
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -12,59 +13,118 @@
         android:layout_margin="10dp"
         app:cardBackgroundColor="@color/text_secondary_light"
         android:elevation="4dp">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
-
-        <LinearLayout
-            android:id="@+id/ll_user"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
             <ImageView
-                android:id="@+id/iv_avatar"
+                android:id="@+id/image_explore_avatar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:onClick="@{article.onClickAvatar}"
-                app:explore_avatar="@{article.avatarFile}"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                app:explore_avatar="@{explore.avatarExploreFile}"
+                android:onClick="@{explore.onClickExploreAvatar}"
                 />
-            <TextView
-                android:id="@+id/tv_type"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:id="@+id/ll_user"
+                android:layout_toRightOf="@+id/image_explore_avatar"
+                android:layout_marginLeft="5dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/iv_avatar"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:text='@{String.format("%s 发表了文章",article.userName)}'
-                />
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/nav_item_checked"
+                    android:text="@{explore.exploreUserName}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="13sp"
+                    android:text="@{explore.exploreAddTime}"/>
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:textSize="13sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="在读"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="13sp"
+                    android:layout_weight="0.4"
+                    android:gravity="right"
+                    android:text="@{explore.exploreViewsCount}"/>
+
+            </LinearLayout>
 
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_user"
+                android:layout_marginTop="10dp"
+                android:layout_alignStart="@+id/ll_user"
+                android:onClick="@{explore.onClickContentView}">
 
-        <TextView
-            android:id="@+id/tv_num"
-            android:layout_width="25dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ll_user"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="@{article.votes}"/>
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_alignParentLeft="true"
+                    app:explorethumb="@{explore.exploreThumb}"
+                    />
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_toRightOf="@+id/tv_num"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ll_user"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:maxLines="3"
-            android:ellipsize="end"
-            android:onClick="@{article.onClickTitle}"
-            android:text="@{article.message}"/>
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_toRightOf="@+id/img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/nav_header_bg"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="@{explore.exploreTitle}"/>
 
-    </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_title"
+                    android:background="@color/nav_header_bg"
+                    android:layout_toRightOf="@+id/img"
+                    android:layout_alignBottom="@+id/img"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:text="@{explore.exploreOutLine}"
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 </layout>

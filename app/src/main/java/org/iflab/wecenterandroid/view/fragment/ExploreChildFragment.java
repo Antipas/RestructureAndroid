@@ -97,22 +97,35 @@ public class ExploreChildFragment extends BaseFragment {
             case RECOMMEND:
                 observable = dataManager.loadExplore(page);
                 break;
-//            case MEDIA:
-//                observable = dataManager.loadMedia()
-//                        .map(new Func1<Famous,List<Explore>>() {
-//                            @Override
-//                            public List<Explore> call(Famous famous) {
-//                                return famous.getRsm().getRows();
-//                            }
-//                        });
-//                break;
-            case FAMOUS_PEOPLE:
-                observable = dataManager.loadFamous()
+            case MEDIA:
+                observable = dataManager.loadMedia(page)
                         .map(new Func1<Famous,List<Explore>>() {
                             @Override
                             public List<Explore> call(Famous famous) {
+                                if(famous.getRsm().getRows() == null){
+                                    return null;
+                                }
+                                int length = famous.getRsm().getRows().size();
                                 List<Explore> list = new ArrayList();
-                                for(int i = 0; i < famous.getRsm().getRows().size();i++){
+                                for(int i = 0; i < length;i++){
+                                    Explore explore = famous.getRsm().getRows().get(i);
+                                    list.add(explore);
+                                }
+                                return list;
+                            }
+                        });
+                break;
+            case FAMOUS_PEOPLE:
+                observable = dataManager.loadFamous(page)
+                        .map(new Func1<Famous,List<Explore>>() {
+                            @Override
+                            public List<Explore> call(Famous famous) {
+                                if(famous.getRsm().getRows() == null){
+                                    return null;
+                                }
+                                int length = famous.getRsm().getRows().size();
+                                List<Explore> list = new ArrayList();
+                                for(int i = 0; i < length;i++){
                                     Explore explore = famous.getRsm().getRows().get(i);
                                     list.add(explore);
                                 }
@@ -157,6 +170,7 @@ public class ExploreChildFragment extends BaseFragment {
 
     private void refreshData() {
         page = 1;
+        dataList.clear();
         loadData();
     }
 }

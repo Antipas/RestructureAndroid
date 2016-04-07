@@ -13,7 +13,6 @@ import rx.Observable;
 public interface ExploreService {
 
     @GET("api/explore/")
-    Observable<Explore> getExplore(@Query("page") int page,
-                                   @Query("mobile_sign") String sign);
+    Observable<Explore> getExplore(@Query("mobile_sign") String sign,@Query("page") int page);
 
 }

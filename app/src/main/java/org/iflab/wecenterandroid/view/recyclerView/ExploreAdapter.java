@@ -56,37 +56,11 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
             ArticleViewHolder articleViewHolder = ((ArticleViewHolder) holder);
             articleViewHolder.bind(new ExploreViewModal(host,article));
 
-            articleViewHolder.getBinding().ivAvatar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PersonCenterActivity.startPersonCenter(article.getUser_info().getUid(),host,v);
-                }
-            });
-
-            articleViewHolder.getBinding().tvTitle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ArticleActivity.startArticle(article.getId(),host);
-                }
-            });
         }else if(holder instanceof FamousMediaViewHolder){
             final Famous.RsmBean.RowsBean famousMedia = (Famous.RsmBean.RowsBean)list.get(position);
             FamousMediaViewHolder famousMediaViewHolder = ((FamousMediaViewHolder)holder);
             famousMediaViewHolder.bind(new ExploreViewModal(host,famousMedia));
 
-            famousMediaViewHolder.getBinding().imageFamous.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PersonCenterActivity.startPersonCenter(famousMedia.getUid(),host,v);
-                }
-            });
-
-            famousMediaViewHolder.getBinding().imageFocus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
         }
     }
 
@@ -126,7 +100,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
 
         @Override
         void bind(ExploreViewModal explore) {
-            exploreQuestionItemBinding.setArticle(explore);
+            exploreQuestionItemBinding.setExplore(explore);
         }
 
         ExploreArticleItemBinding getBinding(){

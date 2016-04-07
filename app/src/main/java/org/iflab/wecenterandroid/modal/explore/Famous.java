@@ -124,7 +124,7 @@ public class Famous {
             private String user_name;
             private String email;
             private String mobile;
-            private Object avatar_file;
+            private String avatar_file;
             private int sex;
             private Object birthday;
             private String province;
@@ -207,11 +207,11 @@ public class Famous {
                 this.mobile = mobile;
             }
 
-            public Object getAvatar_file() {
+            public String getAvatar_file() {
                 return avatar_file;
             }
 
-            public void setAvatar_file(Object avatar_file) {
+            public void setAvatar_file(String avatar_file) {
                 this.avatar_file = avatar_file;
             }
 
