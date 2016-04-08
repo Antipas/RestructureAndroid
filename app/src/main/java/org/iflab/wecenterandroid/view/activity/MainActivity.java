@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity
 
         if (savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_home);
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_content, HomePageFragment.newInstances()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_content, HomePageFragment.newInstances(HomePageFragment.HOME)).commit();
         }
     }
 
@@ -142,7 +142,7 @@ public class MainActivity extends BaseActivity
         switch (item.getItemId()){
             case R.id.nav_home:
                 toolbar.setTitle("主页");
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_content, HomePageFragment.newInstances()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_content, HomePageFragment.newInstances(HomePageFragment.HOME)).commit();
                 return true;
 //            case R.id.nav_gallery:
 //                toolbar.setTitle("话题");
@@ -151,6 +151,10 @@ public class MainActivity extends BaseActivity
             case R.id.nav_explore:
                 toolbar.setTitle("发现");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_content, ExploreFragment.newInstances()).commit();
+                return true;
+            case R.id.nav_zaidu:
+                toolbar.setTitle("我在读");
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_content, HomePageFragment.newInstances(HomePageFragment.MYZAIDU)).commit();
                 return true;
             case R.id.nav_sign_out:
                 UserPrefs.getInstance(getApplicationContext()).logout();

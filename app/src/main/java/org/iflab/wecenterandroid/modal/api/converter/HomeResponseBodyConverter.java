@@ -59,7 +59,7 @@ public class HomeResponseBodyConverter<T> implements Converter<ResponseBody, T> 
                             var3 = this.gson.fromJson(itemObj.toString(), Home501.class);
                             break;
                         case 503:
-                            var3 = this.gson.fromJson(itemObj.toString(), Home503.class);
+                            var3 = this.gson.fromJson(itemObj.toString(), Home501.class);
                             break;
                     }
                     homeList.add(var3);

@@ -8,8 +8,8 @@
             android:title="发现" />
         <item android:id="@+id/nav_zaidu" android:icon="@drawable/nav_zaidu"
             android:title="我在读" />
-        <item android:id="@+id/nav_focued" android:icon="@drawable/nav_fouced"
-            android:title="已关注" />
+        <!--<item android:id="@+id/nav_focued" android:icon="@drawable/nav_fouced"-->
+            <!--android:title="已关注" />-->
 
     </group>
 

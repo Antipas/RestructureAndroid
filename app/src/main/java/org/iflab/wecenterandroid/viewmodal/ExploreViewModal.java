@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.functions.Action1;
 
 /**
@@ -168,25 +169,19 @@ public class ExploreViewModal extends BaseViewModel{
         return spannable;
     }
 
-    @BindingAdapter({"bind:setCheckListener"})
-    public static void setCheckListener(CheckBox checkBox,int status){
-        final boolean isFocus = status == 1;
-        checkBox.setChecked(isFocus);
-        RxCompoundButton.checkedChanges(checkBox)
-                .debounce(1000, TimeUnit.MILLISECONDS)
-                .subscribe(new Action1<Boolean>() {
-                    @Override
-                    public void call(Boolean state) {
-                        //已关注为true，state为下个状态值
-                        //用debounce而不是throttleFirst
-                        //根据最终状态和原始状态，通过异或判断发不发请求
-                        if(isFocus ^ state) {
-                            Log.v("FFF", "FED");
-                        }
-                    }
-                });
+    public boolean getFMHasFocus(){
+        return famous.getHas_focus() == 1;
     }
 
+    public void setFMHasFocus(boolean status){
+        famous.setHas_focus(status ? 1 : 0);
+        // becase will emit checkedChanges again
+//        notifyChange();
+    }
 
-
+    public void setFMFansCount(boolean status){
+        int originCount = famous.getFans_count();
+        famous.setFans_count(status ? originCount + 1 : originCount - 1);
+        notifyChange();
+    }
 }

@@ -71,7 +71,6 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_margin="10dp"
-                app:setCheckListener="@{famousMedia.FMFocusState}"
                 android:background="@drawable/btn_foucus"
                 android:button="@null"
                 android:layout_alignParentRight="true"

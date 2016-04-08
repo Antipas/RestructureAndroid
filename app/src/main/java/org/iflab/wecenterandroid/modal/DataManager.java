@@ -65,6 +65,11 @@ public class DataManager extends BaseDataManager {
                 .compose(applySchedulers());
     }
 
+    public Observable loadMyZaidu(int page,String uid){
+        return getHomeService().getMyZaidu(page, MD5Util.MD5("home" + Constant.SIGN),uid)
+                .compose(applySchedulers());
+    }
+
     public Observable loadTopics(int page,String type){
         return getTopcService().getTopics(type, page, MD5Util.MD5("topic" + Constant.SIGN))
                 .compose(applySchedulers());
@@ -128,6 +133,11 @@ public class DataManager extends BaseDataManager {
 
     public Observable voteOrFuckArticle(int itemId,String type,int rating){
         return getArticleSerivce().voteOrFuckArticle(itemId, type, rating)
+                .compose(applySchedulers());
+    }
+
+    public Observable addFocusPeople(String uid){
+        return getUserService().addFocusPeople(uid,MD5Util.MD5("ajax" + Constant.SIGN))
                 .compose(applySchedulers());
     }
 

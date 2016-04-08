@@ -17,5 +17,6 @@ public interface HomeService {
     @GET("api/home/")
     Observable<ArrayMap> getHome(@Query("page") int page, @Query("mobile_sign") String sign);
 
-
+    @GET("api/home/")
+    Observable<ArrayMap> getMyZaidu(@Query("page") int page, @Query("mobile_sign") String sign,@Query("uid") String uid);
 }

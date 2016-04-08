@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.base.BaseFragment;
 import org.iflab.wecenterandroid.databinding.FragmentExploreChildBinding;
+import org.iflab.wecenterandroid.modal.FocusPeople;
 import org.iflab.wecenterandroid.modal.explore.Explore;
 import org.iflab.wecenterandroid.modal.explore.Famous;
 import org.iflab.wecenterandroid.view.recyclerView.EndlessRecyclerOnScrollListener;
@@ -26,7 +27,7 @@ import rx.Subscriber;
 import rx.Subscription;
 import rx.functions.Func1;
 
-public class ExploreChildFragment extends BaseFragment {
+public class ExploreChildFragment extends BaseFragment implements ExploreAdapter.ExploreListener{
     public static final String RECOMMEND = "RECOMMEND";
     public static final String FAMOUS_PEOPLE = "FAMOUS_PEOPLE";
     public static final String MEDIA = "MEDIA";
@@ -71,7 +72,7 @@ public class ExploreChildFragment extends BaseFragment {
     }
 
     private void setViews(RecyclerView recyclerView,SwipeRefreshLayout refreshLayout) {
-        exploreAdapter = new ExploreAdapter(getActivity(), dataList);
+        exploreAdapter = new ExploreAdapter(getActivity(), dataList,this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(exploreAdapter);
@@ -173,4 +174,28 @@ public class ExploreChildFragment extends BaseFragment {
         dataList.clear();
         loadData();
     }
+
+    @Override
+    public Subscription onAddFocusPeople(String uid) {
+        return dataManager.addFocusPeople(uid)
+                .subscribe(new Subscriber<FocusPeople>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(FocusPeople result) {
+                        if (result.getErr() != null){
+                            showToast(result.toString());
+                        }
+                    }
+                });
+    }
+
 }

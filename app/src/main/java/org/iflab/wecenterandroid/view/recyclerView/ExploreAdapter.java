@@ -3,10 +3,13 @@ package org.iflab.wecenterandroid.view.recyclerView;
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.jakewharton.rxbinding.widget.RxCompoundButton;
 
 import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.databinding.ExploreArticleItemBinding;
@@ -19,6 +22,12 @@ import org.iflab.wecenterandroid.view.activity.PersonCenterActivity;
 import org.iflab.wecenterandroid.viewmodal.ExploreViewModal;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.functions.Action1;
 
 /**
  * Created by Lyn on 16/1/23.
@@ -29,10 +38,12 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
     private static final int FAMOUS_MEDIA = 2;
     List<Explore> list;
     Activity host;
+    ExploreListener exploreListener;
 
-    public ExploreAdapter(@Nullable Activity host, List list){
+    public ExploreAdapter(@Nullable Activity host, List list,ExploreListener exploreListener){
         this.list = list;
         this.host = host;
+        this.exploreListener = exploreListener;
     }
 
     @Override
@@ -59,8 +70,26 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         }else if(holder instanceof FamousMediaViewHolder){
             final Famous.RsmBean.RowsBean famousMedia = (Famous.RsmBean.RowsBean)list.get(position);
             FamousMediaViewHolder famousMediaViewHolder = ((FamousMediaViewHolder)holder);
-            famousMediaViewHolder.bind(new ExploreViewModal(host,famousMedia));
+            final ExploreViewModal exploreViewModal = new ExploreViewModal(host,famousMedia);
 
+            famousMediaViewHolder.getBinding().checkboxFocus.setChecked(famousMedia.getHas_focus() == 1);
+            RxCompoundButton.checkedChanges(famousMediaViewHolder.getBinding().checkboxFocus)
+                    .debounce(700, TimeUnit.MILLISECONDS)
+                    .subscribe(new Action1<Boolean>() {
+                        @Override
+                        public void call(Boolean state) {
+                            //已关注为true，state为下个状态值
+                            //用debounce而不是throttleFirst
+                            //根据最终状态和原始状态，通过异或判断发不发请求
+                            if(exploreViewModal.getFMHasFocus() ^ state) {
+                                exploreListener.onAddFocusPeople(String.valueOf(famousMedia.getUid()));
+                                exploreViewModal.setFMHasFocus(state);
+                                exploreViewModal.setFMFansCount(state);
+                            }
+                        }
+                    });
+
+            famousMediaViewHolder.bind(exploreViewModal);
         }
     }
 
@@ -123,5 +152,9 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         ExploreFamousMediaItemBinding getBinding(){
             return exploreFamousMediaItemBinding;
         }
+    }
+
+    public interface ExploreListener{
+        Subscription onAddFocusPeople(String uid);
     }
 }

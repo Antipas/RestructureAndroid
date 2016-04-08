@@ -146,7 +146,7 @@ public class SearchActivity extends BaseActivity {
                                     scrim,
                                     ViewUtils.BACKGROUND_COLOR,
                                     Color.TRANSPARENT,
-                                    ContextCompat.getColor(SearchActivity.this, R.color.scrim)));
+                                    ContextCompat.getColor(SearchActivity.this, R.color.white_scrim)));
                     showScrim.setDuration(400L);
                     showScrim.setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(SearchActivity
                             .this));

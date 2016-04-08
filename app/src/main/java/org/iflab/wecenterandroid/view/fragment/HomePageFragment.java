@@ -7,10 +7,12 @@ import android.animation.ObjectAnimator;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -20,6 +22,7 @@ import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.base.BaseFragment;
 import org.iflab.wecenterandroid.databinding.FragmentHomeBinding;
 import org.iflab.wecenterandroid.modal.home.Home;
+import org.iflab.wecenterandroid.modal.prefs.UserPrefs;
 import org.iflab.wecenterandroid.util.AnimUtils;
 import org.iflab.wecenterandroid.util.SupportVersion;
 import org.iflab.wecenterandroid.util.ViewUtils;
@@ -29,6 +32,7 @@ import org.iflab.wecenterandroid.view.recyclerView.HomeAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
 
@@ -37,23 +41,33 @@ import rx.Subscription;
  */
 public class HomePageFragment extends BaseFragment {
 
+    public static final String HOME ="HOME";
+    public static final String MYZAIDU ="MYZAIDU";
+
     HomeAdapter homeAdapter;
     List<Home> dataList = new ArrayList();
     FragmentHomeBinding fragmentHomeBinding;
     RecyclerView recyclerView;
     View resultsScrim;
     int page = 1;
+    String type;
 
-    public static HomePageFragment newInstances() {
+    public static HomePageFragment newInstances(String type) {
         HomePageFragment fragment = new HomePageFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("type",type);
         fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        type = getArguments().getString("type");
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         recyclerView = fragmentHomeBinding.recyclerview;
         resultsScrim  = fragmentHomeBinding.resultsScrim;
@@ -168,31 +182,43 @@ public class HomePageFragment extends BaseFragment {
 
     private void loadData() {
         fragmentHomeBinding.swipyrefreshlayout.setRefreshing(true);
-        Subscription subscription = dataManager.loadHome(page)
-                .subscribe(new Observer<List<Home>>() {
-                    @Override
-                    public void onCompleted() {
-                        stopRefresh(fragmentHomeBinding.swipyrefreshlayout);
-                    }
+        Subscription subscription = null;
 
-                    @Override
-                    public void onError(Throwable e) {
-                        showToast(e.getMessage());
-                    }
+        if(type.equals(HOME)){
+            subscription = dataManager.loadHome(page)
+                    .subscribe(getDealObservable());
+        }else if(type.equals(MYZAIDU)){
+            subscription = dataManager.loadMyZaidu(page, String.valueOf(UserPrefs.getInstance(getActivity()).getUserId()))
+                    .subscribe(getDealObservable());
+        }
 
-                    @Override
-                    public void onNext(List<Home> list) {
-                        if (list.size() != 0) {
-                            dataList.addAll(list);
-                            homeAdapter.notifyDataSetChanged();
-                        } else {
-                            showToast("no more");
-                        }
+        if(subscription != null)
+            addSubscription(subscription);
+    }
 
-                    }
-                });
+    private Observer getDealObservable(){
+        return new Observer<List<Home>>() {
+            @Override
+            public void onCompleted() {
+                stopRefresh(fragmentHomeBinding.swipyrefreshlayout);
+            }
 
-        addSubscription(subscription);
+            @Override
+            public void onError(Throwable e) {
+                showToast(e.getMessage());
+            }
+
+            @Override
+            public void onNext(List<Home> list) {
+                if (list.size() != 0) {
+                    dataList.addAll(list);
+                    homeAdapter.notifyDataSetChanged();
+                } else {
+                    showToast("no more");
+                }
+
+            }
+        };
     }
 
 }

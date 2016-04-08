@@ -1,6 +1,7 @@
 package org.iflab.wecenterandroid.modal.api;
 
 
+import org.iflab.wecenterandroid.modal.FocusPeople;
 import org.iflab.wecenterandroid.modal.LoginInfo;
 import org.iflab.wecenterandroid.modal.User;
 import org.iflab.wecenterandroid.modal.UserAPIModal;
@@ -50,4 +51,8 @@ public interface UserService{
 
     @GET("api/media/media_users/")
     Observable<Famous> getMedia(@Query("mobile_sign") String sign,@Query("page") int page);
+
+    @FormUrlEncoded
+    @POST("follow/ajax/follow_people/")
+    Observable<FocusPeople> addFocusPeople(@Field("uid") String uid,@Field("mobile_sign") String sign);
 }

@@ -5,7 +5,6 @@
     xmlns:bind="http://schemas.android.com/tools">
     <data>
         <variable name="article" type="org.iflab.wecenterandroid.viewmodal.ArticleViewModel"/>
-        <variable name="user" type="org.iflab.wecenterandroid.modal.Question.RsmEntity.QuestionInfoEntity.UserInfoEntity"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -26,7 +25,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/Wecenter.PopupOverlay" />
+                app:popupTheme="@style/Wecenter.PopupOverlay" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/image_avatar"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_toLeftOf="@+id/spacer"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/error"/>
+
+                    <Space
+                        android:id="@+id/spacer"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"/>
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/spacer"
+                        android:layout_centerVertical="true"
+                        android:text="fffff"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:text="21"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
 
@@ -47,70 +84,10 @@
                 app:indicator_color="@color/accent"
                 />
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <LinearLayout
+            <org.iflab.wecenterandroid.view.ObservableWebView
+                android:id="@+id/webview_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/line"
-                    android:padding="10dp"
-                    android:text="@{article.title}"
-                    />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp">
-
-                    <include
-                        android:id="@+id/layout_userinfo"
-                        android:layout_height="match_parent"
-                        android:layout_width="0dp"
-                        layout="@layout/question_userinfo_item"
-                        bind:questionUser="@{user}"
-                        android:layout_weight="0.8"/>
-
-                    <ImageView
-                        android:id="@+id/image_like"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:src="@{article.isRating == 0 ? @drawable/evaluation_like_normal : article.isRating == 1 ? @drawable/evaluation_like_highlighted : @drawable/evaluation_dislike_highlighted}"
-                        />
-
-                    <TextView
-                        android:id="@+id/tv_like"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text='@{article.likeNum+""}'
-                        android:textStyle="bold"
-                        android:layout_marginLeft="5dp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/webview_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    />
-
-
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+                android:layout_height="match_parent"/>
 
             <LinearLayout
                 android:id="@+id/bottom_bar_container"
