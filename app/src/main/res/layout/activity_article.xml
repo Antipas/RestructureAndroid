@@ -35,23 +35,18 @@
                         android:id="@+id/image_avatar"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_toLeftOf="@+id/spacer"
+                        android:layout_toLeftOf="@+id/tv_name"
+                        android:layout_marginRight="10dp"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/error"/>
+                        app:articleAvatar="@{article.avatar}"/>
 
-                    <Space
-                        android:id="@+id/spacer"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"/>
                     <TextView
                         android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/spacer"
                         android:layout_centerVertical="true"
-                        android:text="fffff"/>
+                        android:layout_centerHorizontal="true"
+                        android:text="@{article.name}"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -59,7 +54,9 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:text="21"/>
+                        android:drawableLeft="@mipmap/icon_right_top"
+                        android:drawablePadding="5dp"
+                        android:text="@{article.commentCount}"/>
 
                 </RelativeLayout>
 
@@ -74,16 +71,6 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-            <com.wang.avi.AVLoadingIndicatorView
-                android:id="@+id/avloadingIndicatorView"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
-                android:visibility="visible"
-                android:layout_gravity="center"
-                app:indicator="BallClipRotatePulse"
-                app:indicator_color="@color/accent"
-                />
-
             <org.iflab.wecenterandroid.view.ObservableWebView
                 android:id="@+id/webview_content"
                 android:layout_width="match_parent"
@@ -92,7 +79,7 @@
             <LinearLayout
                 android:id="@+id/bottom_bar_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:orientation="horizontal"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
@@ -101,54 +88,70 @@
                 >
 
                 <ImageButton
-                    android:id="@+id/imagebtn_share"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:src="@mipmap/share_button"
-                    android:background="@null"
-                    android:scaleType="center"
-                    android:gravity="center"
-                    />
-
-                <ImageButton
-                    android:visibility="gone"
-                    android:id="@+id/imagebtn_love"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:src="@mipmap/test_ic_forum"
-                    android:background="@null"
-                    android:scaleType="center"
-                    android:gravity="center"
-                    />
-
-                <ImageButton
-                    android:id="@+id/imagebtn_favorite"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:src="@mipmap/test_ic_event"
-                    android:background="@null"
-                    android:scaleType="center"
-                    android:gravity="center"
-                    />
-
-
-
-                <ImageButton
                     android:id="@+id/imagebtn_comment"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.25"
-                    android:src="@mipmap/comment_button"
+                    android:src="@mipmap/icon_comment"
                     android:background="@null"
                     android:scaleType="center"
                     android:gravity="center"
                     />
 
+                <ImageButton
+                    android:id="@+id/imagebtn_share"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
+                    android:src="@mipmap/icon_share"
+                    android:background="@null"
+                    android:scaleType="center"
+                    android:gravity="center"
+                    />
 
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25">
+                    <CheckBox
+                        android:id="@+id/imagebtn_favorite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:button="@drawable/btn_favorite"
+                        android:scaleType="center"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25">
+                    <CheckBox
+                        android:id="@+id/imagebtn_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:button="@drawable/btn_like"
+                        android:scaleType="center"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        />
+                </FrameLayout>
             </LinearLayout>
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avloadingIndicatorView"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                app:indicator="BallSpinFadeLoader"
+                app:indicator_color="@color/accent"
+                />
+
         </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

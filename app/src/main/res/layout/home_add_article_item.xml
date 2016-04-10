@@ -96,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_comment"
                 android:layout_marginTop="10dp"
+                android:onClick="@{article.onClickTitle}"
                 android:layout_alignStart="@+id/ll_user">
 
                 <ImageView
@@ -112,7 +113,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/nav_header_bg"
-                    android:onClick="@{article.onClickTitle}"
                     android:padding="5dp"
                     android:textStyle="bold"
                     android:singleLine="true"

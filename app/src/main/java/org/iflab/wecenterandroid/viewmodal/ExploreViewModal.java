@@ -7,14 +7,9 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 
-import com.jakewharton.rxbinding.view.RxView;
-import com.jakewharton.rxbinding.widget.RxCompoundButton;
 import com.squareup.picasso.Picasso;
 
 import org.iflab.wecenterandroid.Constant;
@@ -22,20 +17,11 @@ import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.base.BaseViewModel;
 import org.iflab.wecenterandroid.modal.explore.Explore;
 import org.iflab.wecenterandroid.modal.explore.ExploreArticle;
-import org.iflab.wecenterandroid.modal.explore.ExploreQuestion;
 import org.iflab.wecenterandroid.modal.explore.Famous;
-import org.iflab.wecenterandroid.modal.home.Home503;
 import org.iflab.wecenterandroid.util.DisplayUtil;
 import org.iflab.wecenterandroid.util.RoundedTransformation;
 import org.iflab.wecenterandroid.view.activity.ArticleActivity;
 import org.iflab.wecenterandroid.view.activity.PersonCenterActivity;
-
-import java.util.concurrent.TimeUnit;
-
-import rx.Observable;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.functions.Action1;
 
 /**
  * Created by Lyn on 15/11/21.
@@ -122,7 +108,7 @@ public class ExploreViewModal extends BaseViewModel{
             @Override
             public void onClick(View v) {
                 if(exploreArticle != null){
-                    ArticleActivity.startArticle(exploreArticle.getId(),context);
+                    ArticleActivity.startArticle(context,exploreArticle.getId(),ArticleActivity.INNER_ARTICLE,exploreArticle.getUrl());
                 }
             }
         };

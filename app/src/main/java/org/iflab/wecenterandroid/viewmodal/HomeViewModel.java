@@ -114,7 +114,7 @@ public class HomeViewModel extends BaseViewModel{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArticleActivity.startArticle(home.getArticle_info().getId(), context);
+                ArticleActivity.startArticle(context,home.getArticle_info().getId(),ArticleActivity.INNER_ARTICLE,home.getUrl());
             }
         };
     }

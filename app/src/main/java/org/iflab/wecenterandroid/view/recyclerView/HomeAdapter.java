@@ -13,6 +13,7 @@ import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.databinding.HomeAddArticleItemBinding;
 import org.iflab.wecenterandroid.modal.home.Home;
 import org.iflab.wecenterandroid.modal.home.Home501;
+import org.iflab.wecenterandroid.modal.home.Home503;
 import org.iflab.wecenterandroid.viewmodal.HomeViewModel;
 
 import java.util.List;
@@ -54,13 +55,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        Home home =  dataList.get(position);
         if(holder instanceof ArticleViewHolder){
-            final Home501 home501 = (Home501) dataList.get(position);
-            ArticleViewHolder articleViewHolder = ((ArticleViewHolder) holder);
-            articleViewHolder.bind(new HomeViewModel(host,home501));
 
+            if(home instanceof Home501){
+                Home501 home501 = (Home501)home;
+                ArticleViewHolder articleViewHolder = ((ArticleViewHolder) holder);
+                articleViewHolder.bind(new HomeViewModel(host,home501));
+            }else if(home instanceof Home503){
+                Home503 hme503 = (Home503)home;
+                ArticleViewHolder articleViewHolder = ((ArticleViewHolder) holder);
+                articleViewHolder.bind(new HomeViewModel(host,hme503));
+            }
         }
-
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.iflab.wecenterandroid.modal.Article;
 import org.iflab.wecenterandroid.modal.Attach;
 import org.iflab.wecenterandroid.modal.Comments;
 import org.iflab.wecenterandroid.modal.SaveComment;
+import org.iflab.wecenterandroid.modal.article.QRCodeArticle;
 
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
@@ -41,6 +42,10 @@ public interface ArticleService {
     @FormUrlEncoded
     @POST("article/ajax/article_vote/?mobile_sign=a1e2ff633a92a7380772b0c2cc988f37")
     Observable<SaveComment> voteOrFuckArticle(@Field("item_id")int item_id, @Field("type")String type,@Field("rating") int rating);
+
+    @FormUrlEncoded
+    @POST("publish/publish_article_by_url/?mobile_sign=e9d5d69977d030d81455b4d31c0b8c64")
+    Observable<QRCodeArticle> addQRCodeArticle(@Field("url") String url);
 
     @Multipart
     @POST("api/publish/attach_upload/?mobile_sign=e9d5d69977d030d81455b4d31c0b8c64")

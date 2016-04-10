@@ -77,7 +77,8 @@ public class DataManager extends BaseDataManager {
 
 
     public Observable loadArticle(int id,int page){
-        return getArticleSerivce().getArticle(id, page, MD5Util.MD5("article" + Constant.SIGN));
+        return getArticleSerivce().getArticle(id, page, MD5Util.MD5("article" + Constant.SIGN))
+                .compose(applySchedulers());
     }
 
     public Observable loadComments(int id,int page){
@@ -138,6 +139,11 @@ public class DataManager extends BaseDataManager {
 
     public Observable addFocusPeople(String uid){
         return getUserService().addFocusPeople(uid,MD5Util.MD5("ajax" + Constant.SIGN))
+                .compose(applySchedulers());
+    }
+
+    public Observable addQRCodeArticle(String url){
+        return getArticleSerivce().addQRCodeArticle(url)
                 .compose(applySchedulers());
     }
 
