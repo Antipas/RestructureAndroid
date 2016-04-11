@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="org.iflab.wecenterandroid.util.DisplayUtil"/>
-        <variable name="comment" type="org.iflab.wecenterandroid.modal.Comments.RsmEntity.RowsEntity"/>
+        <variable name="comment" type="org.iflab.wecenterandroid.viewmodal.CommentViewModel"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:id="@+id/iv_avatar"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            app:imageUrl="@{comment.getUser_info().getAvatar_file()}"
+            app:imageUrl="@{comment.avatar}"
             />
 
         <TextView
@@ -25,32 +25,31 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/iv_avatar"
             android:layout_marginLeft="10dp"
-            android:text="@{comment.getUser_info().getUser_name()}"
+            android:textColor="@color/nav_item_checked"
+            android:text="@{comment.userName}"
             />
 
         <TextView
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@{DisplayUtil.time2Date(comment.getAdd_time())}"/>
+            android:layout_toRightOf="@+id/iv_avatar"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/light_grey"
+            android:text="@{DisplayUtil.time2Date(comment.addTime)}"/>
 
 
         <TextView
             android:id="@+id/tv_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_avatar"
+            android:layout_below="@+id/tv_time"
+            android:layout_marginTop="10dp"
             android:layout_alignStart="@+id/tv_name"
-            android:text="@{comment.getMessage()}"
+            android:text="@{comment.message}"
              />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_comment"
-            android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
-            android:text='@{"赞 "+comment.getVotes()}'/>
 
     </RelativeLayout>
 </layout>

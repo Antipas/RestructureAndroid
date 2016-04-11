@@ -70,6 +70,14 @@ public class ArticleViewModel extends BaseViewModel{
         return String.valueOf(article.getRsm().getArticle_info().getComments());
     }
 
+    public int getCommentCountInt(){
+        return article.getRsm().getArticle_info().getComments();
+    }
+
+    public int getLikeCount(){
+        return article.getRsm().getArticle_info().getVotes();
+    }
+
     public boolean getIsFavorite(){
         return article.getRsm().getArticle_info().getIs_favorite() == 1;
     }

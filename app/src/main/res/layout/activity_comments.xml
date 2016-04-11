@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:bind="http://schemas.android.com/tools">
+
     <data>
         <variable name="comment" type="org.iflab.wecenterandroid.viewmodal.CommentViewModel"/>
     </data>
+
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,18 +23,71 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/Wecenter.PopupOverlay" />
+                android:background="@color/white"
+                app:popupTheme="@style/Wecenter.PopupOverlay" >
+
+                <TextView
+                    android:id="@+id/tv_toolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@{comment.commentInfo}"
+                    />
+
+            </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_comments"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_comments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
 
+            <LinearLayout
+                android:id="@+id/bottom_bar_container"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:layout_margin="10dp">
+                    <EditText
+                        android:id="@+id/editTxt_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="评论..." />
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btn_send"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.2"
+                    android:layout_margin="5dp"
+                    android:onClick="@{comment.onClickSend}"
+                    android:text="发送"/>
+
+            </LinearLayout>
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avloadingIndicatorView"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                app:indicator="BallSpinFadeLoader"
+                app:indicator_color="@color/accent"
+                />
+        </FrameLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

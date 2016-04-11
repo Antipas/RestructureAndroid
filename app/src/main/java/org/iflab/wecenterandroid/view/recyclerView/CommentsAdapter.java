@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.databinding.CommentsItemBinding;
 import org.iflab.wecenterandroid.modal.Comments;
+import org.iflab.wecenterandroid.viewmodal.CommentViewModel;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(commentsList.get(position));
+        holder.bind(new CommentViewModel(context,commentsList.get(position)));
     }
 
     @Override
@@ -49,8 +50,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             commentsItemBinding = DataBindingUtil.bind(itemView);
         }
 
-        public void bind(Comments.RsmEntity.RowsEntity rowsEntity){
-            commentsItemBinding.setComment(rowsEntity);
+        public void bind(CommentViewModel commentViewModel){
+            commentsItemBinding.setComment(commentViewModel);
         }
     }
 }

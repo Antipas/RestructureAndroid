@@ -34,6 +34,7 @@ import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.functions.Func2;
@@ -117,13 +118,22 @@ public class ArticleActivity extends BaseActivity {
     }
 
     private void initBottomBar(final ArticleViewModel articleViewModel){
+        if(type.equals(INNER_ARTICLE)){
+            articleViewModel.setHasAdded(true);
+        }
         // listener is here
         RxView.clicks(activityArticleBinding.imagebtnComment)
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                        checkAddArticle();
-                        // TODO: goto commentactivity
+                        if(type.equals(QRCODE_ARTICLE)){
+                            showAddZaiduDialog();
+                            return;
+                        }
+                        // 内部文章才跳转评论
+                        ArticleCommentsActivity.startArticleComments(ArticleActivity.this,id,
+                                articleViewModel.getCommentCountInt(),
+                                articleViewModel.getLikeCount());
                     }
                 });
 
@@ -131,7 +141,11 @@ public class ArticleActivity extends BaseActivity {
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                        checkAddArticle();
+//                        checkAddArticle();
+                        if(type.equals(QRCODE_ARTICLE)){
+                            showAddZaiduDialog();
+                            return;
+                        }
                         // TODO: share
                     }
                 });
@@ -139,6 +153,7 @@ public class ArticleActivity extends BaseActivity {
         activityArticleBinding.imagebtnFavorite.setChecked(articleViewModel.getIsFavorite());
         RxCompoundButton.checkedChanges(activityArticleBinding.imagebtnFavorite)
                 .debounce(700, TimeUnit.MICROSECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Boolean>() {
                     @Override
                     public void call(Boolean status) {
@@ -148,6 +163,7 @@ public class ArticleActivity extends BaseActivity {
                             if (isQRCode() && !articleViewModel.getHasAdded()) {
                                 Subscription subscription = dataManager.addQRCodeArticle(url)
                                         .subscribe(new Subscriber() {
+
                                             @Override
                                             public void onCompleted() {
                                                 hideLoading();
@@ -171,9 +187,10 @@ public class ArticleActivity extends BaseActivity {
                     }
                 });
 
-        activityArticleBinding.imagebtnFavorite.setChecked(articleViewModel.getIsLike());
+        activityArticleBinding.imagebtnLike.setChecked(articleViewModel.getIsLike());
         RxCompoundButton.checkedChanges(activityArticleBinding.imagebtnLike)
                 .debounce(700, TimeUnit.MICROSECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Boolean>() {
                     @Override
                     public void call(final Boolean status) {
@@ -240,7 +257,7 @@ public class ArticleActivity extends BaseActivity {
 
                     @Override
                     public void onNext(Object o) {
-
+                        showToast("已点赞");
                     }
                 });
     }
@@ -311,6 +328,7 @@ public class ArticleActivity extends BaseActivity {
                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        showLoading();
                         addArticle(true);
                         dialog.dismiss();
                     }
@@ -329,11 +347,11 @@ public class ArticleActivity extends BaseActivity {
         return type.equals(QRCODE_ARTICLE);
     }
 
-    public void checkAddArticle() {
-        if(isQRCode()){
-            addArticle(false);
-        }
-    }
+//    public void checkAddArticle() {
+//        if(isQRCode()){
+//            addArticle(false);
+//        }
+//    }
 
     private void showLoading(){
         activityArticleBinding.avloadingIndicatorView.setVisibility(View.VISIBLE);
@@ -346,9 +364,10 @@ public class ArticleActivity extends BaseActivity {
     private void addArticle(final boolean isShowToast){
         Subscription subscription = dataManager.addQRCodeArticle(url)
                 .subscribe(new Subscriber<QRCodeArticle>() {
+
                     @Override
                     public void onCompleted() {
-
+                        hideLoading();
                     }
 
                     @Override
