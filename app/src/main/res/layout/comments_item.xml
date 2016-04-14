@@ -25,7 +25,9 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/iv_avatar"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/nav_item_checked"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/tablayout_black_bg"
             android:text="@{comment.userName}"
             />
 
@@ -37,7 +39,7 @@
             android:layout_below="@+id/tv_name"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/light_grey"
+            android:textColor="@color/nav_item_checked"
             android:text="@{DisplayUtil.time2Date(comment.addTime)}"/>
 
 

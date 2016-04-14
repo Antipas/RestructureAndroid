@@ -47,7 +47,7 @@ public class HomeViewModel extends BaseViewModel{
 
     @BindingAdapter({"bind:homeAvatar"})
     public static void loadImage(ImageView view, String url) {
-        Picasso.with(view.getContext()).load(Constant.AVATAR + url).transform(new RoundedTransformation()).into(view);
+        Picasso.with(view.getContext()).load( url).transform(new RoundedTransformation()).into(view);
     }
 
     @BindingAdapter({"bind:thumb"})
@@ -67,9 +67,9 @@ public class HomeViewModel extends BaseViewModel{
     }
 
     public Spannable getViewsCount(){
-        Spannable spannable = new SpannableString(home.getArticle_info().getViews()+" 已阅读");
+        Spannable spannable = new SpannableString(DisplayUtil.formatCount(home.getArticle_info().getViews())+" 已阅读");
         int endIndex = spannable.toString().length() - 3;
-        spannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.nav_item_checked)), 0, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.tablayout_black_bg)), 0, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
     }
 

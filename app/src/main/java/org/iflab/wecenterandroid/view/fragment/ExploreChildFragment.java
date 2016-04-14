@@ -33,11 +33,12 @@ public class ExploreChildFragment extends BaseFragment implements ExploreAdapter
     public static final String MEDIA = "MEDIA";
     private static final String EXPLORE_KIND = "EXPLORE_KIND";
 
-    String kind;
-    int page = 1;
     List dataList = new ArrayList();
     ExploreAdapter exploreAdapter;
     FragmentExploreChildBinding fragmentExploreChildBinding;
+    String kind;
+    int page = 1;
+    boolean isVisible;
 
     public static ExploreChildFragment newInstance(String kind) {
         ExploreChildFragment fragment = new ExploreChildFragment();
@@ -60,13 +61,26 @@ public class ExploreChildFragment extends BaseFragment implements ExploreAdapter
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(getUserVisibleHint()) {
+            isVisible = true;
+            onVisible();
+        }else{
+            isVisible = false;
+        }
+    }
+
+    private void onVisible() {
+        loadData();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentExploreChildBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_explore_child, container, false);
 
         setViews(fragmentExploreChildBinding.recyclerview, fragmentExploreChildBinding.swipyrefreshlayout);
-
-        loadData();
 
         return fragmentExploreChildBinding.getRoot();
     }
@@ -91,7 +105,13 @@ public class ExploreChildFragment extends BaseFragment implements ExploreAdapter
     }
 
     private void loadData(){
-        fragmentExploreChildBinding.swipyrefreshlayout.setRefreshing(true);
+        if(!isVisible){
+            return;
+        }
+        if(dataList.size() > 0){
+            fragmentExploreChildBinding.avloadingIndicatorView.setVisibility(View.GONE);
+            return;
+        }
         Subscription subscription;
         Observable observable;
         switch (kind){
@@ -139,8 +159,10 @@ public class ExploreChildFragment extends BaseFragment implements ExploreAdapter
         }
 
         subscription = observable.subscribe(new Subscriber<List<Explore>>() {
+
             @Override
             public void onCompleted() {
+                fragmentExploreChildBinding.avloadingIndicatorView.setVisibility(View.GONE);
                 stopRefresh(fragmentExploreChildBinding.swipyrefreshlayout);
             }
 

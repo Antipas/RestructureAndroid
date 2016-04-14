@@ -124,6 +124,7 @@ public class Famous {
             private String user_name;
             private String email;
             private String mobile;
+            private String signature;
             private String avatar_file;
             private int sex;
             private Object birthday;
@@ -189,6 +190,14 @@ public class Famous {
 
             public void setUser_name(String user_name) {
                 this.user_name = user_name;
+            }
+
+            public String getSignature() {
+                return signature;
+            }
+
+            public void setSignature(String signature) {
+                this.signature = signature;
             }
 
             public String getEmail() {

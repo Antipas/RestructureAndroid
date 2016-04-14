@@ -23,18 +23,10 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/white"
-                app:popupTheme="@style/Wecenter.PopupOverlay" >
+                android:background="@color/tablayout_black_bg"
+                android:title="@{comment.commentInfo}"
+                app:popupTheme="@style/Wecenter.PopupOverlay" />
 
-                <TextView
-                    android:id="@+id/tv_toolbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:text="@{comment.commentInfo}"
-                    />
-
-            </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
         <FrameLayout
@@ -51,6 +43,7 @@
             <LinearLayout
                 android:id="@+id/bottom_bar_container"
                 android:orientation="horizontal"
+                android:layout_gravity="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

@@ -86,7 +86,7 @@ public class DataManager extends BaseDataManager {
                 .compose(applySchedulers());
     }
 
-    public Observable loadUserinfo(String uid){
+    public Observable loadUserInfo(String uid){
         return getUserService().getUserInfo(uid, MD5Util.MD5("account" + Constant.SIGN))
                 .compose(applySchedulers());
     }

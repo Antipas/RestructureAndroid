@@ -36,53 +36,20 @@
             android:src="@mipmap/icon_sao"
             />
 
-        <!--<FrameLayout-->
-            <!--android:id="@+id/fab_container"-->
-            <!--android:layout_width="448dp"-->
-            <!--android:layout_height="448dp"-->
-            <!--android:layout_gravity="bottom|end"-->
-            <!--android:layout_marginEnd="16dp"-->
-            <!--android:layout_marginBottom="16dp"-->
-            <!--android:translationX="196dp"-->
-            <!--android:translationY="196dp"-->
-            <!--android:elevation="4dp"-->
-            <!--android:background="@drawable/fab"-->
-            <!--android:visibility="gone"-->
-            <!--&gt;-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="252dp"-->
-                <!--android:layout_height="252dp"-->
-                <!--android:layout_gravity="start|top"-->
-                <!--android:gravity="bottom|end"-->
-                <!--android:orientation="vertical">-->
-
-                <!--<Button-->
-                    <!--android:id="@+id/publish_question"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:drawablePadding="16dp"-->
-                    <!--android:padding="16dp"-->
-                    <!--android:text="发布问题"-->
-                    <!--style="?android:borderlessButtonStyle" />-->
-
-                <!--<Button-->
-                    <!--android:id="@+id/publish_article"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:drawablePadding="16dp"-->
-                    <!--android:padding="16dp"-->
-                    <!--android:text="发布文章"-->
-                    <!--style="?android:borderlessButtonStyle" />-->
-
-            <!--</LinearLayout>-->
-
-        <!--</FrameLayout>-->
         <View
             android:id="@+id/results_scrim"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/scrim"
             android:visibility="gone" />
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avloadingIndicatorView"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:visibility="visible"
+            android:layout_gravity="center"
+            app:indicator="BallSpinFadeLoader"
+            app:indicator_color="@color/accent"
+            />
     </FrameLayout>
 </layout>

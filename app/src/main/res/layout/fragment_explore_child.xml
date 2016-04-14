@@ -23,5 +23,14 @@
                 android:layout_height="match_parent"/>
         </android.support.v4.widget.SwipeRefreshLayout>
 
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avloadingIndicatorView"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:visibility="visible"
+            android:layout_gravity="center"
+            app:indicator="BallSpinFadeLoader"
+            app:indicator_color="@color/accent"
+            />
     </FrameLayout>
 </layout>

@@ -18,6 +18,7 @@ import org.iflab.wecenterandroid.modal.Comments;
 import org.iflab.wecenterandroid.modal.SaveComment;
 import org.iflab.wecenterandroid.util.AnimUtils;
 import org.iflab.wecenterandroid.util.ImeUtils;
+import org.iflab.wecenterandroid.util.SupportVersion;
 import org.iflab.wecenterandroid.view.recyclerView.CommentsAdapter;
 import org.iflab.wecenterandroid.viewmodal.CommentViewModel;
 
@@ -26,6 +27,7 @@ import java.util.List;
 
 import rx.Observer;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class ArticleCommentsActivity extends BaseActivity implements CommentViewModel.onClickSendListener{
 
@@ -36,18 +38,19 @@ public class ArticleCommentsActivity extends BaseActivity implements CommentView
     ActivityCommentsBinding activityCommentsBinding;
     RecyclerView recyclerView;
     CommentsAdapter commentsAdapter;
-    int id;
-    int page = 1;
     List dataList = new ArrayList();
     CommentViewModel commentViewModel;
+
+    int id;
+    int page = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         activityCommentsBinding = DataBindingUtil.setContentView(this,R.layout.activity_comments);
 
-        activityCommentsBinding.toolbar.setTitle("评论");
-        setSupportActionBar(activityCommentsBinding.toolbar);
+        setUpToolBar(activityCommentsBinding.toolbar);
 
         recyclerView = activityCommentsBinding.recyclerviewComments;
         commentsAdapter = new CommentsAdapter(getApplicationContext(),dataList);
@@ -55,16 +58,7 @@ public class ArticleCommentsActivity extends BaseActivity implements CommentView
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(commentsAdapter);
-//        recyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                if (oldScrollY < scrollY) {
-//                    dismissBottomBar();
-//                } else if (oldScrollY > scrollY) {
-//                    showBottomBar();
-//                }
-//            }
-//        });
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -74,7 +68,11 @@ public class ArticleCommentsActivity extends BaseActivity implements CommentView
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                Log.v("dy",dy+"");
+                if(dy > 0){
+                    dismissBottomBar();
+                }else{
+                    showBottomBar();
+                }
             }
         });
 
@@ -104,11 +102,13 @@ public class ArticleCommentsActivity extends BaseActivity implements CommentView
         if(comment.length() == 0){
             return;
         }
+        showLoading();
         Subscription subscription = dataManager.sendComment(id,comment)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<SaveComment>() {
                     @Override
                     public void onCompleted() {
-                        activityCommentsBinding.avloadingIndicatorView.setVisibility(View.GONE);
+                        hideLoading();
                     }
 
                     @Override
@@ -164,6 +164,14 @@ public class ArticleCommentsActivity extends BaseActivity implements CommentView
         }
     }
 
+    private void showLoading(){
+        activityCommentsBinding.avloadingIndicatorView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoading(){
+        activityCommentsBinding.avloadingIndicatorView.setVisibility(View.GONE);
+    }
+
     private void refresh(){
         page = 1;
         dataList.clear();
@@ -172,11 +180,12 @@ public class ArticleCommentsActivity extends BaseActivity implements CommentView
 
     @Override
     protected void loadData() {
+
         Subscription subscription = dataManager.loadComments(id, page)
-                .subscribe(new Observer<Comments.RsmEntity>() {
+                .subscribe(new Observer<Comments>() {
                     @Override
                     public void onCompleted() {
-
+                        hideLoading();
                     }
 
                     @Override
@@ -185,12 +194,12 @@ public class ArticleCommentsActivity extends BaseActivity implements CommentView
                     }
 
                     @Override
-                    public void onNext(Comments.RsmEntity rsmEntity) {
+                    public void onNext(Comments comments) {
+                        Comments.RsmEntity rsmEntity = comments.getRsm();
                         if(rsmEntity.getTotal_rows() != 0){
                             dataList.addAll(rsmEntity.getRows());
                             commentsAdapter.notifyDataSetChanged();
                         }
-
                     }
                 });
         addSubscription(subscription);

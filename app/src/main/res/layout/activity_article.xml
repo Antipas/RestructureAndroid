@@ -46,6 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
+                        android:textColor="@color/white"
                         android:text="@{article.name}"/>
 
                     <TextView
@@ -56,6 +57,7 @@
                         android:layout_marginRight="10dp"
                         android:drawableLeft="@mipmap/icon_right_top"
                         android:drawablePadding="5dp"
+                        android:textColor="@color/white"
                         android:text="@{article.commentCount}"/>
 
                 </RelativeLayout>

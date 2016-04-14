@@ -32,6 +32,7 @@ public class ExploreFragment extends BaseFragment  {
         FragmentExploreBinding fragmentExploreBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_explore, container, false);
 
         ViewPager viewPager = fragmentExploreBinding.viewPager;
+        viewPager.setOffscreenPageLimit(1);
         viewPager.setAdapter(new SectionPagerAdapter(getFragmentManager()));
         fragmentExploreBinding.tabLayout.setupWithViewPager(viewPager);
 

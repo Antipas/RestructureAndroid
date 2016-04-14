@@ -20,10 +20,11 @@
 
             <ImageView
                 android:id="@+id/iv_avatar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginRight="10dp"
                 app:homeAvatar="@{article.avatarFile}"
                 android:onClick="@{article.onClickAvatar}"
                 />
@@ -43,8 +44,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
                     android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/nav_item_checked"
+                    android:textSize="18sp"
+                    android:textColor="@color/tablayout_black_bg"
                     android:text="@{article.userName}"/>
 
                 <TextView
@@ -54,6 +55,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
                     android:textSize="13sp"
+                    android:textColor="@color/nav_item_checked"
                     android:text="@{article.addTime}"/>
 
                 <TextView
@@ -64,6 +66,7 @@
                     android:textSize="13sp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
+                    android:textColor="@color/nav_item_checked"
                     android:text='@{article.associateAction == 501? "在读":article.associateAction == 502 ? "赞了":"评论了"}'
                     />
 
@@ -97,12 +100,13 @@
                 android:layout_below="@id/tv_comment"
                 android:layout_marginTop="10dp"
                 android:onClick="@{article.onClickTitle}"
-                android:layout_alignStart="@+id/ll_user">
+                android:layout_alignEnd="@+id/image_avatar">
 
                 <ImageView
                     android:id="@+id/img"
                     android:layout_width="72dp"
                     android:layout_height="72dp"
+                    android:layout_marginRight="10dp"
                     android:layout_alignParentLeft="true"
                     app:thumb="@{article.thumb}"
                     />

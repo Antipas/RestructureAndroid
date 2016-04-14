@@ -104,6 +104,14 @@ public class DisplayUtil {
         }
     }
 
+    public static String formatCount(int num){
+        if(num > 999){
+            return num/1000 + "k";
+        }else{
+            return String.valueOf(num);
+        }
+    }
+
     public static String time2Date(long timestampString) {
         return simpleDateFormat.format(new java.util.Date(timestampString * 1000));
     }

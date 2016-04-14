@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#049c56</color>
-    <color name="colorPrimaryDark">#049c56</color>
+    <color name="colorPrimary">#031634</color>
+    <color name="colorPrimaryDark">#031634</color>
     <color name="line">#50000000</color>
 
     <color name="transparent">#00ffffff</color>
@@ -9,9 +9,10 @@
     <color name="grey_light">#DFDFDF</color>
 
     <color name="tablayout_grey_txt">#afafaf</color>
-    <color name="tablayout_black_bg">#393a4a</color>
+    <color name="tablayout_black_bg">#036564</color>
     <color name="nav_header_bg">#f5f2ed</color>
-    <color name="nav_item_checked">#ff921f</color>
+    <color name="nav_item_checked">#CDB380</color>
+    <color name="zaidu_light">#E8DDCB</color>
 
     <!-- app palette -->
     <color name="primary">#69F0AE</color>

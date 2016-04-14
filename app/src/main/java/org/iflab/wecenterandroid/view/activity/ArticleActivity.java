@@ -123,6 +123,7 @@ public class ArticleActivity extends BaseActivity {
         }
         // listener is here
         RxView.clicks(activityArticleBinding.imagebtnComment)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
@@ -138,6 +139,7 @@ public class ArticleActivity extends BaseActivity {
                 });
 
         RxView.clicks(activityArticleBinding.imagebtnShare)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {

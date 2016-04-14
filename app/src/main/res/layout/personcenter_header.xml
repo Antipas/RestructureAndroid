@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable name="header" type="org.iflab.wecenterandroid.viewmodal.PersonCenterViewModal"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:background="@color/nav_item_checked"
+        >
+
+        <ImageView
+            android:id="@+id/image_avatar"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_centerVertical="true"
+            app:headerAvatar="@{header.avatar}"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/image_avatar"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/publish_article"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="发布文章"/>
+
+            <TextView
+                android:id="@+id/ta_following"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="TA的关注"/>
+
+            <TextView
+                android:id="@+id/zaidu_fans"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="在读粉丝"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/image_avatar"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/ll_text"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_publish_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/tablayout_black_bg"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="@{header.publishCount}"
+                />
+
+            <TextView
+                android:id="@+id/tv_following_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/tablayout_black_bg"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="@{header.followingCount}"
+                />
+
+            <TextView
+                android:id="@+id/tv_fans_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/tablayout_black_bg"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="@{header.fansCount}"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

@@ -13,6 +13,7 @@ import org.iflab.wecenterandroid.base.BaseViewModel;
 import org.iflab.wecenterandroid.modal.LoginInfo;
 import org.iflab.wecenterandroid.modal.User;
 import org.iflab.wecenterandroid.modal.prefs.UserPrefs;
+import org.iflab.wecenterandroid.util.RoundedTransformation;
 
 import retrofit.Response;
 import rx.Observable;
@@ -53,7 +54,8 @@ public class UserViewModel extends BaseViewModel{
 
     @BindingAdapter({"bind:navHeaderAvatarUrl"})
     public static void loadImage(ImageView view, String url) {
-       Picasso.with(view.getContext()).load(UserPrefs.getInstance(view.getContext()).getUserAvatar()).into(view);
+       Picasso.with(view.getContext()).load(UserPrefs.getInstance(view.getContext()).getUserAvatar())
+               .transform(new RoundedTransformation()).into(view);
     }
 
     @BindingAdapter({"bind:displayName"})

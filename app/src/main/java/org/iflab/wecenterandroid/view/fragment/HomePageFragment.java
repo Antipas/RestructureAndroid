@@ -200,6 +200,7 @@ public class HomePageFragment extends BaseFragment {
         return new Observer<List<Home>>() {
             @Override
             public void onCompleted() {
+                fragmentHomeBinding.avloadingIndicatorView.setVisibility(View.GONE);
                 stopRefresh(fragmentHomeBinding.swipyrefreshlayout);
             }
 

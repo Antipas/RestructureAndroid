@@ -22,6 +22,7 @@ import org.iflab.wecenterandroid.util.DisplayUtil;
 import org.iflab.wecenterandroid.util.RoundedTransformation;
 import org.iflab.wecenterandroid.view.activity.ArticleActivity;
 import org.iflab.wecenterandroid.view.activity.PersonCenterActivity;
+import org.w3c.dom.Text;
 
 /**
  * Created by Lyn on 15/11/21.
@@ -68,9 +69,9 @@ public class ExploreViewModal extends BaseViewModel{
     }
 
     public Spannable getExploreViewsCount(){
-        Spannable spannable = new SpannableString(exploreArticle.getViews()+" 已阅读");
+        Spannable spannable = new SpannableString(DisplayUtil.formatCount(exploreArticle.getViews())+" 已阅读");
         int endIndex = spannable.toString().length() - 3;
-        spannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.nav_item_checked)), 0, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.tablayout_black_bg)), 0, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
     }
 
@@ -134,7 +135,11 @@ public class ExploreViewModal extends BaseViewModel{
     }
 
     public String getFMDesc(){
-        return "介绍";
+        String signature = famous.getSignature();
+        if(TextUtils.isEmpty(signature)){
+            return "";
+        }
+        return signature;
     }
 
     public int getFMFocusState(){
