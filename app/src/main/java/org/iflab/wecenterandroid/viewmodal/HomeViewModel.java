@@ -21,6 +21,7 @@ import org.iflab.wecenterandroid.util.DisplayUtil;
 import org.iflab.wecenterandroid.util.RoundedTransformation;
 import org.iflab.wecenterandroid.view.activity.ArticleActivity;
 import org.iflab.wecenterandroid.view.activity.PersonCenterActivity;
+import org.iflab.wecenterandroid.view.activity.QRCodeActivity;
 
 import java.util.List;
 
@@ -115,6 +116,15 @@ public class HomeViewModel extends BaseViewModel{
             @Override
             public void onClick(View v) {
                 ArticleActivity.startArticle(context,home.getArticle_info().getId(),ArticleActivity.INNER_ARTICLE,home.getUrl());
+            }
+        };
+    }
+
+    public View.OnClickListener onClickSao(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                QRCodeActivity.startQRCodeActivity(context);
             }
         };
     }

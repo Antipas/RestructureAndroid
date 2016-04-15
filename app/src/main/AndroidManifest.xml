@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -43,9 +43,11 @@
             android:theme="@style/Wecenter.NoActionBar" />
         <activity
             android:name=".view.activity.SearchActivity"
-            android:theme="@style/Wecenter.Translucent.Search"></activity>
-        <activity android:name=".view.activity.PopupActivity"
-            android:theme="@style/Wecenter.Translucent"></activity>
+            android:theme="@style/Wecenter.Translucent.Search" />
+        <activity
+            android:name=".view.activity.PopupActivity"
+            android:theme="@style/Wecenter.Translucent" />
+        <activity android:name=".view.activity.QRCodeActivity"></activity>
     </application>
 
 </manifest>

@@ -3,9 +3,11 @@ package org.iflab.wecenterandroid.view.activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import org.iflab.wecenterandroid.Constant;
 import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.base.BaseActivity;
 import org.iflab.wecenterandroid.databinding.ActivityLoginBinding;
@@ -14,6 +16,7 @@ import org.iflab.wecenterandroid.modal.LoginInfo;
 import org.iflab.wecenterandroid.modal.User;
 import org.iflab.wecenterandroid.modal.person.PersonInfo;
 import org.iflab.wecenterandroid.modal.prefs.UserPrefs;
+import org.iflab.wecenterandroid.util.MD5Util;
 import org.iflab.wecenterandroid.viewmodal.UserViewModel;
 
 import retrofit.Response;
@@ -41,16 +44,13 @@ public class LoginActivity extends BaseActivity{
         binding = DataBindingUtil.setContentView(this, R.layout.content_login);
         binding.setUser(userViewModal);
 
-
+        Log.v("fffffffffff", MD5Util.MD5("account" + Constant.SIGN));
     }
 
 
     public void onClickLogin(View view){
         String name = binding.editTxtName.getText().toString();
         String pwd = binding.editTxtPwd.getText().toString();
-
-        name = "lyn";
-        pwd = "123456";
 
         if(name.length() == 0){
             Toast.makeText(getApplicationContext(),"用户名不能为空",Toast.LENGTH_SHORT).show();

@@ -44,7 +44,7 @@ public interface ArticleService {
     Observable<SaveComment> voteOrFuckArticle(@Field("item_id")int item_id, @Field("type")String type,@Field("rating") int rating);
 
     @FormUrlEncoded
-    @POST("publish/publish_article_by_url/?mobile_sign=e9d5d69977d030d81455b4d31c0b8c64")
+    @POST("api/publish/publish_article_by_url/?mobile_sign=e9d5d69977d030d81455b4d31c0b8c64")
     Observable<QRCodeArticle> addQRCodeArticle(@Field("url") String url);
 
     @Multipart

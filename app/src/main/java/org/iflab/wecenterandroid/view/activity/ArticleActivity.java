@@ -7,17 +7,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxCompoundButton;
-
 import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.base.BaseActivity;
 import org.iflab.wecenterandroid.databinding.ActivityArticleBinding;
@@ -27,17 +23,11 @@ import org.iflab.wecenterandroid.modal.article.QRCodeArticle;
 import org.iflab.wecenterandroid.util.AnimUtils;
 import org.iflab.wecenterandroid.view.ObservableWebView;
 import org.iflab.wecenterandroid.viewmodal.ArticleViewModel;
-
 import java.util.concurrent.TimeUnit;
-
-import rx.Observable;
-import rx.Observer;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.functions.Func2;
 
 public class ArticleActivity extends BaseActivity {
     public static final String ARTICLE_ID = "ARTICLE_ID";
@@ -118,7 +108,7 @@ public class ArticleActivity extends BaseActivity {
     }
 
     private void initBottomBar(final ArticleViewModel articleViewModel){
-        if(type.equals(INNER_ARTICLE)){
+        if(!isQRCode()){
             articleViewModel.setHasAdded(true);
         }
         // listener is here
@@ -127,7 +117,7 @@ public class ArticleActivity extends BaseActivity {
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                        if(type.equals(QRCODE_ARTICLE)){
+                        if(isQRCode()){
                             showAddZaiduDialog();
                             return;
                         }
@@ -144,7 +134,7 @@ public class ArticleActivity extends BaseActivity {
                     @Override
                     public void call(Void aVoid) {
 //                        checkAddArticle();
-                        if(type.equals(QRCODE_ARTICLE)){
+                        if(isQRCode()){
                             showAddZaiduDialog();
                             return;
                         }
@@ -152,100 +142,56 @@ public class ArticleActivity extends BaseActivity {
                     }
                 });
 
-        activityArticleBinding.imagebtnFavorite.setChecked(articleViewModel.getIsFavorite());
+        if(articleViewModel != null) {
+            activityArticleBinding.imagebtnFavorite.setChecked(articleViewModel.getIsFavorite());
+            // 等待取消收藏接口
+            if(articleViewModel.getIsFavorite()){
+                activityArticleBinding.imagebtnFavorite.setEnabled(false);
+            }
+        }
         RxCompoundButton.checkedChanges(activityArticleBinding.imagebtnFavorite)
                 .debounce(700, TimeUnit.MICROSECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Boolean>() {
                     @Override
                     public void call(Boolean status) {
+                        if(isQRCode()){
+                            showAddZaiduDialog();
+                            return;
+                        }
+
                         if(articleViewModel.getIsFavorite() ^ status) {
                             showLoading();
-                            // 防止重复添加
-                            if (isQRCode() && !articleViewModel.getHasAdded()) {
-                                Subscription subscription = dataManager.addQRCodeArticle(url)
-                                        .subscribe(new Subscriber() {
-
-                                            @Override
-                                            public void onCompleted() {
-                                                hideLoading();
-                                            }
-
-                                            @Override
-                                            public void onError(Throwable e) {
-                                                showToast("操作失败");
-                                            }
-
-                                            @Override
-                                            public void onNext(Object o) {
-                                                showToast("已加入");
-                                            }
-                                        });
-                                addSubscription(subscription);
-                            } else {
-                                addSubscription(getFavorite());
-                            }
+                            addSubscription(getFavorite(articleViewModel));
                         }
                     }
                 });
 
-        activityArticleBinding.imagebtnLike.setChecked(articleViewModel.getIsLike());
+        if(articleViewModel != null)
+            activityArticleBinding.imagebtnLike.setChecked(articleViewModel.getIsLike());
+
         RxCompoundButton.checkedChanges(activityArticleBinding.imagebtnLike)
                 .debounce(700, TimeUnit.MICROSECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Boolean>() {
                     @Override
                     public void call(final Boolean status) {
+                        if(isQRCode()){
+                            showAddZaiduDialog();
+                            return;
+                        }
+
                         if(articleViewModel.getIsLike() ^ status) {
                             showLoading();
-                            // 防止重复添加
-                            if (isQRCode() && !articleViewModel.getHasAdded()) {
-                                Subscription subscription = dataManager.addQRCodeArticle(url)
-                                        .flatMap(new Func1<QRCodeArticle, Observable<Object>>() {
-                                            @Override
-                                            public Observable<Object> call(QRCodeArticle result) {
-                                                if(TextUtils.isEmpty(result.getRsm().getArticle_id())){
-                                                    return Observable.create(new Observable.OnSubscribe<Object>(){
-
-                                                        @Override
-                                                        public void call(Subscriber<? super Object> subscriber) {
-                                                            subscriber.onError(new Throwable());
-                                                        }
-                                                    });
-                                                }else {
-                                                    articleViewModel.setHasAdded(true);
-                                                    return dataManager.voteOrFuckArticle(id, "article", 1);
-                                                }
-                                            }
-                                        }).subscribe(new Subscriber() {
-                                            @Override
-                                            public void onCompleted() {
-                                                hideLoading();
-                                            }
-
-                                            @Override
-                                            public void onError(Throwable e) {
-                                                showToast("操作失败");
-                                            }
-
-                                            @Override
-                                            public void onNext(Object o) {
-                                                articleViewModel.setIsLike(status);
-                                                showToast("已点赞");
-                                            }
-                                        });
-                                addSubscription(subscription);
-                            } else {
-                                addSubscription(getVoteSubscription());
-                            }
+                            addSubscription(getVoteSubscription(articleViewModel,status));
                         }
                     }
                 });
 
     }
 
-    private Subscription getVoteSubscription(){
-        return dataManager.voteOrFuckArticle(id, "article", 1)
+    private Subscription getVoteSubscription(final ArticleViewModel articleViewModel,final boolean status){
+        return dataManager.voteOrFuckArticle(id, "article", status ? 1: 0)
                 .subscribe(new Subscriber() {
                     @Override
                     public void onCompleted() {
@@ -259,12 +205,19 @@ public class ArticleActivity extends BaseActivity {
 
                     @Override
                     public void onNext(Object o) {
-                        showToast("已点赞");
+                        if(status){
+                            showToast("已点赞");
+                            articleViewModel.setIsLike(true);
+                        }else{
+                            showToast("取消点赞");
+                            articleViewModel.setIsLike(false);
+                        }
+
                     }
                 });
     }
 
-    private Subscription getFavorite(){
+    private Subscription getFavorite(final ArticleViewModel articleViewModel){
         return dataManager.favorite(id, "article")
                 .subscribe(new Subscriber<SaveComment>() {
                     @Override
@@ -280,6 +233,7 @@ public class ArticleActivity extends BaseActivity {
                     @Override
                     public void onNext(SaveComment result) {
                         showToast("已加入");
+                        articleViewModel.setIsFavorite(true);
                     }
                 });
     }
@@ -292,17 +246,29 @@ public class ArticleActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                activityArticleBinding.avloadingIndicatorView.setVisibility(View.GONE);
+                hideLoading();
 
+                if(isQRCode()){
+                    showAddZaiduDialog();
+                    initBottomBar(null);
+                }
             }
         });
 
+        // 扫码进入时
+        if(id == -1){
+            return;
+        }
         //  load article infomation
+        loadArticleInfo();
+    }
+
+    private void loadArticleInfo(){
         Subscription subscription = dataManager.loadArticle(id,page)
                 .subscribe(new Subscriber<Article>() {
                     @Override
                     public void onCompleted() {
-                        hideLoading();
+
                     }
 
                     @Override
@@ -315,10 +281,6 @@ public class ArticleActivity extends BaseActivity {
                         ArticleViewModel articleViewModel = new ArticleViewModel(getApplicationContext(),article);
                         activityArticleBinding.setArticle(articleViewModel);
                         initBottomBar(articleViewModel);
-
-                        if(isQRCode()){
-                            showAddZaiduDialog();
-                        }
                     }
                 });
         addSubscription(subscription);
@@ -349,12 +311,6 @@ public class ArticleActivity extends BaseActivity {
         return type.equals(QRCODE_ARTICLE);
     }
 
-//    public void checkAddArticle() {
-//        if(isQRCode()){
-//            addArticle(false);
-//        }
-//    }
-
     private void showLoading(){
         activityArticleBinding.avloadingIndicatorView.setVisibility(View.VISIBLE);
     }
@@ -382,6 +338,9 @@ public class ArticleActivity extends BaseActivity {
                         if(isShowToast){
                             showToast("添加成功");
                         }
+                        id = qrCodeArticle.getRsm().getArticle_id();
+                        type = INNER_ARTICLE;
+                        loadArticleInfo();
                     }
                 });
         addSubscription(subscription);

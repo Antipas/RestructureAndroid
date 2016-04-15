@@ -26,6 +26,7 @@ import org.iflab.wecenterandroid.modal.prefs.UserPrefs;
 import org.iflab.wecenterandroid.util.AnimUtils;
 import org.iflab.wecenterandroid.util.SupportVersion;
 import org.iflab.wecenterandroid.util.ViewUtils;
+import org.iflab.wecenterandroid.view.activity.QRCodeActivity;
 import org.iflab.wecenterandroid.view.recyclerView.EndlessRecyclerOnScrollListener;
 import org.iflab.wecenterandroid.view.recyclerView.HomeAdapter;
 
@@ -132,6 +133,7 @@ public class HomePageFragment extends BaseFragment {
 //                            int[] loc = new int[2];
 //                            fab.getLocationOnScreen(loc);
 //                            PublishActivity.startPublish(PublishActivity.ARTICLE,getActivity(),loc);
+                            QRCodeActivity.startQRCodeActivity(getActivity());
                             dismiss();
                         }
                     });

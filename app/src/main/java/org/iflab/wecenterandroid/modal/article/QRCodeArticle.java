@@ -44,13 +44,13 @@ public class QRCodeArticle {
     }
 
     public static class RsmEntity {
-        private String article_id;
+        private int article_id;
 
-        public void setArticle_id(String article_id) {
+        public void setArticle_id(int article_id) {
             this.article_id = article_id;
         }
 
-        public String getArticle_id() {
+        public int getArticle_id() {
             return article_id;
         }
     }

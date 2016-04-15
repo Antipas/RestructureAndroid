@@ -83,12 +83,12 @@ public class ArticleViewModel extends BaseViewModel{
     }
 
     public boolean getIsLike(){
-        return article.getRsm().getArticle_info().getUser_follow_check() == 1;
+        return article.getRsm().getArticle_info().getUser_info().getHas_focus() == 1;
     }
 
 
     public void setIsLike(Boolean status) {
-        article.getRsm().getArticle_info().setUser_follow_check(status ? 1: 0);
+        article.getRsm().getArticle_info().getUser_info().setHas_focus(status ? 1: 0);
     }
 
     public void setIsFavorite(Boolean status) {
