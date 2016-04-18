@@ -23,7 +23,7 @@ public class Home503 implements Home{
     private int history_id;
     private int uid;
     private int associate_action;
-    private int add_time;
+    private long add_time;
     /**
      * uid : 1
      * user_name : root
@@ -69,7 +69,7 @@ public class Home503 implements Home{
         this.associate_action = associate_action;
     }
 
-    public void setAdd_time(int add_time) {
+    public void setAdd_time(long add_time) {
         this.add_time = add_time;
     }
 
@@ -109,7 +109,7 @@ public class Home503 implements Home{
         return associate_action;
     }
 
-    public int getAdd_time() {
+    public long getAdd_time() {
         return add_time;
     }
 

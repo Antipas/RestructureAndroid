@@ -28,7 +28,7 @@ public class ExploreArticle implements Explore{
     private String title;
     private String message;
     private int views;
-    private int add_time;
+    private long add_time;
     private int votes;
     private int category_id;
     private String url;
@@ -81,11 +81,11 @@ public class ExploreArticle implements Explore{
         this.views = views;
     }
 
-    public int getAdd_time() {
+    public long getAdd_time() {
         return add_time;
     }
 
-    public void setAdd_time(int add_time) {
+    public void setAdd_time(long add_time) {
         this.add_time = add_time;
     }
 

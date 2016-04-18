@@ -43,8 +43,6 @@ public class LoginActivity extends BaseActivity{
 
         binding = DataBindingUtil.setContentView(this, R.layout.content_login);
         binding.setUser(userViewModal);
-
-        Log.v("fffffffffff", MD5Util.MD5("account" + Constant.SIGN));
     }
 
 

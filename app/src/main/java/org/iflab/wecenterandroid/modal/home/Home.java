@@ -8,7 +8,7 @@ public interface Home {
     String getOutline();
     String getImgUrl();
     String getUrl();
-    int getAdd_time();
+    long getAdd_time();
 
     Home.ArticleInfo getArticle_info();
     Home.Userinfo getUser_info();

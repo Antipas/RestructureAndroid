@@ -2,6 +2,7 @@ package org.iflab.wecenterandroid.util;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -9,11 +10,9 @@ import java.text.SimpleDateFormat;
 
 public class DisplayUtil {
     protected static SimpleDateFormat simpleDateFormat;
-    protected static SimpleDateFormat timeFormat;
 
     static {
         simpleDateFormat  = new SimpleDateFormat("yyyy-MM-dd");
-        timeFormat = new SimpleDateFormat("HH-mm");
     }
 
     private static int screenWidth = 0;
@@ -84,24 +83,17 @@ public class DisplayUtil {
      * @param time 单位 秒
      * @return
      */
-    public static String lossOfTime(int time){
-        long subtraction = System.currentTimeMillis() - time*1000;
-        int hours = new java.util.Date(subtraction * 1000).getHours();
-        int minutes = new java.util.Date(subtraction * 1000).getMinutes();
-        int day = new java.util.Date(subtraction * 1000).getDay();
-        if(day == 0){
-            if(hours == 0){
-                if(minutes == 0){
-                    return "刚刚";
-                }
-                return minutes + "分钟之前";
-            }
-            return hours + "小时之前";
-        }else if(day < 7){
-            return day + "天之前";
-        }else{
-            return time2Date(time * 1000);
+    public static String lossOfTime(long time){
+        long subtraction = System.currentTimeMillis() - time * 1000;
+        long days = subtraction/(24 * 3600 * 1000);
+        if(days < 1){
+            return "刚刚";
         }
+        if(days > 10){
+            return time2Date(time);
+        }
+
+        return days+"天之前";
     }
 
     public static String formatCount(int num){
