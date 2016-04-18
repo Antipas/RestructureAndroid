@@ -83,12 +83,15 @@ public class ArticleViewModel extends BaseViewModel{
     }
 
     public boolean getIsLike(){
-        return article.getRsm().getArticle_info().getUser_info().getHas_focus() == 1;
+        if(article.getRsm().getArticle_info().getVote_info() == null){
+            return false;
+        }else {
+            return article.getRsm().getArticle_info().getVote_info().getRating() == 1;
+        }
     }
 
-
     public void setIsLike(Boolean status) {
-        article.getRsm().getArticle_info().getUser_info().setHas_focus(status ? 1: 0);
+        article.getRsm().getArticle_info().getVote_info().setRating(1);
     }
 
     public void setIsFavorite(Boolean status) {

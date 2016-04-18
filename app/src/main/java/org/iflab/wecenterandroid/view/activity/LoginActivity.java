@@ -3,20 +3,16 @@ package org.iflab.wecenterandroid.view.activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import org.iflab.wecenterandroid.Constant;
 import org.iflab.wecenterandroid.R;
 import org.iflab.wecenterandroid.base.BaseActivity;
 import org.iflab.wecenterandroid.databinding.ActivityLoginBinding;
 import org.iflab.wecenterandroid.databinding.ContentLoginBinding;
 import org.iflab.wecenterandroid.modal.LoginInfo;
 import org.iflab.wecenterandroid.modal.User;
-import org.iflab.wecenterandroid.modal.person.PersonInfo;
 import org.iflab.wecenterandroid.modal.prefs.UserPrefs;
-import org.iflab.wecenterandroid.util.MD5Util;
 import org.iflab.wecenterandroid.viewmodal.UserViewModel;
 
 import retrofit.Response;
@@ -35,7 +31,7 @@ public class LoginActivity extends BaseActivity{
             gotoMainActivity();
         }
 
-        ActivityLoginBinding loginBinding=  DataBindingUtil.setContentView(this,R.layout.activity_login);
+        ActivityLoginBinding loginBinding = DataBindingUtil.setContentView(this,R.layout.activity_login);
         setSupportActionBar(loginBinding.toolbar);
 
 
@@ -43,6 +39,7 @@ public class LoginActivity extends BaseActivity{
 
         binding = DataBindingUtil.setContentView(this, R.layout.content_login);
         binding.setUser(userViewModal);
+
     }
 
 

@@ -61,7 +61,7 @@ public class ExploreViewModal extends BaseViewModel{
         if(TextUtils.isEmpty(url)){
             Picasso.with(view.getContext()).load(R.drawable.error).into(view);
         }else
-            Picasso.with(view.getContext()).load(url).into(view);
+            Picasso.with(view.getContext()).load(url).error(R.drawable.error).into(view);
     }
 
     public String getAvatarExploreFile(){
@@ -123,7 +123,7 @@ public class ExploreViewModal extends BaseViewModel{
         if(TextUtils.isEmpty(url)){
             Picasso.with(view.getContext()).load(R.drawable.error).into(view);
         }else
-            Picasso.with(view.getContext()).load(Constant.AVATAR + url).into(view);
+            Picasso.with(view.getContext()).load(Constant.AVATAR + url).error(R.drawable.error).into(view);
     }
 
     public String getFMAvatar(){

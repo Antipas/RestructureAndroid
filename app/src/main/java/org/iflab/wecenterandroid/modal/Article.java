@@ -138,6 +138,7 @@ public class Article {
              */
 
             private UserInfoEntity user_info;
+            private VoteInfoEntity vote_info;
             private Object vote_users;
             private int user_follow_check;
             private int is_favorite;
@@ -209,6 +210,11 @@ public class Article {
             public void setUser_info(UserInfoEntity user_info) {
                 this.user_info = user_info;
             }
+
+            public void setVote_info(VoteInfoEntity vote_info) {
+                this.vote_info = vote_info;
+            }
+
 
             public void setVote_users(Object vote_users) {
                 this.vote_users = vote_users;
@@ -290,6 +296,10 @@ public class Article {
                 return user_info;
             }
 
+            public VoteInfoEntity getVote_info() {
+                return vote_info;
+            }
+
             public Object getVote_users() {
                 return vote_users;
             }
@@ -347,6 +357,81 @@ public class Article {
 
                 public int getHas_focus() {
                     return has_focus;
+                }
+            }
+
+            public static class VoteInfoEntity {
+                private int id;
+                private int uid;
+                private String type;
+                private int item_id;
+                private int rating;
+                private int time;
+                private int reputation_factor;
+                private int item_uid;
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public void setUid(int uid) {
+                    this.uid = uid;
+                }
+
+                public void setType(String type) {
+                    this.type = type;
+                }
+
+                public void setItem_id(int item_id) {
+                    this.item_id = item_id;
+                }
+
+                public void setRating(int rating) {
+                    this.rating = rating;
+                }
+
+                public void setTime(int time) {
+                    this.time = time;
+                }
+
+                public void setReputation_factor(int reputation_factor) {
+                    this.reputation_factor = reputation_factor;
+                }
+
+                public void setItem_uid(int item_uid) {
+                    this.item_uid = item_uid;
+                }
+
+                public int getId() {
+                    return id;
+                }
+
+                public int getUid() {
+                    return uid;
+                }
+
+                public String getType() {
+                    return type;
+                }
+
+                public int getItem_id() {
+                    return item_id;
+                }
+
+                public int getRating() {
+                    return rating;
+                }
+
+                public int getTime() {
+                    return time;
+                }
+
+                public int getReputation_factor() {
+                    return reputation_factor;
+                }
+
+                public int getItem_uid() {
+                    return item_uid;
                 }
             }
         }

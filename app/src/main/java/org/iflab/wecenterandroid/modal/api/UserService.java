@@ -28,8 +28,8 @@ import rx.Observable;
 public interface UserService{
 
     @FormUrlEncoded
-    @POST("api/account/login_process/?mobile_sign=efeaf5de519976c71ec1204e331a1fd5")
-//    @POST("api/account/login_process/?mobile_sign=ae90cbcf0b066d7bb05fa231dc5c706a")
+//    @POST("api/account/login_process/?mobile_sign=efeaf5de519976c71ec1204e331a1fd5")
+    @POST("api/account/login_process/?mobile_sign=ae90cbcf0b066d7bb05fa231dc5c706a")
     Observable<Response<LoginInfo>> doLogin(@Field("user_name") String name,@Field("password") String password);
 
     @GET("api/account/get_userinfo/")
